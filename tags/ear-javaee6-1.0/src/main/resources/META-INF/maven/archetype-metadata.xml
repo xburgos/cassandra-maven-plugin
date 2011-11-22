@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor id="ear-javaee6" partial="false" name="JavaEE6 EAR archetype">
+
+  <fileSets>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/main/application</directory>
+      <includes>
+	<include>**/*.*</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+</archetype-descriptor>

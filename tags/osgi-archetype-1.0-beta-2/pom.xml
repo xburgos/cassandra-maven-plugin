@@ -1,0 +1,19 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.codehaus.mojo.archetypes</groupId>
+    <artifactId>mojo-archetypes</artifactId>
+    <version>2</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>osgi-archetype</artifactId>
+  <version>1.0-beta-2</version>
+  <packaging>jar</packaging>
+  <name>Apache Felix OSGi Archetype</name>
+  <description>Archetype for development of OSGi bundles using Apache Felix Maven plugin</description>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/osgi-archetype-1.0-beta-2</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/osgi-archetype-1.0-beta-2</developerConnection>
+    <url>http://fisheye.codehaus.org/browse/mojo/tags/osgi-archetype-1.0-beta-2</url>
+  </scm>
+</project>

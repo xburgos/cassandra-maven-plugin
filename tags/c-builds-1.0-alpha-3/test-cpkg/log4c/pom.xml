@@ -1,0 +1,55 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.log4c</groupId>
+  <artifactId>log4c</artifactId>
+  <version>1.0.10</version>
+  <packaging>rpm</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.libexpat</groupId>
+      <artifactId>expat</artifactId>
+      <version>1.95.8</version>
+      <type>rpm</type>
+    </dependency>
+  </dependencies>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg-archive-em</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+  
+  <properties>
+   <release>2</release>
+   <patchBasename>${project.artifactId}-1.0.10</patchBasename>
+  </properties>
+  
+  <build>
+    <plugins>
+      <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>patch-maven-plugin</artifactId>
+      <configuration>
+        <patches>
+          <patch>${patchBasename}-nodocs.patch</patch>
+          <patch>${patchBasename}-function.patch</patch>
+          <patch>${patchBasename}-test.patch</patch>
+          <patch>${patchBasename}-macro.patch</patch>
+          <patch>${patchBasename}-pkgconfig.patch</patch>
+        </patches>
+      </configuration>
+    </plugin>
+    
+    <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>make-maven-plugin</artifactId>
+      <configuration>
+        <configOptions>
+          <configOption implementation="java.lang.String">--with-expat=@pathOf(org.libexpat:expat)@</configOption>
+        </configOptions>
+       </configuration>
+     </plugin>
+   </plugins>
+ </build>
+</project>

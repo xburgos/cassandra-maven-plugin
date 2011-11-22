@@ -1,0 +1,29 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xmlbeans-mxmlbeans-24</artifactId>
+  <groupId>org.codehaus.mojo</groupId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+  <name>Test Case for MXMLBEANS-24</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <executions>
+           <execution>
+              <goals>
+                 <goal>xmlbeans</goal>
+              </goals>
+           </execution>
+        </executions>
+        <configuration>
+            <sourceSchemas>
+                <sourceSchema>easypo.xsd</sourceSchema>
+                <sourceSchema>easypo2.xsd</sourceSchema>
+            </sourceSchemas>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

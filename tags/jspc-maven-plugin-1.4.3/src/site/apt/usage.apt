@@ -1,0 +1,49 @@
+ ------
+ Maven 2 Jspc Plugin
+ ------
+ Jeff Genender
+ <jgenender@apache.org>
+ ------
+ December 31, 2005
+
+How To Use
+
+  This plugin allows you to precompile your JSPs and have them included in your war file.
+
+  You should use this in conjunction with the maven-war-plugin.  The maven-war-plugin must have its <webXml> attribute set to the newly created web.xml, which is ${basedir}/target/jspweb.xml by default.  See the following example configuration.
+
++------------------------------------------+
+<project>
+.
+.
+.
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jspc-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>jspc</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>${basedir}/target/jspweb.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+
+            .
+            .
+            .
++------------------------------------------+
+
+

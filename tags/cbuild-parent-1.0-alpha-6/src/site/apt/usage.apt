@@ -1,0 +1,42 @@
+ ------
+ Usage
+ ------
+ Lee Thompson <stimpy@codehaus.org>
+ ------
+ Oct 12, 2008
+ ------
+
+Background
+
+  The c-builds set of plugins listed on the project's {{{index.html}homepage}} are used
+  to make packaging of software a formal part of software release.  The idea is to take
+  the extra step of packaging software in the development lifecycle so that handoff to 
+  software distribution tools like YUM are more natural.  The plugins currently implement
+  RPM as the target package format but it is conceivable to add other pkg managers as well.
+  Conary would be an interesting variant.
+
+  The plugins are not java specific.  They are used to develop non-java projects or 
+  package java or non-java software that your project is dependent upon and store those
+  dependencies in a maven repository.  This allows you to build a repository of
+  dependencies and then develop software with maven so that maven will manage those
+  dependencies.
+
+  There are currently 4 main use cases and associated development lifecycles codified in 
+  maven which are being developed.  
+  
+* Package an external autoconf based package
+
+  {{{./lc-rpm-stb.html}Building an external source tarball}}
+
+* Develop an autoconf built package with maven
+
+  {{{./lc-rpm.html}Developing an autoconf package}}
+
+* Add rpm as a packaging goal to a java project
+
+  {{{./lc-jrpm.html}Package a java project into an RPM}}
+
+* Take a simple tarball and convert it into an RPM package
+
+  {{{./lc-rpm-light.html}Convert a tarball into an RPM}}
+

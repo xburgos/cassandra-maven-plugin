@@ -1,0 +1,91 @@
+ ---
+ Maven 2 Tomcat Plugin
+ ---
+ Mark Hobson
+ <markhobson@gmail.com>
+ ---
+ November 21, 2005
+
+Configuration
+
+ If no explicit configuration is provided then the Tomcat plugin defaults to the following:
+ 
+ * Tomcat manager URL of <<<http://localhost:8080/manager>>>
+ 
+ * Authentication details of username <<<admin>>> and no password
+ 
+ * Context path of <<</$\{project.build.finalName\}>>>
+ 
+ []
+ 
+ These can be overridden as described below.
+ 
+* Using a different Tomcat manager URL
+ 
+ To configure the plugin for a different Tomcat instance, add a plugin configuration block to your pom.xml as follows:
+ 
++--
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>tomcat-maven-plugin</artifactId>
+	<configuration>
+		<url>http://www.mydomain.com:1234/mymanager</url>
+	</configuration>
+</plugin>
++--
+
+ The default Tomcat manager URL is <<<http://localhost:8080/manager>>>.
+
+* Using different Tomcat manager authentication details
+
+ To specify a different username and password to use when authenticating with Tomcat manager:
+ 
+ [[1]] Add a plugin configuration block to your pom.xml:
+ 
++--
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>tomcat-maven-plugin</artifactId>
+	<configuration>
+		<server>myserver</server>
+	</configuration>
+</plugin>
++--
+
+ [[2]] Add a corresponding server block to your settings.xml:
+ 
++--
+<server>
+	<id>myserver</id>
+	<username>myusername</username>
+	<password>mypassword</password>
+</server>
++--
+
+ []
+
+ The default authentication details are username <<<admin>>> and no password.
+
+* Using a different context path
+ 
+ The default context path is <<</$\{project.build.finalName\}>>>, which itself defaults to <<</$\{artifactId\}-$\{version\}>>>.
+ 
+ The preferred way of changing the context path is to change the <<<finalName>>> by adding the following to your pom.xml:
+ 
++--
+<build>
+	<finalName>mycontext</finalName>
+</build>
++--
+
+ Alternatively, a different context path can be specified by adding an explicit plugin configuration block to your pom.xml as follows:
+ 
++--
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>tomcat-maven-plugin</artifactId>
+	<configuration>
+		<path>/mycontext</path>
+	</configuration>
+</plugin>
++--

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <body>
+    <menu name="Overview">
+      <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="FAQ" href="faq.html"/>
+    </menu>
+    <menu name="Examples">
+      <item name="Generating default bindings for EAR" href="examples/generating-default-bindings.html"/>
+      <item name="Generating EJB stub sources" href="examples/generating-ejb-stubs.html"/>
+      <item name="Installing EARs" href="examples/installing-ears.html" />
+      <item name="Generating Process Server EARs via ServiceDeploy" href="examples/generating-process-server-ears.html" />
+    </menu>
+  </body>
+</project>

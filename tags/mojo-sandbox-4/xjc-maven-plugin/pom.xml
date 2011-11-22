@@ -1,0 +1,90 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mojo-sandbox</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>2</version>
+  </parent>
+  <artifactId>xjc-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <version>1.0-beta-2-SNAPSHOT</version>
+  <name>xjc</name>
+  <description>
+    Maven xjc plugin is used to generate java classes from a given xml
+    schema document. The underlying implementation is Jaxme2.
+  </description>
+  <inceptionYear>2005</inceptionYear>
+  <url>http://mojo.codehaus.org/xjc-maven-plugin/</url>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>awilliams</id>
+      <name>Ashley Williams</name>
+      <email>agwilliams1000@codehaus.org</email>
+      <organization>Interest</organization>
+      <roles>
+        <role>Author</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>mant-maven-plugin</artifactId>
+      <version>1.0-beta-2-SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jaxb</groupId>
+      <artifactId>jaxb-xjc</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jaxb</groupId>
+      <artifactId>jaxb-libs</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jaxb</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jaxb</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+
+  </dependencies>
+</project>

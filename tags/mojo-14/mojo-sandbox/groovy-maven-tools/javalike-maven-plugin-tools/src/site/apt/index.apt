@@ -1,0 +1,26 @@
+Maven Plugin Tools for java (+groovy)
+
+ Add plugin descriptor support for java or groovy.
+ 
+ This extension enables the parsing of .groovy files to generate the <<<plugin.xml>>> during the <<process-resources>> phase of a
+ <<maven-plugin>> packaging. It's basicaly a <<<maven-plugin-tools-java>>> that parse <<<.java>>> <<and>> <<<.groovy>>> files.
+
+* Installation
+
+ I don't know enough maven for now, and the only way i found to activate this extension is to change a
+ line by hand in <<<$M2_REPO/org/apache/maven/plugins/maven-plugin-plugin/2.0/maven-plugin-plugin-2.0.pom>>>.
+
++--
+- <artifactId>maven-plugin-tools-java</artifactId>
++ <artifactId>javalike-maven-plugin-tools</artifactId>
++--
+ 
+* Usage
+
+ Your groovy plugins should now be correctly packaged during build cycles.
+ 
+* Notes
+
+ You need either a plugin (<<<groovyc-maven-plugin>>>) or an extension (<<<plexus-compiler-groovyc>>>) to turn your
+ <<<.groovy>>> into <<<.class>>> and package your plugins as they were regular java plugins. All that stuff is available
+ on the same repo. 

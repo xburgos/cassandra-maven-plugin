@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!-- $Id$ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>mojo</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>15</version>
+    </parent>
+    
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>selenium-maven-plugin</artifactId>
+    <name>Maven Selenium Plugin</name>
+    <version>1.0-beta-2-SNAPSHOT</version>
+    <packaging>maven-plugin</packaging>
+    
+    <url>http://mojo.codehaus.org/selenium-maven-plugin</url>
+    <prerequisites>
+        <maven>2.0.5</maven>
+    </prerequisites>
+    <inceptionYear>2006</inceptionYear>
+    
+    <description>
+        Support for using Selenium with Maven 2.
+    </description>
+    
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.codehaus.org/browse/MSELENIUM</url>
+    </issueManagement>
+    
+    <licenses>
+        <license>
+            <name>Apache License 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    
+    <developers>
+        <developer>
+            <id>evenisse</id>
+            <name>Emmanuel Venisse</name>
+            <email>evenisse@codehaus.org</email>
+            <roles>
+                <role>Java Developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>user57</id>
+            <name>Jason Dillon</name>
+            <email>jason@planet57.com</email>
+            <role>Avid Crack Smoker</role>
+        </developer>
+    </developers>
+    
+    <repositories>
+        <repository>
+            <id>openqa.org</id>
+            <name>Openqa Repository</name>
+            <url>http://maven.openqa.org</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache-snapshots</id>
+            <name>Apache Snapshots Repository</name>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo.groovy</groupId>
+            <artifactId>groovy-mojo-support</artifactId>
+            <version>1.0-alpha-3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.openqa.selenium.server</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>0.9.2-SNAPSHOT</version>
+            <classifier>standalone</classifier>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.openqa.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>0.9.2-SNAPSHOT</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.14</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <defaultGoal>install</defaultGoal>
+        
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0-beta-5</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.2</version>
+                    <configuration>
+                        <source>1.4</source>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>1.0-alpha-3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>2.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo.groovy</groupId>
+                        <artifactId>groovy-mojo-tools</artifactId>
+                        <version>1.0-alpha-3</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.4</source>
+                    <target>1.4</target>
+                </configuration>
+            </plugin>
+             
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-idea-plugin</artifactId>
+                <configuration>
+                    <jdkName>1.4</jdkName>
+                    <jdkLevel>1.4</jdkLevel>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <source>1.4</source>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+    
+    <profiles>
+        <profile>
+            <id>super-helpful-integration-tests</id>
+            
+            <activation>
+                <property>
+                    <name>shit</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>shitty-maven-plugin</artifactId>
+                        <version>1.0-alpha-1-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>install</goal>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <projects>
+                                        <fileset>
+                                            <directory>src/it</directory>
+                                            <includes>
+                                                <include>*/pom.xml</include>
+                                            </includes>
+                                            <excludes>
+                                                <!-- Disable the selenese tests for now, they don't really work -->
+                                                <exclude>selenese*/pom.xml</exclude>
+                                                
+                                                <!-- Disable the Xvfb tests, as they are not very portable -->
+                                                <exclude>xvfb*/pom.xml</exclude>
+                                            </excludes>
+                                        </fileset>
+                                    </projects>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>stage-distribution</id>
+            
+            <activation>
+                <property>
+                    <name>stage.distributionUrl</name>
+                </property>
+            </activation>
+            
+            <distributionManagement>
+                <repository>
+                    <id>stage-repository</id>
+                    <url>${stage.distributionUrl}/repository</url>
+                </repository>
+                <snapshotRepository>
+                    <id>stage-snapshot-repository</id>
+                    <url>${stage.distributionUrl}/snapshot-repository</url>
+                </snapshotRepository>
+                <site>
+                    <id>stage-site</id>
+                    <url>${stage.distributionUrl}/site</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
+</project>

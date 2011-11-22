@@ -1,0 +1,9 @@
+import java.io.*;
+
+File artifactUnpack = new File( basedir, "target/unpacked-patches" );
+File patchSourceDir = new File( basedir, "src/patches/first.patch" );
+
+System.out.println( "Artifact-unpack dir: " + artifactUnpack.getAbsolutePath() + " exists? " + artifactUnpack.exists() );
+System.out.println( "Patch-source dir: " + patchSourceDir.getAbsolutePath() + " exists? " + patchSourceDir.exists() );
+
+return !artifactUnpack.exists() && patchSourceDir.exists();

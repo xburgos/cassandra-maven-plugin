@@ -1,0 +1,75 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.chronos-samples</groupId>
+  <artifactId>minimalconfigmaven2</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>minimalconfigmaven2</name>
+  <url>http://maven.apache.org</url>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos-samples</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jmeter</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      <!-- TODO remove this when chronos is released -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.0</version>
+        <executions>
+          <execution>
+            <id>mojo-enforcer-rules</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requirePluginVersions>
+                  <banSnapshots>false</banSnapshots>
+                </requirePluginVersions>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
+    </plugins>
+
+
+
+
+
+  </build>
+
+  <!-- configure this way with maven 2 -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-report-maven-plugin</artifactId>
+        <version>${project.version}</version>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>

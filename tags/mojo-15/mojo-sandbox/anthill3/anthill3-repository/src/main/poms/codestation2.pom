@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id: pom.xml 535660 2007-05-06 21:58:24Z jdillon $ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>com.urbancode.anthill3</groupId>
+    <artifactId>codestation2</artifactId>
+    <version>3.2.1</version>
+    
+    <organization>
+        <name>Urbancode</name>
+        <url>http://www.urbancode.com</url>
+    </organization>
+    
+    <url>http://www.anthillpro.com</url>
+    
+    <licenses>
+        <license>
+            <name>commercial</name>
+            <url>http://www.anthillpro.com/html/products/anthillpro/price-list.html</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+    
+    <dependencies>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.urbancode.anthill3</groupId>
+            <artifactId>commons-httpclient-contrib</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+    </dependencies>
+
+</project>

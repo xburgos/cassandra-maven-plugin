@@ -1,0 +1,17 @@
+import java.io.*;
+
+String base = "target/preserve-symlinks-1/";
+
+File originalPom = new File( basedir, base + "pom.xml" );
+
+boolean checkPom = originalPom.exists();
+
+System.out.println( "POM: " + originalPom + " was unpacked? " + checkPom );
+
+File linkedPom = new File( basedir, base + "pom-link.xml" );
+
+boolean checkLink = linkedPom.exists() && !linkedPom.getAbsolutePath().equals( linkedPom.getCanonicalPath() );
+
+System.out.println( "Symlink: " + linkedPom + " was preserved? " + checkLink );
+
+return checkPom && checkLink;

@@ -1,0 +1,206 @@
+ ------
+ Compiling Groovy
+ ------
+ ------
+ $Id$
+
+~~
+~~ Copyright (C) 2006-2007 the original author or authors.
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+~~ 
+
+Compiling Groovy
+
+ <<NOTE:>> The examples below, unless otherwise specified, all assume that the
+ Maven build is invoked with a life-cycle phase:
+
++----------+
+mvn install
++----------+
+
+ Due to the use of executions configurations, invoking the named goals from the 
+ command-line will fail to function correctly.
+
+* Compile Groovy Sources
+
+ Use the <<<compile>>> goal to compile Groovy sources into Java classes.
+ 
+ By default, all <<<*.groovy>>> files under <<<src/main/groovy>>> will be compiled into <<<target/classes>>>.
+
++----------+
+<plugin>
+    <groupId>org.codehaus.mojo.groovy</groupId>
+    <artifactId>groovy-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
++----------+
+
+ To use a more specific list of sources, specify one or more source filesets.
+ When <<<sources>>> is specified the default location is not automatically included.
+
++----------+
+<plugin>
+    <groupId>org.codehaus.mojo.groovy</groupId>
+    <artifactId>groovy-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <sources>
+                    <fileset>
+                        <directory>${pom.basedir}/src/main/script</directory>
+                        <includes>
+                            <include>**/*.groovy</include>
+                        </includes>
+                    </fileset>
+                </sources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
++----------+
+
+ Many of the options available in the Groovy compiler configuration can also be set.
+
++----------+
+<plugin>
+    <groupId>org.codehaus.mojo.groovy</groupId>
+    <artifactId>groovy-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>compile</goal>
+            </goals>
+            <configuration>
+                <debug>false</debug>
+                <verbose>true</verbose>
+                <stacktrace>true</stacktrace>
+                <defaultScriptExtension>.groovy</defaultScriptExtension>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
++----------+
+
+* Compile Groovy Test Sources
+
+ Use the <<<testCompile>>> goal to compile Groovy test sources into Java classes.
+ This goal has all of the functionality as the <<<compile>>> goal, so most examples
+ above here are apply.
+
+ By default, all <<<*.groovy>>> files under <<<src/test/groovy>>> will be compiled into <<<target/test-classes>>>.
+
++----------+
+<plugin>
+    <groupId>org.codehaus.mojo.groovy</groupId>
+    <artifactId>groovy-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>testCompile</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
++----------+
+
+ Do not forget to add the Groovy artifacts to your dependencies in the <<<test>>> scope
+ so that Surefire can execute the Groovy tests.
+
++----------+
+<project>
+    <dependencies>
+        <dependency>
+            <groupId>groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
++----------+
+
+* Joint Java + Groovy Compilation
+
+ To enable joint Java + Groovy compilation you need to enable the <<<generateStubs>>>
+ and <<<generateTestStubs>>> goals for execution.
+
++----------+
+<plugin>
+    <groupId>org.groovy.mojo.groovy</groupId>
+    <artifactId>groovy-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <goals>
+                <goal>generateStubs</goal>
+                <goal>compile</goal>
+                <goal>generateTestStubs</goal>
+                <goal>testCompile</goal>
+            </goals>
+        </execution>
+    </executions>
+</plugin>
++----------+
+
+ An alternative is to use the <<<groovy-jar>>> packaging which will enable the
+ proper goals for execution in the build's life-cycle.
+
++----------+
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mycompany</groupId>
+    <artifactId>mymodule</artifactId>
+    <packaging>groovy-jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
++----------+

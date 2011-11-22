@@ -1,0 +1,40 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xmlbeans-mojo-72</artifactId>
+  <groupId>org.codehaus.mojo</groupId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+  <name>Test Case for MOJO-72</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <executions>
+           <execution>
+              <goals>
+                 <goal>xmlbeans</goal>
+              </goals>
+           </execution>
+        </executions>
+        <configuration>
+           <memoryInitialSize>50m</memoryInitialSize>
+           <memoryMaximumSize>80m</memoryMaximumSize>
+           <xsdJars>
+              <xsdJar implementation="java.lang.String">geronimo:geronimo-tomcat</xsdJar>
+           </xsdJars>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+  <dependency>
+    <groupId>geronimo</groupId>
+    <artifactId>geronimo-tomcat</artifactId>
+    <version>1.0-M5</version>
+    <scope>compile</scope>
+  </dependency>
+  </dependencies>
+
+</project>

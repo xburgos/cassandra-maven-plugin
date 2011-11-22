@@ -1,0 +1,113 @@
+ ------
+ Usage
+ ------
+ Lee Thompson <stimpy@codehaus.org>
+ ------
+ Oct 12, 2008
+ ------
+
+Background
+
+  The c-builds set of plugins listed on the project's {{{index.html}homepage}} are used
+  to make packaging of software a formal part of software release.  The idea is to take
+  the extra step of packaging software in the development lifecycle so that handoff to 
+  software distribution tools like YUM are more natural.  The plugins currently implement
+  RPM as the target package format but it is conceivable to add other pkg managers as well.
+  Conary would be an interesting variant.
+
+  The plugins are not java specific.  They are used to develop non-java projects or 
+  package java or non-java software that your project is dependent upon and store those
+  dependencies in a maven repository.  This allows you to build a repository of
+  dependencies and then develop software with maven so that maven will manage those
+  dependencies.
+
+  There are currently 5 main use cases and associated development lifecycles codified in 
+  maven which are being developed.  The best usage reference is the 
+  {{{https://svn.codehaus.org/mojo/c-builds/trunk/integration-tests}integration tests}}
+  as those run.
+  
+* Publish an external project non-maven project into your repo.
+
+  This is a prepartory activity which does not require any C-BUILDS plugins.  Set up
+  your organizations maven repo which you will deploy into and setup your repository
+  credentials into your ~/.m2/settings.xml configuration.  Write poms for each remote
+  project that you are depenent upon and write a pom such as this one and "mvn deploy"
+  it...
+
++------------------------------------------------+
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myco.code.stbs</groupId>
+  <artifactId>expat</artifactId>
+  <version>1.95.8</version>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>wagon-maven-plugin</artifactId>
+        <version>1.0-beta-5</version>
+        <executions>
+          <execution>
+            <id>download-stb</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>download-single</goal>
+            </goals>
+            <configuration>
+              <!-- get from gentoo mirror since several sourcefourge mirror's http config breaks wagon -->
+              <url>http://www.gtlib.gatech.edu/pub/gentoo/distfiles</url>
+              <fromFile>${project.artifactId}-${project.version}.tar.gz</fromFile>
+              <toDir>${project.build.directory}</toDir>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${project.build.directory}/${project.artifactId}-${project.version}.tar.gz</file>
+                  <type>tar.gz</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
++------------------------------------------------+
+
+
+* Package an autoconf based tarball release into an RPM
+
+  {{{./lc-rpm.html}Packaging an autoconf package}}
+
+* Develop an autoconf package with maven
+
+  Use maven to automate your project with autoconf managing the build phase.
+  The project release artifact will be a tarball of source code.  Packaging
+  into RPM is intended to be a separate project.
+
+  {{{./lc-automvn.html}Developing an autoconf package}}
+
+* Add rpm as a packaging goal to a java project
+
+  {{{./lc-jrpm.html}Package a java project into an RPM}}
+
+* Take a simple tarball and convert it into an RPM package
+
+  {{{./lc-rpm-light.html}Convert a tarball into an RPM}}
+

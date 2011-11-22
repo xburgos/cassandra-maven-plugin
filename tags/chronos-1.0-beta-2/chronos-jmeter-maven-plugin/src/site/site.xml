@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+	<body>
+		<menu name="User guide">
+			<item name="Introduction" href="index.html" />
+			<item name="Goals" href="plugin-info.html" />
+			<item name="General usage" href="usage.html" />
+      <item name="Generating jmeter configuration" href="usage-jmetergui.html" />
+      <item name="Executing performancetests" href="usage-jmeter.html" />
+      <item name="Integrating with existing tests" href="usage-jmeteroutput.html" />
+      <item name="Saving historical results" href="usage-historic.html" />
+      <item name="Validating performance metrics" href="usage-check.html" />
+		</menu>
+		<menu ref="reports" />
+	</body>
+</project>

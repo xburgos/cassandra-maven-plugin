@@ -1,0 +1,54 @@
+Usage for the jmetergui mojo
+
+*  Purpose
+
+   Jmeter functions by executing performancetests based on .jmx files specifying the tests. These are normally created in the JMeter user interface.
+   The testcases can be requests for an external resource (http) or JUnit testcases.
+
+   This mojo helps in the latter case by attaching the classpath of the current project when launching this user interface allowing to specify these tests more easily.
+   It should be considered a one-time only utility, which should not be invoked as part of your automatic build. The value-add is by automatically attaching the classpath
+   of the current maven project, when launching JMeter
+
+
+
+*  Usage
+
+   This mojo will never be executed as part of a build phase. It should instead be invoked directly by specifying the goal {{{./jmetergui-mojo.html}mvn chronos:jmetergui}}.
+   For more detailed information regarding parameters see {{{./jmetergui-mojo.html}chronos:jmetergui}}.
+
+   The plugin will attempt to automatically download jmeter, unless a jmeterhome is specified, which may be done either as the property jmeter.home in your pom or in settings.xml,
+   or as a configuration directly ion the plugin.
+
+   It is necessary to manually save the created testplan (in .jmx format).
+
+  Example:
+
+-------------------
+<project>
+  ...
+    <profiles>
+        <profile>
+            <id>nightly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo.chronos</groupId>
+                        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <configuration>
+                            <!-- we download jmeter from here, if it does not already exist. The example is the default value -->
+                            <jmeterRemoteLocation>http://www.eu.apache.org/dist/jakarta/jmeter/binaries/jakarta-jmeter-2.5.1.zip</jmeterRemoteLocation>
+                            <!-- The location of jmeter on the local disc. The example is showing the default value -->
+                            <jmeterHome>${project.basedir}/jmeter</jmeterHome>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+  ...
+</project>
+-------------------
+
+   Note the usage of a profile, to shield the normal build from the typically slow execution of the performancetest.
+

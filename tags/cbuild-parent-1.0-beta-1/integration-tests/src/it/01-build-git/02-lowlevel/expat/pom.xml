@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.cbuild-parent.it.rpms</groupId>
+  <artifactId>expat</artifactId>
+  <version>1.95.8-3</version>
+  <packaging>rpm</packaging>
+  
+  <parent>
+    <groupId>org.codehaus.mojo.cbuild-parent.it</groupId>
+    <artifactId>it-project-parent</artifactId>
+    <version>1</version>
+  </parent>
+
+  <name>The Expat XML Parser</name>
+  <description>
+    A stream oriented XML parser written in C.
+  </description>
+  <url>http://expat.sourceforge.net/</url>
+
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>http://www.opensource.org/licenses/mit-license.php</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        <configuration>
+          <patches>
+            <patch>expat-${DYNAMIC.CBUILDPROP.RPM.VERSION}-pkgconfig.patch</patch>
+            <patch>expat-${DYNAMIC.CBUILDPROP.RPM.VERSION}-DESTDIR.patch</patch>
+          </patches>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <configuration>
+          <configureOptions>
+            <configureOption implementation="java.lang.String">--mandir=@manPrefix@</configureOption>
+          </configureOptions>
+          <skipTest>true</skipTest>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

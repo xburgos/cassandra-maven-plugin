@@ -1,0 +1,12 @@
+diff -Nru openssl-0.9.8h.orig/Makefile.org openssl-0.9.8h/Makefile.org
+--- Makefile.org.orig	2008-07-21 11:26:38.000000000 -0500
++++ Makefile.org	2008-07-21 11:29:46.000000000 -0500
+@@ -547,7 +547,7 @@
+ 	@pod2man="`cd util; ./pod2mantest $(PERL)`"; \
+ 	here="`pwd`"; \
+ 	filecase=; \
+-	if [ "$(PLATFORM)" = "DJGPP" -o "$(PLATFORM)" = "Cygwin" -o "$(PLATFORM)" = "mingw" ]; then \
++	if [ "$(PLATFORM)" = "DJGPP" -o "$(PLATFORM)" = "Cygwin" -o "$(PLATFORM)" = "mingw" -o "$(PLATFORM)" = "darwin-i386-cc" ]; then \
+ 		filecase=-i; \
+ 	fi; \
+ 	set -e; for i in doc/apps/*.pod; do \

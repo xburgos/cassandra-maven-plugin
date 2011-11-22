@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>${groupId}</groupId>
+    <artifactId>${artifactId}</artifactId>
+    <packaging>pom</packaging>
+    <version>${version}</version>
+    <name>${artifactId} - NetBeans Platform Application</name>
+    <repositories>
+        <!-- this is a remote repository hosting the netbeans api artifacts.
+         the versions of the artifacts are netbeans IDE release based, eg. RELEASE41, RELEASE50.
+         You might want to use your own repository. To create one, use the nbm:populate-repository goal.
+          -->
+        <repository>
+            <id>netbeans</id>
+            <name>repository hosting netbeans.org api artifacts</name>
+            <url>http://deadlock.netbeans.org/maven2</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>RELEASE</version>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/app-zip.xml</descriptor>
+                    </descriptors>
+                    <finalName>${pom.artifactId}</finalName>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>branding</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>branding</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>nbm-maven-plugin</artifactId>
+                    <version>2.6.2</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <descriptor>src/main/nbm/module.xml</descriptor>
+                        <brandingToken>${brandingtoken}</brandingToken>
+                        <cluster>${cluster}</cluster>
+                        <enabledClusters>
+                            <enabledCluster>${cluster}</enabledCluster>
+                            <enabledCluster>platform</enabledCluster>
+                            <!--enabledCluster>ide</enabledCluster-->
+                            <!--enabledCluster>enterprise</enabledCluster-->
+                        </enabledClusters>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
+    <modules>
+        <module>module1</module>
+    </modules>    
+</project>

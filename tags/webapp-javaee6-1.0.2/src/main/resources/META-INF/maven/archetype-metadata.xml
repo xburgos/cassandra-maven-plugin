@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor id="webapp-javaee6" partial="false" name="JavaEE6 web application archetype">
+  <fileSets>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*.*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true">
+      <directory>src/main/java</directory>
+    </fileSet>
+    <fileSet filtered="true" packaged="true">
+      <directory>src/test/java</directory>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>

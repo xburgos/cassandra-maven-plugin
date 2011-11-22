@@ -1,0 +1,16 @@
+<daemon>
+  <mainClass>com.westerngeco.example.App</mainClass>
+  <jvmSettings>
+    <initialMemorySize>345</initialMemorySize>
+    <maxMemorySize>234</maxMemorySize>
+    <maxStackSize>321</maxStackSize>
+    <systemProperties>
+      <systemProperty>foo=bar</systemProperty>
+      <systemProperty>bar=foo</systemProperty>
+    </systemProperties>
+  </jvmSettings>
+  <environmentSetupFileName>app-env</environmentSetupFileName>
+  <commandLineArguments>
+    <commandLineArgument>arg=arg1-value</commandLineArgument>
+  </commandLineArguments>
+</daemon>

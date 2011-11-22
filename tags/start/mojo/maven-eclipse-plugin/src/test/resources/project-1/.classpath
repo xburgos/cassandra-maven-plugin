@@ -1,0 +1,11 @@
+<classpath>
+ <classpathentry kind="src" path="src/main/java"/>
+ <classpathentry kind="output" path="target/classes"/>
+ <classpathentry kind="var" rootpath="JRE_SRCROOT" path="JRE_LIB" sourcepath="JRE_SRC"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-core-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-model-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-project-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/plexus/jars/plexus-0.14-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-xdoc-plugin-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
+</classpath>

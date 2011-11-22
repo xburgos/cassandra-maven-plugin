@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>project-sources-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Project Sources Plugin</name>
+
+  <parent>
+    <artifactId>cbuild-plugin-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-alpha-6</version>
+  </parent>
+  <description>
+    Plugin used to manage source archives for a project, 
+    including resolving, creating, unpacking, and 
+    pushing to the repository.
+  </description>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>patch-maven-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.artifact</groupId>
+      <artifactId>maven-artifact</artifactId>
+    </dependency>
+    <!--dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact-manager</artifactId>
+    </dependency-->
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-archiver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+</project>

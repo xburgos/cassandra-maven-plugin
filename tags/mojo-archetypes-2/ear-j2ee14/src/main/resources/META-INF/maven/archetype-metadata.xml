@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor id="ear-j2ee14" partial="false" name="J2EE 1.4 EAR archetype">
+
+  <fileSets>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/main/application</directory>
+      <includes>
+	<include>**/*.*</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+</archetype-descriptor>

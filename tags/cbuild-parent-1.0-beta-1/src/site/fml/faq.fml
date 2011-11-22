@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs id="FAQ" title="Frequently Asked Questions">
+  <part id="General">
+    <title>General</title>
+    <faq id="Starting">
+      <question>What is the best place to learn these plugins?</question>
+      <answer>
+        <p>
+          Study the integration-tests source code as great pains were made to get the entire 
+          lifecycle working, without root access, in a maven target directory using the
+          maven-invoker-plugin.  An RPM database is created, tarballs of source code are 
+          downloaded/compiled/packaged/installed and even deployed to a local maven 
+          repository.  The best feature of the integration-tests is it leaves your system
+          outside the cbuilds checkout directory alone and everything can be deleted with a 
+          plain old <b><code>mvn clean</code></b>.  Checkout the code, 
+          <b><code>mvn install</code></b> the code and then change directory to the 
+          integration-tests directory and run <b><code>mvn install</code></b> to kick off the
+          test suite, which takes some time, so 
+        </p>
+        <p><b><code>
+          $ svn checkout http://svn.codehaus.org/mojo/c-builds/trunk cbuild-parent<br/>
+          $ cd cbuild-parent<br/>
+          $ mvn install<br/>
+          $ cd integration-tests<br/>
+          $ mvn install<br/>
+        </code></b></p>
+        <p>
+          Read the src directory and study the output in the target directory.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Backport">
+      <question>Why was to code backported from Maven 3.x to 2.x?</question>
+      <answer>
+        <p>
+          Out of frustration mainly.  The code kept breaking while it was bound to the SNAPSHOT
+          releases of the maven development tree.  There are numerous features that are needed
+          to complete the functionality of these plugins and development on a stable version
+          of maven may produce more forward progress.
+        </p>
+      </answer>
+    </faq>
+    <faq id="NAR">
+      <question>What is the differences between the NAR and CBUILDS plugins?</question>
+      <answer>
+        <p>
+          The <a href="http://java.freehep.org/freehep-nar-plugin/">NAR</a> plugins are really
+          useful for JNI projects and seems to be written 
+          especially for those types of projects.  The way NAR attaches artifacts to a project
+          was studied when the plugins were written, though none of the code was copied (NAR 
+          is GPL, CBUILDS is APL).  The NAR plugins call the compiler directly (through a 
+          property lookup) while the CBUILDS plugins use autoconf/automake.  The NAR plugins
+          release the compiled code in a JAR file, the CBUILDS use RPM.  If your project gets complicated
+          enough where you need need make/autoconf, you may want to try using the make-maven-plugin
+          during build time and use NAR as the packaging type, instead of RPM.  That combination
+          wasn't tested, but its an interesting idea.  The CBUILDS use maven for artifact handling
+          and project lifecycle automation.  CBUILDS does not use maven for package management or
+          builds, instead opting for external tools that do a good job there like make and RPM.
+          Another important distinction is CBUILDS has two maven projects for source and binary
+          while NAR uses one project.  So, NAR and CBUILDS have very different approaches.  NAR
+          makes more sense in many use cases.
+        </p>
+      </answer>
+    </faq>
+    <faq id="unix-maven-plugin">
+      <question>What is the differences between the unix-maven-plugin and CBUILDS plugins?</question>
+      <answer>
+        <p>
+          TODO: Look into <a href="http://mojo.codehaus.org/unix/">unix-maven-plugin</a>.
+        </p>
+      </answer>
+    </faq>
+    <faq id="rpm-maven-plugin">
+      <question>What is the differences between the rpm-maven-plugin and CBUILDS plugins?</question>
+      <answer>
+        <p>
+          TODO: Look into <a href="http://mojo.codehaus.org/rpm-maven-plugin/">rpm-maven-plugin</a>.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Deleted-Code">
+      <question>A bunch of code was deleted between 1.0-alpha-6 and 1.0-beta-1</question>
+      <answer>
+        <p>
+          Isn't it awsome?  If you were using one of plugins that got the axe, see the 
+          alternative recommendations at the cbuild-parent introduction page.
+        </p>
+      </answer>
+    </faq>
+  </part>
+  <part id="Setup">
+    <title>Setup</title>
+    <faq id="RPM database">
+      <question>What setup is needed in the RPM database?</question>
+      <answer>
+        <p>
+          You need to decide if you want to install CBUILDS produced RPMs in the system database
+          which will require <b><code>sudo</code></b> configuration; or in a separate database which
+          is writeable by users but will require you to create a database.  To add sudo access,
+          use <b><code>visudo</code></b> to add a config line something like this
+          <b><code>username     ALL = NOPASSWD: /bin/rpm</code></b> and confgure the
+          rpm-cbuild-maven-plugin to use sudo.  Otherwise create an rpm databae with the
+          <b><code>rpm --initdb --dbpath /mydir</code></b>.  Check out the source code integration-tests
+          directory which creates the rpm database, downloads a bunch of source code, compiles it,
+          and installs all the rpms in the integration-tests target directory.  This working
+          test system is the best documentation on the lifecycles and pom.xml file authoring.
+        </p>
+      </answer>
+    </faq>
+  </part>
+  <part id="Platforms">
+    <title>Platforms</title>
+    <faq id="Redhat">
+      <question>Any application notes for Redhat Linux?</question>
+      <answer>
+        <p>
+          Not really, should work out of the box.  The developers use AS3 and AS5 with no problems.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Mac">
+      <question>Any application notes for MacIntosh?</question>
+      <answer>
+        <p>
+          This is the primary development platform for Lee Thompson who wrote the 1.0-alpha-5/6
+          and designed/implemented the initial beta releases.  Install MacPorts first and have
+          MacPorts install subversion, rpm51, and maven; include /opt/local/bin in your PATH 
+          and things should work.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Gentoo">
+      <question>Any application notes for Gentoo?</question>
+      <answer>
+        <p>
+          First off, use the sun-jdk package on gentoo and check <b><code>java-config -L</code></b>
+          to make sure it is set to be used.  Secondly, as of May 2009, the rpm version on Gentoo
+          is in flux.  Unmask <b><code>=app-arch/rpm-5.1.6</code></b> in 
+          <b><code>/etc/portage/package.unmask</code></b>
+          and <b><code>/etc/portage/package.keywords</code></b>
+          is probably the best solution.  There may be a bug in how gentoo RPM is built on
+          32 bit gentoo, not sure.  <b><code>rpm --eval %{_build_arch}</code></b> returns i386, 
+          but a 32 bit gentoo will build a i686 rpm.  The <b><code>uname -m</code></b> may be 
+          what to key on in the plugin instead of "_build_arch", but for now, a hack was put in 
+          for gentoo 32 bit.  64 bit gentoo works fine assuming you use the 64 bit JDK.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Cygwin">
+      <question>Any application notes for Cygwin?</question>
+      <answer>
+        <p>
+          Never attempted.  The platform detection part will probably be broken, but RPM does
+          work well on Cygwin, so it should take just a few days to hack it up.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Solaris">
+      <question>Any application notes for Oracle's Solaris operating system?</question>
+      <answer>
+        <p>
+          Oracle Solaris.  That's funny...  Not attempted...  Should take a few days of dev
+          time to hack up.  <a href="http://mojo.codehaus.org/unix/">unix-maven-plugin</a> is
+          developed on Solaris, so that may be of interest.
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

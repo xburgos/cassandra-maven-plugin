@@ -1,0 +1,107 @@
+ ------
+ Usage
+ ------
+ ------
+ $Id$
+
+~~
+~~ Copyright (C) 2006-2007 the original author or authors.
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+~~
+
+Usage
+
+* Compilation
+
+ For details on compilation please see the {{{examples/compiling.html}compiling example}}.
+
+ For details on mixed compilation please see the documentation for {{{mixed-compilation.html}mixed compilation}}.
+
+* Execution
+
+ For details on execution please see the {{{examples/executing.html}executing examples}}.
+
+* Command-line Shell
+
+ This will launch the new (ANSI colors, jline buffer editing, etc) <<<groovysh>>> shell:
+ 
++----------+
+mvn groovy:shell
++----------+
+
+ Which should look something like this below.  If your terminal supports ANSI escape-sequences, then
+ you might see some colors too :-)
+
++----------+
+[INFO] [groovy:shell]
+
+Groovy Shell (1.1-rc-3, JVM: 1.5.0_07-87)
+Type 'help' or '\h' for help.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+groovy:000> help
+
+For information about Groovy, visit:
+    http://groovy.codehaus.org 
+
+Available commands:
+  help     (\h ) Display this help message
+  ?        (\? ) Alias to: help
+  exit     (\x ) Exit the shell
+  quit     (\q ) Alias to: exit
+  import   (\i ) Import a class into the namespace
+  display  (\d ) Display the current buffer
+  clear    (\c ) Clear the buffer
+  show     (\S ) Show variables, classes or imports
+  inspect  (\n ) Inspect a variable or the last result with the GUI object browser
+  purge    (\p ) Purge variables, classes, imports or preferences
+  edit     (\e ) Edit the current buffer
+  load     (\l ) Load a file or URL into the buffer
+  .        (\. ) Alias to: load
+  save     (\s ) Save the current buffer to a file
+  record   (\r ) Record the current session to a file
+  history  (\H ) Display, manage and recall edit-line history
+  alias    (\a ) Create an alias
+  set      (\= ) Set (or list) preferences
+  s        (\a0) User defined alias to: shadow
+  !        (\a1) User defined alias to: history recall
+  imports  (\a2) User defined alias to: show imports
+
+For help on a specific command type:
+    help command 
+
+groovy:000> exit
++----------+
+
+ The previous shell an be coaxed into running too, just set the <<<legacy>>> property to <<<true>>>:
+ And for the legacy shell:
+
++----------+
+mvn groovy:shell -Dlegacy=true
++----------+
+
+ For more information on how to use the Groovy Shell, please see the {{{http://groovy.codehaus.org/Groovy+Shell}User's Guide}}.
+
+* GUI Console
+
+ This will launch the GUI console, better known as <<<groovyConsole>>>.
+
++----------+
+mvn groovy:console
++----------+
+
+* Provider Information
+
++----------+
+mvn groovy:providers
++----------+

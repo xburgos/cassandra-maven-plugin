@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>cbuild-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-alpha-1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>cbuild-plugin-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>C-Build Plugin Root</name>
+
+  <modules>
+    <module>multibuild-optimizer-maven-plugin</module>
+    <module>patch-maven-plugin</module>
+    <module>remote-source-maven-plugin</module>
+    <module>rpm-maven-plugin</module>
+    <module>make-maven-plugin</module>
+    <module>shell-maven-plugin</module>
+    <module>deploy-all-maven-plugin</module>
+    <module>local-config-maven-plugin</module>
+    <module>settings-maven-plugin</module>
+    <module>build-on-demand-maven-plugin</module>
+    <module>project-archive-maven-plugin</module>
+    <module>platform-detector-maven-plugin</module>
+  </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>build-context</artifactId>
+      <version>1.0-alpha-1</version>
+    </dependency>
+  </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>

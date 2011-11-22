@@ -1,0 +1,240 @@
+  ---
+  Maven RPM Plugin :: Summary
+  ---
+  John Casey
+  ---
+  11-Sept-2005
+  ---
+  
+Summary for Maven RPM Plugin
+
+  The RPM plugin is used to generate a RPM spec file, and then harvest a RPM 
+  package using the spec file, along with project binaries resulting from the
+  earlier phases of the build lifecycle.
+  
+  This plugin consists of six mojos: <<<install-dependencies>>>, <<<set-project-file>>>, <<<generate-spec>>>, <<<build>>>, <<<install>>> and <<<remove>>>.
+  
+  As an incidental implementation detail, the <<<build>>> mojo uses the Ant
+  Rpm task internally via the <<<maven-antcall>>> API in order to package the
+  project RPM. Therefore, any quirks in the Ant task will undoubtedly show
+  up in this mojo as well.
+  
+*Configuration Parameters
+
+**<<<install-dependencies>>> Mojo
+
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| <<Parameter>>      | <<Description>>                                                                | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]> |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| artifacts | The dependency RPMs for the current project. | java.util.Set | $\{project.artifacts\} | Yes | No |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| projectPackaging | The packaging type. | String | $\{project.packaging\} | No | No |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| useSudo | Flag to determine when to use sudo to execute the rpm command. | boolean | true | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmDbPath | Directory path to the RPM database. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| forceAllInstalls | Flag to determine whether to force installations of an RPM, as well as all its dependencies even if they were detected to be already installed in the database. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| skipDependencies |Flag to determine whether to skip installing the project's RPM dependencies. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| forceDependencyInstalls | Flag to determine whether to force installations of RPM dependencies even if they were detected to be already installed. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+
+
+**<<<set-project-file>>> Mojo
+
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| <<Parameter>>      | <<Description>>                                                                | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]> |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| project            | MavenProject reference.                                    | MavenProject   | $\{project\}                                                              | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmName | Name of the RPM to be created. Specify a value if you want to override the default. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmFile | Overrides the entire rpm file, not just the basename (which doesn't include architecture and .rpm extension). | java.io.File | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| release |The RPM release level or build number. | String | 1 | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| topDir | Top directory of the RPM filesystem structure. | java.io.File | $\{project.build.directory\}/rpm-topdir | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+
+
+**<<<generate-spec>>> Mojo
+
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| <<Parameter>>      | <<Description>>                                                                | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]> |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| project            | MavenProject reference.                                    | MavenProject   | $\{project\}                                                              | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| projectArtifact    | The Artifact instance for the current project.             | Artifact       | $\{project.artifact\}                                                     | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| dependencies       | The project's direct dependencies.                         | java.util.List | $\{project.dependencies\}                                                 | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| skip                         |Flag to determine whether to skip RPM spec file generation. | boolean           | false                         | No                    | Yes                              |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| providesExclusions |List of dependencies in the form 'groupId:artifactId' which should be excluded from the list of provided functionality. | java.util.List | <<(none)>>  | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| dependsExclusions | List of dependencies in the form 'groupId:artifactId' which should be excluded from the list of dependency functionality. | java.util.List | <<(none)>>  | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmName | Name of the RPM to be created. Specify a value if you want to override the default. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| topDir | The top directory of the RPM harvesting structure. | java.io.File | $\{project.build.directory\}/rpm-topdir | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| destDir | The Make DEST_DIR, to let the RPM harvester know how to reorient the generated RPM. | java.io.File | $\{project.build.directory\} | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| prefix | The configure prefix, to let the RPM harvester know how to build the dir structure. | java.io.File | <<(none)>> | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| release | The build number of the RPM, so you get versions like 1.2-4 which would be the fourth build of the 1.2 tarball. | String | 1 | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmNoStrip | Turn off RPM compression and symbol stripping - this really houses the Sybase RPM. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| preInstallFile | Create a simple RPM pre install mechanism. If defined, the RPM will insert the named file into the spec file that the pluggin is building (this is weak in the sense that template expansion is not occuring) | java.io.File | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| postInstallFile | Create a simple RPM post install mechanism. If defined, the RPM will insert the named file into the spec file that the pluggin is building (this is weak in the sense that template expansion is not occuring) | java.io.File | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| preUninstallFile | Create a simple RPM pre uninstall mechanism. If defined, the RPM will insert the named file into the spec file that the pluggin is building (this is weak in the sense that template expansion is not occuring) | java.io.File | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| postUninstallFile | Create a simple RPM post uninstall mechanism. If defined, the RPM will insert the named file into the spec file that the pluggin is building (this is weak in the sense that template expansion is not occuring) | java.io.File | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+  
+
+**<<<build>>> Mojo
+
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| <<Parameter>>      | <<Description>>                                                                | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]> |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| project            | MavenProject reference.                                    | MavenProject   | $\{project\}                            | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| skipBuild | Flag to determine whether to skip building the RPM package. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmName | Name of the RPM to be created. Specify a value if you want to override the default. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| topDir | The top directory of the RPM harvesting structure. | java.io.File | $\{project.build.directory\}/rpm-topdir | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| messageLevel | The Ant message level to use. | String | info | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmsDir | Directory, inside the RPM filesystem structure, where the RPM will be written. | java.io.File | <<(none)>> | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| release | The build number of the RPM, so you get versions like 1.2-4 which would be the fourth build of the 1.2 tarball. | String | 1 | Yes | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+
+
+**<<<install>>> Mojo
+
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| <<Parameter>>      | <<Description>>                                                                | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]> |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| project            | MavenProject reference.                                    | MavenProject   | $\{project\}                            | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| useSudo | Flag to determine when to use sudo to execute the rpm command. | boolean | true | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmDbPath | Directory path to the RPM database. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| forceAllInstalls | Flag to determine whether to force installations of an RPM, as well as all its dependencies even if they were detected to be already installed in the database. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| skipInstall | Flag to determine whether to skip installing the RPM. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| forceInstall | Flag to determine whether to force installations of the RPM even it is detected to be already installed. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+
+
+**<<<remove>>> Mojo
+
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| <<Parameter>>      | <<Description>>                                                                | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]> |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| projects            | MavenProject instances in the reactor.                                    | java.util.List   | $\{reactorProjects\}                            | Yes          | No                |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| useSudo | Flag to determine when to use sudo to execute the rpm command. | boolean | true | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| skipRemove | Flag to determine whether to skip removing the RPM from the database. | boolean | false | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+| rpmDbPath | Directory path to the database from which to remove the RPM. | String | <<(none)>> | No | Yes |
+*--------------------------+-------------------------------------------------------------------------+-------------------+--------------------------+-------------------+----------------------------+
+
+
+*Lifecycle Bindings
+
+  Below is the descriptor for the Make-based RPM build lifecycle:
+
++--------
+  <lifecycle>
+      <id>default</id>
+      <phases>
+          <validate>org.apache.maven.plugins:maven-make-plugin:validate-pom</validate>
+          <initialize>
+              org.apache.maven.plugins:maven-rpm-plugin:install-dependencies,
+              org.apache.maven.plugins:maven-rpm-plugin:set-project-file,
+              org.apache.maven.plugins:maven-multibuild-optimizer-plugin:check-package-staleness,
+          </initialize>
+          <compile>org.apache.maven.plugins:maven-make-plugin:compile</compile>
+          <test>org.apache.maven.plugins:maven-make-plugin:test</test>
+          <package>
+            org.apache.maven.plugins:maven-make-plugin:make-install,
+            org.apache.maven.plugins:maven-rpm-plugin:generate-spec,
+            org.apache.maven.plugins:maven-rpm-plugin:build
+          </package>
+          <install>
+            org.apache.maven.plugins:maven-install-plugin:install,
+            org.apache.maven.plugins:maven-rpm-plugin:install
+          </install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+  </lifecycle>
++--------
+
+  Notice that the lifecycle bindings are mapped against mojos from several external plugins. The sole purpose of the RPM plugin is to create and install the RPM package containing compiled binaries. It does not dictate how to build sources to generate the binaries - that's the role of the make plugin. 
+  
+  Below is a description of what each goal in the lifecycle does:
+
+  <<make:validate-pom>> 
+  Checks for existence of required pom properties. Right now, only the prefix property is required.
+  
+  <<rpm:install-dependencies>> 
+  Looks for the RPM artifacts listed as dependencies in the pom from the local repository and installs each of them into the RPM system. If a RPM binary is not found in the local repo, it attempts to get the source archive from the remote repository, unpack and build the source, create the RPM binary, store it in the local repo and install into the RPM system. If any of these dependencies have dependencies on other packages then they too are resolved and installed in the same manner (i.e., transitive dependency resolution mechanism).
+  
+  <<rpm:set-project-file>> 
+  Setup the RPM file reference for MavenProject.getArtifact().getFile(), so it can be used as a basis for determining whether to run a build or not (based on the lastMod of this file vs. the latest lastMod of the source files...this is handled in another plugin.)
+
+  <<multibuild-optimizer:check-package-staleness>> 
+  Checks if the RPM file referenced from MavenProject.getArtifact().getFile() exists and is newer than the newest source file. If so, advices the other mojos down the lifecycle that use it to decide whether to skip execution.
+  
+  <<make:compile>> 
+  Executes a Make compile target to generate binaries from the project source.
+  
+  <<make:test>>
+  Runs the make target (e.g. check) to test the compiled binaries.
+  
+  <<make:make-install>> 
+  Runs the make target to install compiled binaries directly into the system at the specified location.   
+   
+  <<rpm:generate-spec>> 
+  Generates the spec file for the RPM.
+
+  <<rpm:build>> 
+  Creates the RPM from the project binaries and the generated spec file. 
+
+  <<maven:install>> 
+  Installs the pom and RPM into the local repository.
+
+  <<rpm:install>> 
+  Installs the RPM into the RPM database.
+
+  <<maven:deploy>> 
+  Deploys the RPM to the remote repository.
+
+*References
+
+  [[1]] <<Editable parameters.>> Editable parameters are those which can be
+        specified as configuration for the plugin within the POM. 
+        
+        Those which are specified as non-editable are parameters drawn from 
+        either the inherent internal structure of the Maven build, or from 
+        other built-in structures in the POM. An example of a parameter derived 
+        from the internal Maven build structure is the reference to the project 
+        Artifact, which is constructed from POM information when the POM is 
+        loaded into memory. An example of a parameter which is derived from 
+        built-in POM structures would be the list of a project's direct 
+        dependencies, which references the \<dependencies/\> stanza in the POM.
+
+  []

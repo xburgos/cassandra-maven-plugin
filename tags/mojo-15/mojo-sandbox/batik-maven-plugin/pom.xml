@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<parent>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>mojo-sandbox</artifactId>
+		<version>2</version>
+	</parent>
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<artifactId>batik-maven-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+	<version>1.0-SNAPSHOT</version>
+	
+	<name>Batik Maven Plugin</name>
+	
+	<developers>
+		<developer>
+			<name>Mark Hobson</name>
+			<email>markhobson@gmail.com</email>
+			<roles>
+				<role>Lead Developer</role>
+			</roles>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
+	
+	<dependencies>
+		<dependency>
+			<groupId>plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+    	<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-rasterizer-ext</artifactId>
+			<version>1.6</version>
+		</dependency>
+	</dependencies>
+	
+</project>

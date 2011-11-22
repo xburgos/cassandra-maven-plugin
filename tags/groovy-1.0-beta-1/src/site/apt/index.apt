@@ -1,0 +1,87 @@
+ ------
+ Introduction
+ ------
+ ------
+ $Id$
+
+~~ 
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~  http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+~~
+
+Groovy Maven 2 Integration
+
+ Provides integration of {{{http://groovy.codehaus.org}Groovy}} into Maven 2.
+
+[images/groovy-logo.png] Groovy Logo
+
+* About Groovy
+
+ Groovy is a very powerful and dynamic language and is really well suited for
+ writting tests, build and install procedures.  It has a powerful
+ {{{http://groovy.codehaus.org/Using+Ant+from+Groovy}Ant bridge}} that let you use the
+ huge collection of tasks available around without opening a single xml tag.
+
+~~
+~~ FIXME: This is really not a very good example... either pick a better one
+~~        or drop it.
+~~
+
+ Using the an <<<xslt>>> task on a fileset is, for example, just a matter of translating the Ant's xml syntax to groovy:
+
++---
+def ant = new AntBuilder()
+
+def files = ant.fileScanner {
+    fileset(dir: srcDir) {
+        include(name: '**/*.xml')
+    }
+}
+
+for (src in files) {
+    def dst = new File(dstDir, src.name)
+    ant.xslt(in: src.path, out: dst.path, style: myxsl.path, processor: 'trax')
+}
++---
+ 
+ The ability to easily insert logic and control structures around Ant task execution
+ as well as the augmented {{{http://groovy.codehaus.org/groovy-jdk.html}Groovy JDK}}
+ methods really make Groovy an idea chose for implementing Maven plugins.
+
+* Guides
+
+ * {{{guide-groovy-plugin-development.html}Developing Groovy Plugins}}: A guide to developing Groovy plugins for Maven 2.
+ 
+ []
+
+* Maven Plugin
+
+ * {{{groovy-maven-plugin/index.html}groovy-maven-plugin}}: Supports execution and compilation of Groovy scripts from Maven.
+
+ []
+
+* Mojo Development
+
+ * {{{groovy-mojo-tools/index.html}groovy-mojo-tools}}: Provides Mojo descriptor extraction from Groovy sources.
+
+ * {{{groovy-mojo-support/index.html}groovy-mojo-support}}: Provides classes to support Groovy Mojo implementations.
+
+ * {{{groovy-mojo-archetype/index.html}groovy-mojo-archetype}}: Generate a skeleton project for a Groovy-based Maven plugin.
+
+ * {{{example-plugins/index.html}Plugin Examples}}: Examples of (some familiar) Maven 2 plugins implemented in Groovy.
+
+ []

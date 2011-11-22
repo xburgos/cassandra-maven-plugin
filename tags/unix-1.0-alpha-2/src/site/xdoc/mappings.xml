@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ -->
+<document>
+  <properties>
+    <title>About</title>
+    <author email="trygvis@codehaus.org">Trygve Laugstol</author>
+  </properties>
+  <body>
+    <section name="Mappings">
+      <p>
+        This table describe the relationship between the fields in the pom.xml and the fields in the generated package.
+      </p>
+      <table class="bodyTable">
+        <tbody>
+          <tr class="a">
+            <th>pom.xml</th>
+            <th>Unix Package</th>
+            <th>Dpkg</th>
+            <th>Pkg</th>
+            <th>Rpm</th>
+          </tr>
+          <tr class="b">
+            <td>config.contact</td>
+            <td>contact</td>
+            <td>Maintainer</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>config.contactEmail</td>
+            <td>contactEmail</td>
+            <td></td>
+            <td>EMAIL</td>
+            <td></td>
+          </tr>
+          <!-- need better name than "packageId" -->
+          <tr>
+            <td><code>package.packageId</code> or <code>${artifactId}-{classifier}</code></td>
+            <td>name</td>
+            <td></td>
+            <td>PKG</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><code>package.name</code> or <code>project.name</code></td>
+            <td>shortDescription</td>
+            <td></td>
+            <td>NAME</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><code>package.description</code> or <code>project.description</code></td>
+            <td>description</td>
+            <td></td>
+            <td>DESC</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>architecture</td>
+            <td></td>
+            <td>ARCH</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <section name="Legend">
+        <ul>
+          <li><code>package</code> refers to the configuration of the package being built.</li>
+          <li>The Unix Package is the internal field in the unified model.</li>
+        </ul>
+      </section>
+    </section>
+  </body>
+</document>

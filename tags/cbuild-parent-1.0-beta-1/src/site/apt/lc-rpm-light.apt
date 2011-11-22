@@ -1,0 +1,57 @@
+ ---
+ RPM Light Maven Lifecycle
+ ---
+ Lee Thompson <stimpy@codehaus.org>
+ ---
+ Nov 2, 2008
+ ---
+
+CBUILD RPM Light Lifecycle
+
+  The CBUILD RPM Light Lifecycle is used to covert a tarball into an RPM.  The table
+  below shows the different phases of the RPM Lifecycle and the goals (including
+  standard maven goals) attached to them.
+
+*------------------------+--------------------------------------------------------------------------------------------------------+
+| <<Phase>>              | <<Goals>>                                                                                              |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| validate               | {{cbuild-plugin-parent/rpm-cbuild-maven-plugin/platform-detect-mojo.html}Detect OS, Arch, version}}    |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| initialize             | {{{cbuild-plugin-parent/build-on-demand-maven-plugin/resolve-mojo.html}resolve dependencies}},         |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/resolve-patches-mojo.html}resolve patches}},                |
+|                        | {{{http://maven.apache.org/plugins/maven-dependency-plugin/copy-mojo.html}resolve tarball}},           |
+|                        | {{{cbuild-plugin-parent/make-maven-plugin/unpack-mojo.html}unpack tarball}}                            |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| generate-sources       |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-sources        | {{{cbuild-plugin-parent/patch-maven-plugin/apply-directory-mojo.html}patch sources}}                   |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-resources      |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| generate-resources     |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| compile                |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-classes        |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-test-resources |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| test-compile           |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| test                   |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| package                | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/generate-spec-mojo.html}generate spec}},               |
+|                        | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/build-mojo.html}build}},                               |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/package-patches-mojo.html}package patches}},                |
+|                        | {{{http://maven.apache.org/plugins/maven-jar-plugin/jar-mojo.html}make dummy jarfile}}                 |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| integration-test       |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| install                | {{{http://maven.apache.org/plugins/maven-install-plugin/install-mojo.html}install artifacts to repo}}, |
+|                        | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/install-mojo.html}install rpm to system}},             |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/purge-local-patch-artifact-mojo.html}purge patch}}          |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| deploy                 | {{{http://maven.apache.org/plugins/maven-deploy-plugin/deploy-mojo.html}deploy}}                       |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+RPM Light CBUILD Lifecycle
+

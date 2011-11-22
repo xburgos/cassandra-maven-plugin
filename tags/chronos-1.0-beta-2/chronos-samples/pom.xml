@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>chronos-samples</artifactId>
+  <version>1.0-beta-2</version>
+  <packaging>pom</packaging>
+  <name>chronos-samples</name>
+  <description>A collection of small sample projects to test/demonstrate functionality</description>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos</artifactId>
+    <version>1.0-beta-2</version>
+  </parent>
+
+    <properties>
+        <property name="chronos.version" value="1.0-beta-2-SNAPSHOT-SNAPSHOT-SNAPSHOT" />
+    </properties>
+
+  <profiles>
+    <profile>
+      <id>maven-2</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <modules>
+        <module>minimalconfigmaven2</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>maven-3</id>
+      <activation>
+        <file>
+          <!--  This employs that the basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+          <exists>${basedir}</exists>
+        </file>
+      </activation>
+      <modules>
+        <module>minimalconfig</module>
+        <module>minimalconfigwithchecks</module>
+        <module>minimalreport</module>
+        <module>jmeterjunitsamples</module>
+        <module>historytest</module>
+        <module>multiple</module>
+      </modules>
+    </profile>
+
+  </profiles>
+
+</project>

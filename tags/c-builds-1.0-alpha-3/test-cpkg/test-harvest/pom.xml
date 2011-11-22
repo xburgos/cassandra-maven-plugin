@@ -1,0 +1,34 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg-archive-harvest-em</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+ 
+  <groupId>com.myco</groupId>
+  <artifactId>foo</artifactId>
+  <version>1.2.3</version>
+
+  <packaging>rpm</packaging>
+
+  <properties>
+    <release>1</release>
+    <EMPkgNameDir>foo</EMPkgNameDir>
+    <prefix>${EMNoArchPrefix}</prefix>
+  </properties>
+
+  <build>
+   <plugins>
+    <plugin>
+     <groupId>org.codehaus.mojo</groupId>
+     <artifactId>rpm-cbuild-maven-plugin</artifactId>
+     <configuration>
+      <skipPlatformPostfix>true</skipPlatformPostfix>
+     </configuration>
+    </plugin>
+   </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,13 @@
+ ------
+ Maven 2 Commons Attributes plugin 
+ ------
+ carlos@apache.org
+ ------
+ March 15 2006
+ ------
+
+Introduction
+
+ Provides the {{{http://jakarta.apache.org/commons/attributes/}Apache Commons Attributes}} compiler.
+ It generates the sources required to support the use of the Commons Attributes API.
+ 

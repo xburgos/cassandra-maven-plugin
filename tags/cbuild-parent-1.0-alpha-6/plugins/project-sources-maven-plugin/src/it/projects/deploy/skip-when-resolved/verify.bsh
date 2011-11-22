@@ -1,0 +1,5 @@
+import java.io.*;
+
+File repoFile = new File( basedir, "target/deployment-repository/org/codehaus/mojo/projectsources/it/skip-when-resolved/1/skip-when-resolved-1-project-sources.zip" );
+
+return !repoFile.exists();

@@ -1,0 +1,29 @@
+ ------
+ Settings
+ ------
+ Dan T. Tran
+ <dantran@gmail.com>
+ ------
+ 2010-02-15
+ ------
+
+Settings
+
+
+  You can hide the username/password in your <<<settings.xml>>>. Just ensure that you configure <<<settingsKey>>> in your
+  POM, otherwise it will use your database's URL as a lookup key.
+
+--------------------
+<settings>
+  [...]
+  <servers>
+    <server>
+      <id>sensibleKey</id>
+      <username>postgres</username>
+      <password>password</password>
+    </server>
+    [...]
+  </servers>
+  [...]
+</settings>
+--------------------

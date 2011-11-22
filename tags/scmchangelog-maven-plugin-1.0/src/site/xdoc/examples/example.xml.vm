@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <author email="ehsavoie73@gmail.com">Emmanuel Hugonnet</author>
+    <title>Configuration</title>
+  </properties>
+  <head>
+    <meta/>
+  </head>
+  <body>
+    <section name="Basic Example">
+      <p>Here we have a basic configuration example. We suppose that the &lt;issueManagement&gt; and &lt;scm&gt; 
+      elements are configured</p>
+      <p>
+        <source>
+ &lt;reporting&gt;
+   &lt;plugins&gt;
+     &lt;plugin&gt;
+       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+       &lt;artifactId&gt;scmchangelog-maven-plugin&lt;/artifactId&gt;
+       &lt;version&gt;${currentVersion}&lt;/version&gt;
+     &lt;/plugin&gt;
+         ...
+    &lt;/plugins&gt;
+ &lt;/reporting&gt;
+        </source>
+      </p>
+    </section>
+    
+    <section  name="Advanced Configuration">
+      <p>Here we have configured the plugin overriding the &lt;issueManagement&gt; and &lt;scm&gt; elements. <br/>
+        We have specified :
+        <ul>
+          <li>the tracker url pattern : which is the url to the bug tracker list.</li>
+          <li>the tracker type : sourceforge or jira (currently)</li>
+          <li>the grammar : MANU or REMY</li>
+          <li>the connectionUrl : the same as the &lt;connectionUrl&gt; element in the&lt;scm&gt; element.</li>
+          <li>the tagBase : the url to the tags directory.</li>
+        </ul>
+      </p>
+      <p>
+        <source>
+ &lt;reporting&gt;
+   &lt;plugins&gt;
+     &lt;plugin&gt;
+       &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+       &lt;artifactId&gt;scmchangelog-maven-plugin&lt;/artifactId&gt;
+       &lt;version&gt;${currentVersion}&lt;/version&gt;
+       &lt;configuration&gt;
+         &lt;trackerUrlPattern&gt;http://sourceforge.net/tracker/?atid=637380&amp;group_id=104240&amp;func=browse&lt;/trackerUrlPattern&gt;
+         &lt;trackerType&gt;sourceforge&lt;/trackerType&gt;
+         &lt;grammar&gt;REMY&lt;/grammar&gt;
+         &lt;connectionUrl&gt;scm:svn:https://retroweaver.svn.sourceforge.net/svnroot/retroweaver/trunk&lt;/connectionUrl&gt;
+         &lt;tagBase&gt;https://retroweaver.svn.sourceforge.net/svnroot/retroweaver/tags/&lt;/tagBase&gt;
+       &lt;/configuration&gt;
+     &lt;/plugin&gt;
+   &lt;/plugins&gt;
+ &lt;/reporting&gt;
+        </source>
+      </p>
+    </section>
+  </body>
+</document>

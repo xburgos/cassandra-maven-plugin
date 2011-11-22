@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faqs id="FAQ" title="Frequently Asked Questions">
+  <part id="General">
+    <faq id="Backport">
+      <question>Why was to code backported from Maven 3.x to 2.x?</question>
+      <answer>
+        <p>
+          Out of frustration mainly.  The code kept breaking while it was bound to the SNAPSHOT
+          releases of the maven development tree.  There are numerous features that are needed
+          to complete the functionality of these plugins and development on a stable version
+          of maven may produce more forward progress.
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.cbuild-parent.it.rpms</groupId>
+  <artifactId>openssl</artifactId>
+  <version>0.9.8k-4</version>
+  <packaging>rpm</packaging>
+  
+  <parent>
+    <groupId>org.codehaus.mojo.cbuild-parent.it</groupId>
+    <artifactId>it-project-parent</artifactId>
+    <version>1</version>
+  </parent>
+
+  <name>Open source implementation of Secure Socket Layer protocol</name>
+  <description>
+    The OpenSSL project is a full-featured open source implementation of the
+    Secure Socket Layer (SSL v2/v3) and Transport Layer Security (TLS v1)
+    protocols and a full-strength general purpose crytography library.
+  </description>
+  <url>http://www.openssl.org/</url>
+
+  <licenses>
+    <license>
+      <name>OpenSSL and SSLeay License</name>
+      <url>http://www.openssl.org/source/license.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <profiles>
+    <profile>
+      <id>openssl-linux-build</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <opensslMachineProfile>linux-elf --with-rpath</opensslMachineProfile>
+      </properties>
+    </profile>
+    <profile>
+      <id>openssl-linux64-build</id>
+      <activation>
+        <os>
+          <family>unix</family>
+          <name>linux</name>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <properties>
+        <opensslMachineProfile>linux-generic64 --with-rpath</opensslMachineProfile>
+      </properties>
+    </profile>
+    <profile>
+      <id>openssl-mac-build</id>
+      <activation>
+        <os>
+          <family>mac</family>
+        </os>
+      </activation>
+      <properties>
+        <opensslMachineProfile>darwin-i386-cc</opensslMachineProfile>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        <configuration>
+          <patches>
+            <patch>${project.artifactId}-0.9.8-rpath.patch</patch>
+            <patch>${project.artifactId}-0.9.8-macintosh.patch</patch>
+          </patches>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <configuration>
+          <configureCommand>Configure</configureCommand>
+          <configureOptions>
+            <configureOption implementation="java.lang.String">--install_prefix=${pkgBasedir}</configureOption>
+            <configureOption implementation="java.lang.String">--openssldir=@prefix@/share/ssl</configureOption>
+            <configureOption implementation="java.lang.String">shared</configureOption>
+            <configureOption implementation="java.lang.String">zlib-dynamic</configureOption>
+            <configureOption implementation="java.lang.String">threads</configureOption>
+            <!-- http://www.openssl.org/support/faq.html#LEGAL1 -->
+            <configureOption implementation="java.lang.String">no-idea no-mdc2 no-rc5</configureOption>
+            <configureOption implementation="java.lang.String">${opensslMachineProfile}</configureOption>
+          </configureOptions>
+
+          <installOptions>
+            <installOption implementation="java.lang.String">MANDIR=@manPrefix@</installOption>
+            <installOption implementation="java.lang.String">MANSUFFIX=ssl</installOption>
+          </installOptions>
+
+          <testTarget>test</testTarget>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

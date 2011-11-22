@@ -1,0 +1,170 @@
+ ------
+ Maven 2 dependency Plugin
+ ------
+
+How to use
+
+ Brief examples on how to use the dependency goals.
+ 
+* How to use dependency:copy
+
+   This goal is meant to be bound to a lifecycle and configured in your pom.xml. 
+   It will resolve the artifact from the repository and place a copy in the specified location. 
+   Multiple artifacts can be defined in a single execution. A default output directory is 
+   specified but can be overriden for each ArtifactItem by setting the optional outputDirectory field.
+   An optional new name can be set to rename while copying. 
+   The artifact version is optional. If not set, the plugin will attempt to resolve 
+   from the dependencyManagement section.
+
+-------------------
+<project>
+
+  ...
+  <build>
+   <plugins>
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dependency-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+                <artifactItems>
+                  <artifactItem>
+                     <groupId>junit</groupId>
+                     <artifactId>junit</artifactId>
+                     <version>3.8.1</version>
+                     <type>jar</type>
+                     <outputDirectory>${project.build.directory}/alternateLocation</location>
+                     <destFileName>optional-new-name.jar</destFileName>
+                   </artifactItem>
+                 </artifactItems>
+               <outputDirectory>${project.build.directory}/wars</outputDirectory>
+            </configuration>
+          </execution>
+        </exections>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+* How to use dependency:copy-dependencies
+
+   This goal is meant to be bound to a lifecycle and configured in your pom.xml. 
+   It will resolve the dependencies (including transitive dependencies) from the repository 
+   and place a copy in the specified location. 
+
+-------------------
+<project>
+
+  ...
+  <build>
+   <plugins>
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dependency-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>copy-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/alternateLocation</outputDirectory>
+            </configuration>
+          </execution>
+        </exections>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+
+* How to use dependency:unpack
+
+   This goal is meant to be bound to a lifecycle and configured in your pom.xml. 
+   It will resolve the artifact from the repository and place a copy in the specified location. 
+   Multiple artifacts can be defined in a single execution. A default outputDirectory is specified 
+   but can be overriden for each ArtifactItem by setting the optional outputDirectory field.
+   Once the artifact is unpacked, it will not get unpacked again.
+   The artifact version is optional. If not set, the plugin will attempt to resolve 
+   from the dependencyManagement section.
+
+-------------------
+<project>
+
+  ...
+  <build>
+   <plugins>
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dependency-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+                <artifactItems>
+                  <artifactItem>
+                     <groupId>junit</groupId>
+                     <artifactId>junit</artifactId>
+                     <version>3.8.1</version>
+                     <type>jar</type>
+                     <ouputDirectory>${project.build.directory}/alternateLocation</ouputDirectory>
+                   </artifactItem>
+                 </artifactItems>
+               <outputDirectory>${project.build.directory}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+* How to use dependency:unpack-dependencies
+
+   This goal is meant to be bound to a lifecycle and configured in your pom.xml. 
+   It will resolve the dependencies (including transitive dependencies) from the repository 
+   and unpack them to the specified location. 
+   
+-------------------
+<project>
+
+  ...
+  <build>
+   <plugins>
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dependency-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack-dependencies</id>
+            <phase>package</phase>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/alternateLocation</outputDirectory>
+            </configuration>
+          </execution>
+        </exections>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+
+  For full documentation, click {{{index.html}here}}.

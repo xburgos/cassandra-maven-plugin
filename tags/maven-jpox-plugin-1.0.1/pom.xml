@@ -1,0 +1,39 @@
+<project>
+  <parent>
+    <artifactId>mojo</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>2</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>maven-jpox-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Maven JPox Plugin</name>
+  <version>1.0.1</version>
+  <dependencies>
+    <dependency>
+      <groupId>jpox</groupId>
+      <artifactId>jpox-enhancer</artifactId>
+      <version>1.1.0-beta-4</version>
+    </dependency>
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <groupId>jpox</groupId>
+      <artifactId>jpox</artifactId>
+      <version>1.1.0-beta-4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>2.0-beta-1</version>
+    </dependency>
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+      <version>1.0-alpha-6</version>
+    </dependency>
+  </dependencies>
+</project>

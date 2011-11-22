@@ -1,0 +1,14 @@
+<document>
+  <properties>
+    <author email="m2@corridor-software.us">Kris Bravo</author>
+    <title>Introduction</title>
+  </properties>
+  <head/>
+  <body>
+    <section name="Introduction">
+      <p>
+         This plugin adds support for the 2.0 version of the <a href="http://xmlbeans.apache.org/">Apache XML Beans project</a>. 
+      </p>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myco.m2</groupId>
+  <artifactId>myco-parent</artifactId>
+  <version>2.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <cbuildsPluginVersion>1.0-alpha-3-SNAPSHOT</cbuildsPluginVersion>
+  </properties>
+
+  <!-- jdcasey - Adding deployment repository here to allow resolution of deployed
+                 project-sources and patch-sets at build-time.
+  -->
+  <repositories>
+    <repository>
+      <id>fs_repo</id>
+      <name>File System Repo</name>
+      <url>file://${user.home}/mvn_p6</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>codehaus.releases</id>
+      <url>http://repository.codehaus.org</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>codehaus.snapshots</id>
+      <url>http://snapshots.repository.codehaus.org</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav</artifactId>
+        <version>1.0-beta-1</version>
+      </extension>
+    </extensions>
+  </build>
+
+ <distributionManagement>
+  <!-- rhoover - these are hacks to deploy to the file system until 
+                 the wagon svn work is done
+  -->
+  <repository>
+    <id>fs_repo</id>
+    <name>File System Repo</name>
+    <url>file://${user.home}/mvn_p6</url>
+  </repository>
+  <!-- jdcasey - eliminating the duplicate repository declaration for snapshots,
+                 since snapshot deployment will default to the normal repository
+                 when no snapshotRepository is defined.
+  -->
+ </distributionManagement>
+
+</project>
+

@@ -1,0 +1,37 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>jrpm</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+ 
+  <groupId>com.myco</groupId>
+  <artifactId>blah</artifactId>
+  <version>1.4.2_09</version>
+  <packaging>jrpm</packaging>
+
+  <properties>
+    <EMPkgNameDir>blah2</EMPkgNameDir> 
+    <projectDirectoryName>j2blah-${version}</projectDirectoryName>
+
+    <unpackSubpath>j2${project.artifactId}-${project.version}</unpackSubpath>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        <configuration>
+          <patchingEnabled>false</patchingEnabled>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

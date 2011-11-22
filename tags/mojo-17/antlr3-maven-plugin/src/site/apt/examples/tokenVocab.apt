@@ -1,0 +1,27 @@
+ ------
+ Specifying Location of .tokens File for tokenVocab
+ ------
+ David Holroyd
+ ------
+ May 2007
+ ------
+
+Specifying Location of .tokens File for tokenVocab
+
+ Using the <<<tokenVocab>>> option in a grammar to reference a <<<.tokens>>>
+ file that has ended up in a 'package' folder unfortunately requires you
+ to specify the location of the generated file.
+
+ If, for example, you want to import a token vocabulary from a lexer in package
+ <<<my.pkg>>>, just put the following in the mojo configuration:
+
++-----+
+  ...
+  <configuration>
+    <libDirectory>target/generated-sources/antlr/my/pkg</libDirectory>
+  </configuration>
+  ...
++-----+
+
+ In a future release, the plugin may be able to locate the file for itself,
+ if within the same project, making this option redundant.

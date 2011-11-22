@@ -1,0 +1,70 @@
+<!--
+
+   Copyright 2006 The Apache Software Foundation.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+ 
+        http://www.apache.org/licenses/LICENSE-2.0
+ 
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<document>
+  <properties>
+    <title>Changes in the Maven XML Plugin</title>
+  </properties>
+  <body>
+    <release version="1.0-beta-2-SNAPSHOT" date="Not yet released">
+      <action dev="jochen" type="fix"
+          due-to="Jonathan Card" due-to-email="joncard93@hotmail.com"
+          issue="MOJO-608">
+        Fixed a misleading error message.
+      </action>
+      <action dev="jochen" type="add"
+        due-to="Andrew Thornton" due-to-email="art27@cantab.net">
+          Add support for XSLT parameters when transforming.
+      </action>
+      <action dev="jochen" type="fix"
+        due-to="Andrew Thornton" due-to-email="art27@cantab.net">
+          SAXSource is now used instead of StreamSource, in order
+          to ensure that the resolver is used.
+      </action>
+      <action dev="jochen" type="fix"
+        due-to="Panda C" due-to-email="thinkpanda@gmail.com">
+          XML schema validation wasn't turned on by the ValidateMojo.
+      </action>
+      <action dev="jochen" type="fix" issue="MOJO-378">
+        The plugin does now honor the Maven proxy settings.
+      </action>
+      <action dev="jochen" type="add" issue="MOJO-631">
+        Added support for file mappers when transforming files.
+      </action>
+    </release>
+    <release version="1.0-beta-1" date="29-Nov-2006">
+      <action dev="jochen" type="fix" issue="MOJO-446"
+        due-to="Anagnostopoulos Kostis" due-to-email="ankostis@gmail.com">
+          Add use of the default excludes. Also add the configuration parameter
+          skipDefaultExcludes for turning them off.
+      </action>
+      <action dev="jochen" type="fix" issue="MOJO-448"
+        due-to="Anagnostopoulos Kostis" due-to-email="ankostis@gmail.com">
+          Absolute paths have been unsupported.
+      </action>
+      <action dev="jochen" type="fix" issue="MOJO-453"
+        due-to="Anagnostopoulos Kostis" due-to-email="ankostis@gmail.com">
+          The plugin does now check, whether the generated files are uptodate.
+      </action>
+    </release>
+    <release version="0.1" date="25-Jun-2006">
+      <action dev="jochen" type="add">
+          Initial release
+      </action>
+    </release>
+  </body>
+</document>

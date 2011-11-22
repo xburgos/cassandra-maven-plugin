@@ -1,0 +1,72 @@
+ ---
+ RPM-STB Maven Lifecycle
+ ---
+ Lee Thompson <stimpy@codehaus.org>
+ ---
+ Nov 2, 2008
+ ---
+
+CBUILD RPM Source Tarball Lifecycle
+
+  The CBUILD RPM source tarball lifecycle is a fascad on top of the standard
+  autoconf lifecycle adding maven dependency management and project management.
+  Patching is a big part of the lifecycle.  This project assumes you are not doing
+  development, just packaging someone elses upstream work as a depedency. The table
+  below shows the different phases of the RPM-STB Lifecycle and the goals
+  (including standard maven goals) attached to them.
+
+* Incomplete
+
+  This is still being designed for the Beta release and will probably need to
+  utilize remote-source-maven-plugin or project-sources-maven-plugin to get the
+  source tarball of the upstream's project download site.  If
+  project-sources-maven-plugin is used, remote-source-maven-plugin should be
+  obsoleted.
+
+*------------------------+-------------------------------------------------------------------------------------------------------------+
+| <<Phase>>              | <<Goals>> goals in beta release in <italics>                                                                |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| validate               | {{{cbuild-plugin-parent/make-maven-plugin/validate-pom-mojo.html}validate-pom}}                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| initialize             | {{{cbuild-plugin-parent/build-on-demand-maven-plugin/resolve-mojo.html}resolve dependencies}},              |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/resolve-patches-mojo.html}resolve patches}},                     |
+|                        | {{{cbuild-plugin-parent/project-sources-maven-plugin/resolve-project-sources-mojo.html}resolve sources}},   |
+|                        | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/set-project-file-mojo.html}set project file}},              |
+|                        | {{{cbuild-plugin-parent/multibuild-optimizer-maven-plugin/check-package-staleness-mojo.html}chk pkg stale}} |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| generate-sources       | <download-project-sources> see {{{http://java.freehep.org/freehep-nar-plugin/intro.html#nar-download}NAR}}  |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| process-sources        | <unpack-project-sources> see {{{http://java.freehep.org/freehep-nar-plugin/intro.html#nar-unpack}NAR}},     |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/apply-directory-mojo.html}apply directory}}                      |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| process-resources      |                                                                                                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| generate-resources     | {{{cbuild-plugin-parent/make-maven-plugin/configure-mojo.html}configure}}                                   |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| compile                | {{{cbuild-plugin-parent/make-maven-plugin/compile-mojo.html}compile}}                                       |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| process-classes        |                                                                                                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| process-test-resources |                                                                                                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| test-compile           |                                                                                                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| test                   | {{{cbuild-plugin-parent/make-maven-plugin/test-mojo.html}test}}                                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| package                | {{{cbuild-plugin-parent/make-maven-plugin/make-install-mojo.html}make install}},                            |
+|                        | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/generate-spec-mojo.html}generate spec}},                    |
+|                        | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/build-mojo.html}build}},                                    |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/package-patches-mojo.html}package patches}},                     |
+|                        | {{{cbuild-plugin-parent/make-maven-plugin/make-dist-mojo.html}make dist}} was <<package-project-sources>>   |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| integration-test       |                                                                                                             |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| install                | install,                                                                                                    |
+|                        | {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/install-mojo.html}install}},                                |
+|                        | {{{cbuild-plugin-parent/patch-maven-plugin/purge-local-patch-artifact-mojo.html}purge patch}}               |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+| deploy                 | deploy,                                                                                                     |
+|                        | {{{cbuild-plugin-parent/project-sources-maven-plugin/deploy-project-sources-mojo.html}deploy project src}}  |
+*------------------------+-------------------------------------------------------------------------------------------------------------+ 
+RPM CBUILD Lifecycle
+

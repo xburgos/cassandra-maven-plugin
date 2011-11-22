@@ -1,0 +1,5 @@
+- generate-prototype: Ability to set a "root" directory that tells where to start searching for files.
+
+This will remove the need for the user to list "/opt" as a "? ? ?" directory.
+
+- <prototypeEntryCollections>: create lots of examples!

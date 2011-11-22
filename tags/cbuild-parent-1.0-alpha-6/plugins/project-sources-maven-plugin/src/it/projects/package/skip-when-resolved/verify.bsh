@@ -1,0 +1,5 @@
+import java.io.*;
+
+File packagedArchive = new File( basedir, "target/skip-when-resolved-1-project-sources.zip" );
+
+return !packagedArchive.exists();

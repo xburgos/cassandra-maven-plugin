@@ -1,0 +1,209 @@
+ ------
+ Introduction
+ ------
+ Lee Thompson <stimpy@codehaus.org>
+ ------
+ 13 Nov 2008
+ ------
+
+
+C-BUILDS maven plugins
+
+  The c-builds plugins were developed with the recognition that any distributed
+  application of even modest complexity will involve numerous languages, tools, and
+  approaches within the computing end-points of the whole applications construct.
+  The first goal of these plugins are to utilize a generic lifecycle facade that maven 
+  utilizes over non-java development processes.  Another major goal is to make a
+  source and binary repository for both development and operations.  The approach is
+  decidedly tool-chain in approach by leveraging existing stable infrastructure like
+  gnu's autotools, RPM and (for 1.0-beta) a package transmission system like YUM.
+
+* Opinionated Software
+
+  Ruby on Rails (RoR) has been described as
+  {{{http://www.oreillynet.com/pub/a/network/2005/08/30/ruby-rails-david-heinemeier-hansson.html}
+  opinionated software}} in that the designers of the RoR had strong opinions of how
+  to develop an app and implemented those opinions into the implementation of RoR.
+  Maven could be described as opinionated by that definition.  This software is also
+  opinionated and its best to know those opinions before you spend to much time with
+  it.  So to not waste your time, here are some of those opinions.
+
+* Language Nuetrality
+
+  A hammer is no better than a screwdriver which is no better than a saw.  Likewise,
+  C is not better than Java which is not better than Perl which is no better than Ruby.
+  They are tools to be used when appropriate.  You don't use a screwdriver on a nail
+  and likewise, its almost unheard of to implement a small command line utility in Java
+  for instance and text processing in 'C' is painful.  Large complex businesses usually
+  end up with lots of languages and implementation approaches and that is fine.
+
+* Managing Dependencies starts in Development
+
+  Modern development make exensive use of external projects mainly because "Programmers are
+  Lazy" and that is a good thing...
+
+  * A good programmer is lazy, impatient, and proud.  Lazy so they won't want to work
+  hard, just smart.  Impatient so they won't waste their time doing stupid repetitive
+  tasks.  And proud so they make their code the best that it can be.   Larry Wall - 1991
+
+  * I'm a pretty lazy person, and am prepared to work quite hard in order to avoid work.
+  Martin Fowler "Refactoring" - 1999
+
+  * for a lazy programmer to be a good programmer, he (or she) also must be incredibly
+  unlazy when it comes to learning how to stay lazy \- that is, which software tools
+  make his work easier, which approaches avoid redundancy, and how he can make his
+  work be maintained and refactored easily.   
+  {{{http://blogoscoped.com/archive/2005-08-24-n14.html}Phillipe Lenssen - 2005}}
+
+  []
+
+  So, lazy is allegorical and not to be taken literally.  A common trait of
+  allegorially lazy programmers is to leverage their professional community which
+  is increasingly sharing technique in open source form.  By committing yourself to the
+  minimum amount of work, you typically generate 10 are more external dependencies
+  before you even start a single line of code.
+
+  The problem is how to deal with those dependencies throughout the development, QA, and 
+  Release processes.  If you have a homogeneous application construct in a single language
+  you will look to the language specific tooling; Gems for Ruby, CPANPLUS for Perl, Maven
+  for Java and probably some variation of BSD Ports for 'C' style langauges (Gentoo,
+  MacPorts, etc).  In the worst case, you have a large application written in several
+  languages and no tooling at all or separate tooling in development, QA, and Production
+  to deal with those artifacts for every language you use.
+
+  Philosophically, this project considers dependency management one of the biggest 
+  problems with being "lazy" when you utilize other works as external dependencies.  So
+  to work hard at being lazy, this project will develop tools to move the problem into the
+  scope of software development to precisely define dependencies in the development tool
+  and generate artifacts that assert their dependencies throughout the artifacts
+  lifespan.  Once the developer defines dependency parameters during development, the 
+  released artifact will start moving through QA and Production Release lifecycles where 
+  the package will continue to assert its preconditions even when the development tool
+  is not present (see below).
+
+* Project Automation
+
+  Development of the CBUILDS plugins was inspired by the hope that maven had implemented
+  a generic development lifecycle engine and that lifecycle could be used across language
+  boundaries to make the methodologies across languages more consistent.  No matter the 
+  syntax, the basics of any software project is design/build/run/test/document/release.
+  Maven's software project automation has good "convention over configuration" mechanisms
+  for build/run/test/document/release with the added benefit of satisfying external 
+  dependencies specified once a maven repo is built up.  The obvious goal is to allow
+  consistent tooling across syntactical boundaries so that better collaboration can
+  occur when developers develop with different implementation syntax.  Language specific
+  build/run/test/document/release tools would be interfaced into the maven lifecycle so 
+  that maintainence engineers going from a LAMP app to a Tomcat app have a shorter
+  learning curve.  Obviously required project paperwork like release notes, roadmaps,
+  useage examples, and project home page updates can be implemented across all projects
+  in a conventional, maven standard way.
+
+* Language Nuetral Packaging
+
+  RPM, Debian, and Conary are the most language nuetral binary package formats out there.
+  RPM was selected for the 1.0 release and these plugins use maven project metadata from
+  the "pom.xml" file to generate an RPM package automatically.  Java packaging formats
+  are too language specific.
+
+* No Development Tools in Production
+
+  Maven is considered by this project to be a development tool and not a deployment tool
+  so efforts are made to hand off released artifacts to a formal package deployment
+  network.  YUM, an elegantly simple package network, is to be used for the version 1.0
+  release of CBUILDS.
+
+  Maven, being a development tool, is used as a tool for creating developer produced 
+  variations and capturing external dependencies early as possible with maven's dependency
+  declarations in the pom.xml file.  When development is complete, a formal handoff
+  to YUM is done to define and enforce distributed systems uniformity in a server farm.
+
+PLUGINS
+
+  Current utility objects and plugins underneath the master cbuild-parent are
+  
+* {{{cbuild-utils/index.html}cbuild-utils}}
+
+  Utility objects for the plugins including BuildAdvisor which stores state about the build.
+
+* {{{cbuild-plugin-parent/cbuild-lifecycles/index.html}cbuild-lifecycles}}
+
+  The definition of the packaging types and the lifecycles which utilize these plugins.
+  
+* {{{cbuild-plugin-parent/platform-detector-maven-plugin/index.html}
+  platform-detector-maven-plugin}}
+
+  Utilities and an initialization goal which detects details about your Operating
+  System which will be utilized during configure/complile/package.  State is stored
+  via the BuildAdvisor cookie storage and retrieval object.
+
+* {{{cbuild-plugin-parent/project-sources-maven-plugin/index.html}
+  project-sources-maven-plugin}} 
+
+  Mojo used to retrieve and unpack source tarballs from the maven repo.
+
+* {{{cbuild-plugin-parent/remote-source-maven-plugin/index.html}
+  remote-source-maven-plugin}} 
+
+  Mojo used to retrieve and unpack source tarballs off the internet.
+
+* {{{cbuild-plugin-parent/patch-maven-plugin/index.html}patch-maven-plugin}}
+
+  Utilizing patches on released code is often the most pragmatic and stable method 
+  of systems development.  This Mojo is utilized to apply and store the patches.  
+  This plugin utilizes BuildAdvisor to detect when maven is calling it more than once.
+
+* {{{cbuild-plugin-parent/make-maven-plugin/index.html}make-maven-plugin}}
+
+  Mojo implements the autotools lifecycle which is configure \-\> make \-\>
+  make check \-\> make install.  Need to extend this Mojo to call "make distcheck".
+
+* {{{cbuild-plugin-parent/shell-maven-plugin/index.html}shell-maven-plugin}}
+
+  Mojo to execute a lifecycle goal from a shell script.  Typically used when a package
+  sings it's own tune when being built and this plugin facilitates getting the package
+  into the maven facade.  If this plugin is used for a similar use case across a few 
+  different packages, it is probably time to look into extending a maven pluging to add
+  this use case.
+
+* {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/index.html}rpm-cbuild-maven-plugin}}
+
+  Mojo will take the output of the make-maven-plugin staged install directory (aka DESTDIR) 
+  and package it into an RPM.  It will also preserve the POM's dependencies in the package.
+
+* {{{cbuild-plugin-parent/build-on-demand-maven-plugin/index.html}
+  build-on-demand-maven-plugin}}
+
+  Mojo used to resolve and build/install dependencies in various modes.
+
+* {{{cbuild-plugin-parent/multibuild-optimizer-maven-plugin/index.html}
+    multibuild-optimizer-maven-plugin}}
+
+  Mojo is used to determine if a package is stale and a rebuild is needed.  State is
+  stored using BuildAdvisor.
+
+* cbuild-profile-activators
+
+  Functionality on hold for maven 3.x and commented out of the build.  This was developed
+  with the intent of allowing a project's pom to specify a profile item to select
+  packaging variations defined in a parent POM.  With the downgrade to maven 2.0.9,
+  this plugin broke and will be back when maven 3.x comes out.  Until then, variation
+  is supported by defining lots of parent pom hierachies and inherting from a parent
+  which has the properties applicable to your build.
+
+Usage
+
+  Instructions on how to use the C-BUILDS maven plugins can be found on the
+  {{{usage.html}usage page}}.
+
+News
+
+  This system of plugins are still alpha release quality.  It was bound to yet to be
+  released maven 3.x functionality since January '07.  In Fall '08, to re-kick functional
+  development, the decision was made to downport the code to maven 2.x forgoing 
+  features that require the 3.x codebase. What little was gained with maven 3.x was 
+  quickly eaten up by instability and a lack of forward progress.  Goals for Beta and
+  1.0 realeases were also defined in fall '08.
+
+* Examples
+
+  TBD

@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.cbuild-parent.it</groupId>
+  <artifactId>it-project-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1</version>
+  <name>it-project-parent</name>
+
+  <parent>
+    <artifactId>parent</artifactId>
+    <groupId>org.codehaus.mojo.cbuild-parent.it</groupId>
+    <version>@project.version@</version>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>integration.test.remote.repo</id>
+      <url>@test.remote.repo.url@</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>integration.test.deploy.repo</id>
+      <url>@test.deploy.repo.url@</url>
+    </repository>
+  </distributionManagement>
+
+  <profiles>
+    <profile>
+      <id>rpm-linux-build</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <rpm5>false</rpm5>
+      </properties>
+    </profile>
+    <profile>
+      <id>rpm-mac-build</id>
+      <activation>
+        <os>
+          <family>mac</family>
+        </os>
+      </activation>
+      <properties>
+        <rpm5>true</rpm5>
+      </properties>
+    </profile>
+  </profiles>
+
+  <build>
+    <!--pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>truezip-maven-plugin</artifactId>
+          <version>1.0-beta-2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement-->
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cbuild-lifecycles</artifactId>
+        <!-- extension plugins must specify version are bad stuff happens -->
+        <version>@project.version@</version>
+        <extensions>true</extensions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <!-- plexus tar unarchiver doesn't unpack complex tarballs like openssl correctly -->
+        <configuration>
+          <artifactItems>
+            <artifactItem>
+              <groupId>org.codehaus.mojo.cbuild-parent.it.stbs</groupId>
+              <artifactId>${project.artifactId}</artifactId>
+              <version>${DYNAMIC.CBUILDPROP.RPM.VERSION}</version>
+              <type>tar.gz</type>
+            </artifactItem>
+          </artifactItems>
+          <outputDirectory>${project.build.directory}</outputDirectory>
+        </configuration>
+      </plugin>
+
+      <!-- This is faster than dependency-maven-plugin, but still buggy
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>truezip-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <fileset>
+                <directory>${project.build.directory}/${project.artifactId}-${DYNAMIC.CBUILDPROP.RPM.VERSION}.tar.gz</directory>
+                <outputDirectory>${project.build.directory}</outputDirectory>
+              </fileset>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin-->
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-cbuild-maven-plugin</artifactId>
+        <!-- extension plugins must specify version are bad stuff happens -->
+        <version>@project.version@</version>
+        <extensions>true</extensions>
+        <configuration>
+          <prefix>@prefix@</prefix>
+          <rpmDbPath>@project.build.directory@/rpm-db</rpmDbPath>
+          <useSudo>false</useSudo>
+          <!-- RPM v4.4.6 introduced directory dependencies, you probably don't want that -->
+          <noParentDirs>${rpm5}</noParentDirs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        <configuration>
+          <targetDirectory>${workDir}</targetDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <configuration>
+          <workDir>${workDir}</workDir>
+          <prefix>@prefix@</prefix>
+          <destDir>${pkgBasedir}</destDir>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

@@ -1,0 +1,45 @@
+
+<component-set>
+    <components>
+        <component>
+            <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+            <role-hint>rpm</role-hint>
+            <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+            <configuration>
+                <lifecycles>
+                    <lifecycle>
+                        <id>clean</id>
+                        <phases>
+                            <clean>org.apache.maven.plugins:maven-clean-plugin:clean</clean>
+                            <post-clean>org.codehaus.mojo:rpm-cbuild-maven-plugin:remove</post-clean>
+                        </phases>
+                    </lifecycle>
+                    <lifecycle>
+                        <id>default</id>
+                        <phases>
+                            <validate>org.codehaus.mojo:make-maven-plugin:validate-pom</validate>
+                                <!-- org.codehaus.mojo:maven-rpm-plugin:remove-project-references, -->
+                            <initialize>
+                                org.codehaus.mojo:rpm-cbuild-maven-plugin:install-dependencies,
+                                org.codehaus.mojo:rpm-cbuild-maven-plugin:set-project-file,
+                                org.codehaus.mojo:multibuild-optimizer-maven-plugin:check-package-staleness
+                            </initialize>
+                            <compile>org.codehaus.mojo:make-maven-plugin:compile</compile>
+                            <test>org.codehaus.mojo:make-maven-plugin:test</test>
+                            <package>
+                              org.codehaus.mojo:make-maven-plugin:make-install,
+                              org.codehaus.mojo:rpm-cbuild-maven-plugin:generate-spec,
+                              org.codehaus.mojo:rpm-cbuild-maven-plugin:build
+                            </package>
+                            <install>
+                              org.apache.maven.plugins:maven-install-plugin:install,
+                              org.codehaus.mojo:rpm-cbuild-maven-plugin:install
+                            </install>
+                            <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+                        </phases>
+                    </lifecycle>
+                </lifecycles>
+            </configuration>
+        </component>
+    </components>
+</component-set>

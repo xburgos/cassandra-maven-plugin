@@ -1,0 +1,74 @@
+ ------
+ Usage
+ ------
+
+Usage
+
+  The JBoss packaging plugin allows the packaging of various JBoss deployable archives including:
+  
+   * SAR -- Service Archive
+
+   * HAR -- Hibernate Archive
+   
+   * PAR -- Process Archive
+   
+   * ESB -- ESB Archive
+   
+   * Spring -- Spring BeanFactory Archive
+
+  Each packaging type can be generated directly from the command line.  For example,
+  to generate a .sar file from the current project.
+
++--------
+mvn jboss-packaging:sar
++---------
+
+  The full description of goals is available {{{plugin-info.html}here}}.
+    
+* Maven Packaging Integration
+
+  JBoss packaging may also be integrated into the default Maven packaging phase by setting your POMs <packaging> element as follows:
+
+   * jboss-sar -- produce SAR artifact
+
+   * jboss-har -- produce HAR artifact
+   
+   * jboss-par -- produce PAR artifact
+
+   * jboss-esb -- produce ESB artifact
+
+   * jboss-spring -- produce Spring artifact
+   
+  This allows your JBoss deployable artifacts to participate in all Maven operations that act on artifacts including deployment
+  to remote repositories and dependency management.
+  
+  To enable the <<<jboss-[sar|har|par|esb|spring]>>> packaging types, the POM or one of its parents must include this plugin with extensions
+  set to true:
+  
++---------
+  <build>
+    ...
+    <plugins>
+      ...
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jboss-packaging-maven-plugin</artifactId>
+        <version>2.0</version>
+        <!-- Enable packaging types and lifecycle bindings. -->
+        <extensions>true</extensions>
+        ...
+      </plugin>
+      ...
+    </plugins>
+    ...
+  </build>
++---------
+  
+* Deployment Descriptors
+ 
+  Each type of JBoss deployable archive has a specifically named XML deployment descriptor file that is read by JBoss at deployment
+  time. By default, this plugin enforces the existence, location and proper naming of these deployment descriptors and will fail your build if
+  the descriptor is in error.
+  
+  The default deployment descriptor file can be overridden for each packaging type by setting the <<<deploymentDescriptorFile>>> parameter. The full
+  description of goals is available {{{plugin-info.html}here}}, each goal describes all of the configuration parameters available.

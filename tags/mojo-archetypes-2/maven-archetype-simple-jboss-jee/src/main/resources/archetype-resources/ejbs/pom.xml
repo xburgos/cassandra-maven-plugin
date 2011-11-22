@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <parent>
+      <groupId>${groupId}</groupId>
+      <artifactId>${artifactId}</artifactId>
+      <version>${version}</version>
+   </parent>
+   <modelVersion>4.0.0</modelVersion>
+   <groupId>${groupId}.${artifactId}</groupId>
+   <artifactId>ejbs</artifactId>
+   <packaging>ejb</packaging>
+   <version>${version}</version>
+   <name>${artifactId} - enterprise java beans</name>
+   <build>
+      <plugins>
+         <plugin>
+            <artifactId>maven-ejb-plugin</artifactId>
+            <configuration>
+               <archive>
+                  <manifest>
+                     <addClasspath>true</addClasspath>
+                  </manifest>
+               </archive> 
+            </configuration>
+         </plugin>
+      </plugins>
+   </build>
+</project>

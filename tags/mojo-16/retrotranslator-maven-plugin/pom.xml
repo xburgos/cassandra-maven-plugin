@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!-- $Id$ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <artifactId>mojo</artifactId>
+        <groupId>org.codehaus.mojo</groupId>
+        <version>14</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>retrotranslator-maven-plugin</artifactId>
+    <name>Retrotranslator Maven Plugin</name>
+    <packaging>maven-plugin</packaging>
+
+    <version>1.0-alpha-3-SNAPSHOT</version>
+
+    <url>http://mojo.codehaus.org/retrotranslator-maven-plugin</url>
+    <inceptionYear>2005</inceptionYear>
+    
+    <description>
+        Translates Java 5 classes to be compatible with J2SE 1.4 using Retrotranslator.
+    </description>
+    
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.codehaus.org/browse/MRETRO</url>
+    </issueManagement>
+    
+    <licenses>
+        <license>
+            <name>Apache License 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>jstrachan</id>
+            <name>James Strachan</name>
+            <email>james.strachan@gmail.com</email>
+        </developer>
+
+        <developer>
+            <id>chirino</id>
+            <name>Hiram Chirino</name>
+            <email>hiram@hiramchirino.com</email>
+        </developer>
+
+        <developer>
+            <id>carlos</id>
+        </developer>
+
+        <developer>
+            <id>user57</id>
+            <name>Jason Dillon</name>
+            <email>jason@planet57.com</email>
+            <role>Avid Crack Smoker</role>
+        </developer>
+    </developers>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache-snapshots</id>
+            <name>Apache Snapshots Repository</name>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+            <layout>default</layout>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>daily</updatePolicy>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo.groovy</groupId>
+            <artifactId>groovy-mojo-support</artifactId>
+            <version>1.0-alpha-3</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-archiver</artifactId>
+            <version>2.0.5</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.apache.maven.shared</groupId>
+            <artifactId>file-management</artifactId>
+            <version>1.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>net.sf.retrotranslator</groupId>
+            <artifactId>retrotranslator-runtime</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.retrotranslator</groupId>
+            <artifactId>retrotranslator-transformer</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0-beta-5</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.2</version>
+                    <configuration>
+                        <source>1.4</source>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>1.0-alpha-3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>2.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo.groovy</groupId>
+                        <artifactId>groovy-mojo-tools</artifactId>
+                        <version>1.0-alpha-3</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.4</source>
+                    <target>1.4</target>
+                </configuration>
+            </plugin>
+             
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-idea-plugin</artifactId>
+                <configuration>
+                    <jdkName>1.4</jdkName>
+                    <jdkLevel>1.4</jdkLevel>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <source>1.4</source>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+    
+    <profiles>
+        <profile>
+            <id>super-helpful-integration-tests</id>
+            
+            <activation>
+                <property>
+                    <name>shit</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>shitty-maven-plugin</artifactId>
+                        <version>1.0-alpha-1-SNAPSHOT</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>install</goal>
+                                    <goal>test</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        
+        <profile>
+            <id>stage-distribution</id>
+            
+            <activation>
+                <property>
+                    <name>stage.distributionUrl</name>
+                </property>
+            </activation>
+            
+            <distributionManagement>
+                <repository>
+                    <id>stage-repository</id>
+                    <url>${stage.distributionUrl}/repository</url>
+                </repository>
+                <snapshotRepository>
+                    <id>stage-snapshot-repository</id>
+                    <url>${stage.distributionUrl}/snapshot-repository</url>
+                </snapshotRepository>
+                <site>
+                    <id>stage-site</id>
+                    <url>${stage.distributionUrl}/site</url>
+                </site>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
+</project>

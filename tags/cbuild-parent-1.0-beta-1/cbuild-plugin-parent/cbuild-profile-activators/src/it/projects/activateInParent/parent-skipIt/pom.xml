@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.profile.it</groupId>
+  <artifactId>parent-skipIt</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>parent-skipIt</name>
+
+  <profiles>
+    <profile>
+      <id>add-junit-dep</id>
+
+      <activation>
+        <custom>
+          <type>modelProperty</type>
+          <configuration>
+            <name>parentJUnitDependency</name>
+            <value>true</value>
+          </configuration>
+        </custom>
+      </activation>
+
+      <dependencies>
+        <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.4</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+  <modules>
+    <module>main-project</module>
+  </modules>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>profile-activators</artifactId>
+        <version>@project.version@</version>
+      </extension>
+    </extensions>
+  </build>
+
+</project>

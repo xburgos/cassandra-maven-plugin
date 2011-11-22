@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- $Id: $ -->
+<pluginMetadata>
+  <mojos>
+    <mojo>
+      <goal>package</goal>
+      <call>package</call>
+      <description>Builds a System-V software package for Solaris.</description>
+      <requiresProject>true</requiresProject>
+      <parameters>
+        <parameter>
+          <name>packageName</name>
+          <property>packageName</property>
+          <required>true</required>
+          <readonly>true</readonly>
+          <defaultValue>${project.artifactId}</defaultValue>
+          <type>java.lang.String</type>
+          <description>The name of the package to built (as supplied to pkgrm).</description>
+        </parameter>
+        <parameter>
+          <name>packageFilename</name>
+          <property>packageFilename</property>
+          <required>true</required>
+          <expression>${project.artifactId}-${project.version}.pkg</expression>
+          <type>java.lang.String</type>
+          <description>The filename of the package to build.</description>
+        </parameter>
+        <parameter>
+          <name>outputDirectory</name>
+          <property>outputDirectory</property>
+          <required>true</required>
+          <expression>${project.build.outputDirectory}</expression>
+          <type>java.lang.String</type>
+          <description>The directory where the output is written to.</description>
+        </parameter>
+        <parameter>
+          <name>outputRootFolder</name>
+          <property>outputRootFolder</property>
+          <required>true</required>
+          <expression>ROOT</expression>
+          <type>java.lang.String</type>
+          <description>The folder relative to the outputDirectory where to package root is located.</description>
+        </parameter>
+        <parameter>
+          <name>packageRoot</name>
+          <property>packageRoot</property>
+          <required>true</required>
+          <expression>/</expression>
+          <type>java.lang.String</type>
+          <description>The root directory where outputRootFolder will appear (pkgproto -i ${outputRootFolder}=${packageRoot}).</description>
+        </parameter>
+        <parameter>
+          <name>packageDefaultUser</name>
+          <property>packageDefaultUser</property>
+          <required>true</required>
+          <expression>root</expression>
+          <type>java.lang.String</type>
+          <description>The user owning the files by default.</description>
+        </parameter>
+        <parameter>
+          <name>packageDefaultGroup</name>
+          <property>packageDefaultGroup</property>
+          <required>true</required>
+          <expression>root</expression>
+          <type>java.lang.String</type>
+          <description>The group assigned to the files by default.</description>
+        </parameter>
+      </parameters>
+    </mojo>
+  </mojos>
+</pluginMetadata>

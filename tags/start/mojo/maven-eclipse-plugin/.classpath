@@ -1,0 +1,16 @@
+<classpath>
+ <classpathentry kind="src" path="src/main/java"/>
+ <classpathentry kind="src" path="src/test/java" output="target/test-classes"/>
+ <classpathentry kind="output" path="target/classes"/>
+ <classpathentry kind="var" rootpath="JRE_SRCROOT" path="JRE_LIB" sourcepath="JRE_SRC"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-xdoc-plugin-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-project-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-model-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/maven-plugin-2.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/maven/jars/wagon-api-0.9-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/plexus/jars/plexus-0.14-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/classworlds/jars/classworlds-1.1-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/xstream/jars/xstream-1.0-SNAPSHOT.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/xpp3/jars/xpp3-1.1.3.3.jar"/>
+ <classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
+</classpath>

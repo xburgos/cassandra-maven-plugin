@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<faqs id="FAQ" title="Frequently Asked Questions">
+
+  <part id="General">
+
+    <faq id="dummy_question">
+      <question>Why this question ?</question>
+      <answer>
+        <p>
+          To avoid an NPE in the FAQ site renderer...
+        </p>
+      </answer>
+
+    </faq>
+  </part>
+
+</faqs>
+

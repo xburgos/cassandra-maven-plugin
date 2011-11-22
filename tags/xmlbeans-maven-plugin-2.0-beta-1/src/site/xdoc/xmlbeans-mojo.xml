@@ -1,0 +1,348 @@
+<document>
+  <properties>
+    <title>xmlbeans-maven-plugin - xmlbeans:xmlbeans</title>
+  </properties>
+  <body>
+    <section name="xmlbeans:xmlbeans">
+      <p><p>A Maven 2 plugin which parses xsd files and produces a corresponding object model based on the Apache XML Beans parser.</p> <p>The plugin produces two sets of output files referred to as generated sources and generated classes. The former is then compiled to the build <code>outputDirectory</code>. The latter is generated in this directory.</p> <p>Note that the descriptions for the goal's parameters have been blatently copied from http://xmlbeans.apache.org/docs/2.0.0/guide/antXmlbean.html for convenience.</p></p>
+      <p>Parameters for the goal: </p>
+      <table>
+        <tr>
+          <th>Parameter</th>
+          <th>Type</th>
+          <th>Expression</th>
+          <th>Default Value</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>
+            <code>catalogLocation</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.lang.String">String</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>Todo: Unknown use.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>classGenerationDirectory</code>
+          </td>
+          <td>
+            <code title="java.io.File">File</code>
+          </td>
+          <td>
+            <code>${project.build.outputDirectory}</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>Set a location to generate CLASS files into.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>compiler</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.lang.String">String</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>The compiler implementation to use. If this attribute is not set, the value of the build.compiler property, if set, will be used. Otherwise, the default compiler for the current VM will be used.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>debug</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Indicates whether source should be compiled with debug information; defaults to off. If set to off, -g:none will be passed on the command line for compilers that support it (for other compilers, no command line argument will be used). If set to true, the value of the debug level attribute determines the command line argument.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>defaultXmlConfigDir</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.io.File">File</code>
+          </td>
+          <td>
+            <code>${basedir}/src/xsdconfig</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>Default xmlConfigs directory. If no xmlConfigs list is specified, this one is checked automatically.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>download</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Set to true to permit the compiler to download URLs for imports and includes. Defaults to false, meaning all imports and includes must be copied locally.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>factory</code> <i>(Discovered)</i></td>
+          <td>
+            <code title="org.apache.maven.artifact.factory.ArtifactFactory">ArtifactFactory</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>No description.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>jaxb</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Todo: Unkown use.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>localRepository</code>
+          </td>
+          <td>
+            <code title="org.apache.maven.artifact.repository.ArtifactRepository">ArtifactRepository</code>
+          </td>
+          <td>
+            <code>${localRepository}</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>The repository for libraries we depend on.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>memoryInitialSize</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.lang.String">String</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>The initial size of the memory for the underlying VM, if javac is run externally; ignored otherwise. Defaults to the standard VM memory setting. (Examples: 83886080, 81920k, or 80m)</td>
+        </tr>
+        <tr>
+          <td>
+            <code>memoryMaximumSize</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.lang.String">String</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>The maximum size of the memory for the underlying VM, if javac is run externally; ignored otherwise. Defaults to the standard VM memory setting. (Examples: 83886080, 81920k, or 80m)</td>
+        </tr>
+        <tr>
+          <td>
+            <code>noJavac</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Don't compile the generated source files.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>noPvr</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Do not enforce the particle valid (restriction) rule.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>noUpa</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Do not enforce the unique particle attribution rule.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>outputJar</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.io.File">File</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>Define the name of the jar file created. For instance, "myXMLBean.jar" will output the results of this task into a jar with the same name.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>pluginArtifacts</code>
+          </td>
+          <td>
+            <code title="java.util.List">List</code>
+          </td>
+          <td>
+            <code>${plugin.artifacts}</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>No description.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>project</code>
+          </td>
+          <td>
+            <code title="org.apache.maven.project.MavenProject">MavenProject</code>
+          </td>
+          <td>
+            <code>${project}</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>A reference to the Maven Project metadata.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>quiet</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>true</code>
+          </td>
+          <td>Supress the normal amount of console output.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>schemaDirectory</code>
+          </td>
+          <td>
+            <code title="java.io.File">File</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>${basedir}/src/xsd</code>
+          </td>
+          <td>The directory where .xsd files are to be found.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>sourceGenerationDirectory</code>
+          </td>
+          <td>
+            <code title="java.io.File">File</code>
+          </td>
+          <td>
+            <code>${project.build.directory}/generated-source</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>Set a location to generate JAVA files into.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>sourceSchemas</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.lang.String">String</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>A file that points to either an individual schema file or a directory of files. Not a path reference. If multiple schema files need to be built together, use a nested fileset instead of setting schema.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>verbose</code> <i>(Optional)</i></td>
+          <td>
+            <code title="boolean">boolean</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>false</code>
+          </td>
+          <td>Controls the amount of build message output.</td>
+        </tr>
+        <tr>
+          <td>
+            <code>xmlConfigs</code> <i>(Optional)</i></td>
+          <td>
+            <code title="java.util.List">List</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>
+            <code>-</code>
+          </td>
+          <td>Configuration files used by the object generator. For more information about the format of these files, see Todo.</td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</document>

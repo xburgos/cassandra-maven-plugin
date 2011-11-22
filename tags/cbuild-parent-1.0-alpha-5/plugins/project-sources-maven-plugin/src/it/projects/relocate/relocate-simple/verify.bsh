@@ -1,0 +1,6 @@
+import java.io.*;
+
+File originalSrc = new File( basedir, "src/main/java/pkg/App.java" );
+File relocatedSrc = new File( basedir, "src2/main/java/pkg/App.java" );
+
+return !originalSrc.exists() && relocatedSrc.exists();

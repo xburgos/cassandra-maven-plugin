@@ -1,0 +1,21 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myco.m2</groupId>
+  <artifactId>cpkg-archive-em</artifactId>
+  <version>2.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg-archive</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+
+  <properties>
+      <EMPkgNameDir>${artifactId}</EMPkgNameDir>
+      <EMPkgVersionDir>${version}</EMPkgVersionDir>
+      <EMNoArchPrefix>/myco/pkgs/linux/intel/${EMPkgNameDir}/${EMPkgVersionDir}</EMNoArchPrefix>
+      <prefix>${EMNoArchPrefix}.${et.pkg.os}.${et.pkg.arch}</prefix>
+  </properties>
+
+</project>

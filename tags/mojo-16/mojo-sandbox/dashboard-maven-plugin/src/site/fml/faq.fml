@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<faqs id="FAQ" title="Frequently Asked Questions">
+ <part id="General">
+   <faq id="Aggregate Reporting">
+     <question>Is there an easy way to aggregate dashboard reports from various projects?</question>
+     <answer>
+     	<p>
+        Unfortunately Maven's internal support for report aggregation is rather poor and does have a number of limitations.
+		</p>
+      	<p>
+		This may be addressed by an application like <a href="http://sonar.hortis.ch/">Sonar</a> to monitor quality statistics from various projects. 
+    	</p>
+     </answer>
+   </faq>
+ </part>
+</faqs>

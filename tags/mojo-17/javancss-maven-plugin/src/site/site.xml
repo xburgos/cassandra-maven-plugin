@@ -1,0 +1,18 @@
+<project>
+  <body>
+    <menu name="Overview">
+      <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="FAQ" href="faq.html"/>    
+    </menu>
+    <menu name="Examples">
+      <item name="Include/Exclude" href="examples/include.html"/>
+      <item name="Checking at build time" href="examples/check.html"/>
+    </menu>
+    <menu name="Sample Reports">
+      <item name="Basic Report" href="reports/javancss-report.html"/>
+      <item name="Aggregate Report" href="reports/javancss-aggregate-report.html"/>
+    </menu>
+  </body>
+</project>

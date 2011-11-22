@@ -1,0 +1,80 @@
+diff -Nru openssl-0.9.8.orig/Configure openssl-0.9.8/Configure
+--- Configure.orig	2006-01-11 20:40:01.000000000 -0600
++++ Configure	2006-01-14 13:38:06.000000000 -0600
+@@ -35,6 +35,11 @@
+ # --with-krb5-flavor  Declare what flavor of Kerberos 5 is used.  Currently
+ #		supported values are "MIT" and "Heimdal".  A value is required.
+ #
++# --with-rpath  Use rpath linking, only makes sense when you specify the 
++#               shared option.  Default is to not use this option.  If
++#               specified without a value, --with-rpath will guess the
++#               gnu linker "-Wl,-R${prefix}/lib" switch.
++#
+ # --test-sanity Make a number of sanity checks on the data in this file.
+ #               This is a debugging tool for OpenSSL developers.
+ #
+@@ -626,6 +631,7 @@
+ my $openssl_sys_defines="";
+ my $openssl_other_defines;
+ my $libs;
++my $sldflags;
+ my $libkrb5="";
+ my $target;
+ my $options;
+@@ -747,6 +753,18 @@
+ 				{
+ 				$withargs{"krb5-".$1}=$2;
+ 				}
++			elsif (/^--with-rpath=\/(.*)$/)
++				{
++				$sldflags.="-Wl,-R/$1 ";
++				}
++			elsif (/^--with-rpath=(.*)$/)
++				{
++				$sldflags.=$1." ";
++				}
++			elsif (/^--with-rpath$/)
++				{
++				$sldflags.="-Wl,-R$prefix/lib ";
++				}
+ 			else
+ 				{
+ 				print STDERR $usage;
+@@ -1077,6 +1095,7 @@
+ 	}	
+ 
+ $lflags="$libs$lflags" if ($libs ne "");
++$shared_ldflag="$sldflags$shared_ldflag" if ($sldflags ne "");
+ 
+ if ($no_asm)
+ 	{
+diff -Nru openssl-0.9.8.orig/Makefile.org openssl-0.9.8/Makefile.org
+--- Makefile.org.orig	2006-01-11 20:40:01.000000000 -0600
++++ Makefile.org	2006-01-14 13:52:24.000000000 -0600
+@@ -287,7 +287,7 @@
+ 	    echo 'Description: OpenSSL cryptography library'; \
+ 	    echo 'Version: '$(VERSION); \
+ 	    echo 'Requires: '; \
+-	    echo 'Libs: -L$${libdir} -lcrypto $(EX_LIBS)'; \
++	    echo 'Libs: $(SHARED_LDFLAGS) -L$${libdir} -lcrypto $(EX_LIBS)'; \
+ 	    echo 'Cflags: -I$${includedir} $(KRB5_INCLUDES)' ) > libcrypto.pc
+ 
+ libssl.pc: Makefile
+@@ -300,7 +300,7 @@
+ 	    echo 'Description: Secure Sockets Layer and cryptography libraries'; \
+ 	    echo 'Version: '$(VERSION); \
+ 	    echo 'Requires: '; \
+-	    echo 'Libs: -L$${libdir} -lssl -lcrypto $(EX_LIBS)'; \
++	    echo 'Libs: $(SHARED_LDFLAGS) -L$${libdir} -lssl -lcrypto $(EX_LIBS)'; \
+ 	    echo 'Cflags: -I$${includedir} $(KRB5_INCLUDES)' ) > libssl.pc
+ 
+ openssl.pc: Makefile
+@@ -313,7 +313,7 @@
+ 	    echo 'Description: Secure Sockets Layer and cryptography libraries and tools'; \
+ 	    echo 'Version: '$(VERSION); \
+ 	    echo 'Requires: '; \
+-	    echo 'Libs: -L$${libdir} -lssl -lcrypto $(EX_LIBS)'; \
++	    echo 'Libs: $(SHARED_LDFLAGS) -L$${libdir} -lssl -lcrypto $(EX_LIBS)'; \
+ 	    echo 'Cflags: -I$${includedir} $(KRB5_INCLUDES)' ) > openssl.pc
+ 
+ Makefile: Makefile.org Configure config

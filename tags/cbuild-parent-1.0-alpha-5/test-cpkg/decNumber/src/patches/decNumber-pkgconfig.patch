@@ -1,0 +1,15 @@
+diff -NrU5 decNumber.pc.in.orig decNumber.pc.in
+--- decNumber.pc.in.orig	1969-12-31 18:00:00.000000000 -0600
++++ decNumber.pc.in	2006-09-18 16:15:02.000000000 -0500
+@@ -0,0 +1,11 @@
++prefix=@prefix@
++exec_prefix=${prefix}
++libdir=${exec_prefix}/lib
++includedir=${prefix}/include
++
++Name: decNumber
++Version: @VERSION@
++Description: IBM Scaled Decimal Package
++Requires:
++Libs: -L${libdir} -ldecNumber
++Cflags: -I${includedir}

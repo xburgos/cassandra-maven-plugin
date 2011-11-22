@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.projectsources.it</groupId>
+  <artifactId>it-project-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1</version>
+  <name>it-project-parent</name>
+
+  <repositories>
+    <repository>
+      <id>integration.test.repo</id>
+      <url>${test.remote.repo.url}</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>integration.test.repo</id>
+      <url>${test.remote.repo.url}</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <version>testing</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

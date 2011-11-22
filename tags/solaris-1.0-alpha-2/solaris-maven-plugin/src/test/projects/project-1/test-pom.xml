@@ -1,0 +1,15 @@
+<project>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>solaris-maven-plugin</artifactId>
+        <configuration>
+          <packageRoot>${basedir}/target/project-1/solaris/assembled-pkg</packageRoot>
+          <defaultUser>mysystem</defaultUser>
+          <defaultGroup>mysystem</defaultGroup>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

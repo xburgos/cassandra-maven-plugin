@@ -1,0 +1,72 @@
+<document>
+  <properties>
+    <author email="m2@corridor-software.us">Kris Bravo</author>
+    <title>Usage</title>
+  </properties>
+  <head/>
+  <body>
+    <section name="Usage">
+      <p>
+		For starters, please read the <a href="http://xmlbeans.apache.org/documentation/index.html">
+		XMLBeans tutorial</a>.
+      </p>
+
+      <p>Basic usage consists of adding a reference to the plugins section of your Maven 2 project as shown here.
+        <source>
+<![CDATA[
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>maven-xmlbeans-plugin</artifactId>
+        <version>2.0-beta-1</version>
+        <executions>
+           <execution>
+              <goals>
+                 <goal>xmlbeans</goal>
+              </goals>
+           </execution>
+        </executions>
+        <inherited>true</inherited>
+        <configuration>
+           <schemaDirectory>src/xsd</schemaDirectory>
+        </configuration>
+      </plugin>
+]]>
+        </source>
+      </p>
+      
+      <p>By default, the plugin looks for the src/xsd directory to exist, so it isn't necessary to specify it. Nor
+      do you need to specify src/xsdconfig, the assumed location of any xsd config files to use during the parsing and
+      creation of the object model. However, you can add additional xsdconfig directories as shown below.
+
+        <source>
+<![CDATA[
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <executions>
+           <execution>
+              <goals>
+                 <goal>xmlbeans</goal>
+              </goals>
+           </execution>
+        </executions>
+        <inherited>true</inherited>
+        <configuration>
+           <xmlConfigs>
+              <xmlConfig implementation="java.io.File">src/xsdconfig</xmlConfig>
+              <xmlConfig implementation="java.io.File">src/xsdconfig2/explicit.xsdconfig</xmlConfig>
+           </xmlConfigs>
+        </configuration>
+      </plugin>
+]]>
+        </source>
+      </p>
+
+      <p>
+        The goal to be called is <code>xmlbeans:xmlbeans</code>.
+      </p>
+    </section>
+
+  </body>
+</document>

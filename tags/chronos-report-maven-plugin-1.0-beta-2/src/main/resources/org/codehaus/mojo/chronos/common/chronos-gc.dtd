@@ -1,0 +1,9 @@
+<!ELEMENT gcsamples (gcsample)*>
+<!ELEMENT gcsample EMPTY>
+<!ATTLIST gcsample 
+	timestamp CDATA "0"
+	heapBefore CDATA "0"
+	heapAfter CDATA "0"
+	heapTotal CDATA "0"
+	processingTime CDATA "0"
+>

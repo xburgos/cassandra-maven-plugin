@@ -1,0 +1,150 @@
+<document>
+  <properties>
+    <title>The CBuilds Maven Plugins</title>
+    <author email="stimpy@codehaus.org">Lee Thompson</author>
+  </properties>
+  <body>
+
+    <release version="1.0-beta-1" date="5/29/2009" description="Made RPM and tarballs Maven attached artifacts, formalized RPM version/release numbers, major emphasis on itegration testing the full lifecycle and making implementation footprint smaller">
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-29">
+        Issue logged to move, file. Functionality covered in ant-maven-plugin or shell-maven-plugin.
+      </action>
+      <action dev="Lee Thompson" type="add" issue="CBUILDS-31">
+        Update code to maven 2.1.0
+      </action>
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-32">
+        Fix bulk of eclipse and checkstyle code problems, and there are lots.
+      </action>
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-33">
+        If you have a dependency on cbuild-utils, you have to include a dependency on plexus-utils or you get class mismatch exceptions.
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-34">
+        Tests in tests directory don't run.  Ended up with total rewrite using maven-invoker-plugin in integration-tests directory.
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-35">
+        Rewrite code to make tarballs and RPMs maven attached artifact.  Eliminate custom deploy goals favoring maven-deploy-plugin.
+      </action>
+      <action dev="Lee Thompson" type="add" issue="CBUILDS-36">
+        Subtask of CBUILDS-35
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-38">
+        Depricate release property forcing POM version to RPM compatible version.
+      </action>
+      <action dev="Lee Thompson" type="add" issue="CBUILDS-40">
+        Update mojo-parent, settled on version 21.
+      </action>
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-41">
+        Fix documentation links to svn/fisheye
+      </action>
+      <action dev="Lee Thompson" type="add" issue="CBUILDS-42">
+        Create integration test suite with maven-invoker-plugin.
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-43">
+        Issue started as refactoring, which was done, but what ended up happening is CBUILD specific artifact handlers were replaced with the standard maven plugins wagon-maven-plugin, build-helper-maven-plugin, maven-dependency-plugin, and maven-deploy-plugin
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-44">
+        Remove platform-detective-maven-plugin moving function into validate goal of rpm-cbuild-maven-plugin.
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-48">
+        Remove BuildAdvisor session cookie mechanism.
+      </action>
+    </release>
+
+    <release version="1.0-alpha-6" date="12/08/2008" description="Fix pathOf expansion in shell-maven-plugin">
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-30">
+        Fix pathOf expansion in shell-maven-plugin seen with Maven 2.0.9. 
+      </action>
+    </release>
+
+    <release version="1.0-alpha-5" date="11/05/2008" description="Downgrade to Maven 2.0.9, upgrade to JDK 1.5, mojo-parent site standarization, feature additions, bugfixes">
+      <action dev="John Casey, Jason van Zyl" type="add" issue="CBUILDS-1">
+        Implement BuildContext facility in Maven 2.1.  This was an idea which
+        was backed out of Maven then in CBUIDLS itself (CBUILDS-22).
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-2">
+        Replace Antcalls with plexus Commandline utility calls.  Simplifies
+        dependencies and fixes alot of buggy ant tasks
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-3">
+        Simplify configurations using new profile extensions in maven 2.1.
+        While implemented, this is not released in 1.0-alpha-5 as this 
+        release was backported when the profile extensions release was
+        delayed to Maven 3.0 (CBUILDS-28).
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-4">
+        Have the patch plugin bow out gracefully if there is nothing to do.
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-5">
+        Source patches are always unpacked even if source archive has been 
+        expanded.
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-6">
+        Incorporate implicit version ranges for handline version numbers
+        where 1.2.0 -&gt; [1.2.0,1.2.1)
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-7">
+        make:configure step should suport forcing relative-path reference to 
+        ./configure
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-8">
+        Add parameter aliases to make:configure that are more intuitive
+        (skipConfigure in addition to skipConfig)
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-9">
+        Maven dependencies need to match RPM dependencies
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-10">
+        Incorporate release number into maven version.
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-11">
+        Add support for defining an environment variable for a mojo execution.
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-13">
+        Need support for code generation tools
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-14">
+        SCM based C builds lifecycle
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-15">
+        Create unit and integration tests for make-maven-plugin
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-16">
+        Create unit and integration tests for rpm-cbuild-maven-plugin
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-17">
+        Create unit and integration tests for cbuilds-utils
+      </action>
+      <action dev="John Casey" type="add" issue="CBUILDS-19">
+        Binary project artifact must include system specific 
+        OS/Architecture tokens as a classifier
+      </action>
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-20">
+        Build failure when installing RPM
+      </action>
+      <action dev="Lee Thompson" type="update" issue="CBUILDS-21">
+        rpm plugin fails from incompatible /etc/*releases file with Redhat AS5
+        and Centos OS4
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-22">
+        Deal with BuildContext being deprecated in Maven 2.1 (aka Maven 3.0)
+      </action>
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-24">
+        Pass DESTDIR to make install correctly as documented with autotools
+      </action>
+      <action dev="Lee Thompson" type="fix" issue="CBUILDS-25">
+        maven clean does not delete symbolic links
+      </action>
+      <action dev="Lee Thompson" type="update" issue="CBUILDS-26">
+        Deal with maven 2.1-SNAPSHOTs being deleted out of internet repos
+      </action>
+      <action dev="Lee Thompson" type="remove" issue="CBUILDS-28">
+        Downport code from Maven 3.x to Maven 2.x
+      </action>
+    </release>
+    <release version="1.0-alpha-4" date="11/01/2008" description="Release cancelled due to Maven 3.x-SNAPSHOT dependency"/>
+    <release version="1.0-alpha-3" date="1/23/2007" description="bugfixes"/>
+    <release version="1.0-alpha-2" date="1/11/2007" description="bugfixes"/>
+    <release version="1.0-alpha-1" date="12/18/2006" description="Initial Release"/>
+   </body>
+</document>
+

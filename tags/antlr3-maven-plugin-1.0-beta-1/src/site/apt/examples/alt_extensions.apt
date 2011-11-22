@@ -1,0 +1,31 @@
+ ------
+ Alternative Filename Extensions
+ ------
+ David Holroyd
+ ------
+ May 2007
+ ------
+
+Alternative Filename Extensions
+
+ To use an extension other than .g for grammar files, use the <<<includes>>>
+ configuration element (remember to have an entry in this list for .g files
+ if you still want them to work as well),
+
++-----+
+      ...
+      <plugin>
+        <groupId>org.codehaus.mojo.antlr3</groupId>
+        <artifactId>antlr3-maven-plugin</artifactId>
+        ...
+        <configuration>
+          <includes>
+            <include>**/*.g</include>
+            <include>**/*.g3</include>
+          </includes>
+        </configuration>
+      </plugin>
+      ...
++-----+
+
+

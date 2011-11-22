@@ -1,0 +1,54 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>test</groupId>
+  <artifactId>config-with-pathOf-IT</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <packaging>rpm</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>1.1-SNAPSHOT</version>
+      <scope>system</scope>
+      <systemPath>${user.home}</systemPath>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>maven-remote-source-plugin</artifactId>
+        <configuration>
+          <skip>true</skip>
+          <url>nothing</url>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>maven-make-plugin</artifactId>
+        <extensions>true</extensions>
+
+        <configuration>
+          <messageLevel>debug</messageLevel>
+          <configCommand>/usr/bin/test</configCommand>
+          <configOptions>
+            <configOption>--with-something=@pathOf(junit:junit)@/something</configOption>
+            <configOption>--with-something-else=@pathOf(servletapi:servletapi)@/something-else</configOption>
+          </configOptions>
+          <destDir>nothing</destDir>
+          <prefix>nothing</prefix>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+
+

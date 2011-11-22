@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ibm.alphaworks</groupId>
+  <artifactId>decNumber</artifactId>
+  <version>3.04</version>
+  <packaging>rpm</packaging>
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg-archive-em</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+  <properties>
+    <srcURLFile>${artifactId}-304.zip</srcURLFile>
+    <workDir>${project.build.directory}/${artifactId}</workDir>
+    <release>3</release>
+  </properties>
+  <build>
+    <plugins>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++ -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>remote-source-maven-plugin</artifactId>
+        <configuration>
+          <type>zip</type>
+        </configuration>
+      </plugin>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++ -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        <configuration>
+          <patchSourceDir>${basedir}/src/patches</patchSourceDir>
+          <patches>
+            <patchFile>${artifactId}-pkgconfig.patch</patchFile>
+          </patches>
+        </configuration>
+      </plugin>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++ -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>shell-maven-plugin</artifactId>
+        <configuration>
+          <trimScript>true</trimScript>
+          <chmod>true</chmod>
+        </configuration>
+        <executions>
+          <execution>
+            <id>install-decNumber</id>
+<!-- FIXME - change the phase to package when Maven guys figure out how to prepend a task to the phase -->
+            <phase>test</phase>
+            <configuration>
+              <script><![CDATA[
+#!/bin/sh
+unzip -j -d license alphaWorks-license-files.zip
+#
+CFLAGS="$${CFLAGS} -O2 -Wuninitialized -ffast-math -fexpensive-optimizations"
+CFLAGS="$${CFLAGS} -finline-functions -fstrength-reduce -D__linux__"
+CFLAGS="$${CFLAGS} -Wmissing-prototypes"
+#    
+MY_FILES="decContext decimal32 decNumber decimal128 decimal64 decPacked"
+for h in $${MY_FILES}
+    do
+        gcc $${CFLAGS} -o $${h}.o -c $${h}.c 
+        MY_OBJS="$${h}.o $${MY_OBJS}"
+    done
+ar -r libdecNumber.a $${MY_OBJS} 
+#
+mkdir -p ${basedir}/target/install/${prefix}/lib/pkgconfig ${basedir}/target/install/${prefix}/include
+cp *.a ${basedir}/target/install/${prefix}/lib
+cp *.h ${basedir}/target/install/${prefix}/include
+sed -e "s[@prefix@[${prefix}[" -e "s[@VERSION@[${version}[" decNumber.pc.in > ${basedir}/target/install/${prefix}/lib/pkgconfig/decNumber.pc
+             ]]> </script>
+            </configuration>
+            <goals>
+              <goal>shell</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++ -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <configuration>
+          <skipConfig>true</skipConfig>
+          <skipCompile>true</skipCompile>
+          <skipTest>true</skipTest>
+          <skipInstall>true</skipInstall>
+        </configuration>
+      </plugin>
+<!-- ++++++++++++++++++++++++++++++++++++++++++++ -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>multibuild-optimizer-maven-plugin</artifactId>
+        <configuration>
+          <type>zip</type>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

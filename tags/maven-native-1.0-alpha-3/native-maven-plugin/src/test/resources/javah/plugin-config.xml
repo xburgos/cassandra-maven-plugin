@@ -1,0 +1,17 @@
+<project>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <configuration>
+          <project implementation="org.codehaus.mojo.natives.plugin.stubs.ProjectStub"/>
+          <implementation>noop</implementation>
+          <workingDirectory>${basedir}</workingDirectory>          
+          <outputDirectory>target/javah</outputDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

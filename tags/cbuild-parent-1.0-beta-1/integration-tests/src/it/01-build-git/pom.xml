@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.cbuild-parent.it</groupId>
+  <artifactId>01-build-git</artifactId>
+  <packaging>pom</packaging>
+  <version>1</version>
+
+  <parent>
+    <groupId>org.codehaus.mojo.cbuild-parent.it</groupId>
+    <artifactId>it-project-parent</artifactId>
+    <version>1</version>
+  </parent>
+
+  <!-- these builds need to happen in a specific order and maven-invoker-plugin doesn't inforce order -->
+  <modules>
+    <module>01-stbs/expat</module>
+    <module>01-stbs/openssl</module>
+    <module>02-lowlevel/expat</module>
+    <module>02-lowlevel/openssl</module>
+  </modules>
+
+</project>

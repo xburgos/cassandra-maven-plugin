@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <body>
+    <menu ref="parent" inherits="top"/>
+    <menu name="Overview">
+      <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Usage for plugin group" href="../../usage.html"/>
+      <item name="FAQ for plugin group" href="../../faq.html"/>
+    </menu>
+    <!--menu name="Examples">
+      <item name="Some cool example number 1" href="examples/cool1.html"/>
+    </menu-->
+  </body>
+</project>
+

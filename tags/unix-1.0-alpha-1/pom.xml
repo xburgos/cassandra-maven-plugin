@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mojo-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>18</version>
+    <relativePath>../mojo-parent/pom.xml</relativePath>
+  </parent>
+  <groupId>org.codehaus.mojo.unix</groupId>
+  <artifactId>unix</artifactId>
+  <version>1.0-alpha-1</version>
+  <packaging>pom</packaging>
+  <name>Maven Unix Support</name>
+  <inceptionYear>2008</inceptionYear>
+  <description>Supporting tools for writing software for the UNIX platform</description>
+  <developers>
+    <developer>
+      <id>trygvis</id>
+      <name>Trygve Laugstol</name>
+      <email>trygvis@inamo.no</email>
+      <url>http://home.inamo.no/~trygvis</url>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Erik Drolshammer</name>
+      <email>erik-dev@fjas.no</email>
+    </contributor>
+  </contributors>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.codehaus.org/browse/MUNIX</url>
+  </issueManagement>
+  <licenses>
+    <license>
+      <name>Apache License 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>https://svn.codehaus.org/mojo/tags/unix-1.0-alpha-1</url>
+    <connection>scm:svn:https://svn.codehaus.org/mojo/tags/unix-1.0-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/unix-1.0-alpha-1</developerConnection>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.2</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>java.net</id>
+      <url>http://download.java.net/maven/2</url>
+    </repository>
+  </repositories>
+  <modules>
+    <module>unix-ar</module>
+    <module>unix-common</module>
+    <module>unix-dpkg</module>
+    <module>unix-maven-plugin</module>
+    <module>unix-pkg</module>
+    <module>unix-rpm</module>
+  </modules>
+</project>

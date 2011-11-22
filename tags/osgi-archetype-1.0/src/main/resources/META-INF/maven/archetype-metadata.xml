@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor id="osgi-archetype" partial="false" name="OSGI Bundle archetype">
+  <fileSets>
+    <fileSet filtered="true" packaged="true">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true">
+      <directory>src/main/java</directory>
+    </fileSet>
+    <fileSet filtered="true" packaged="true">
+      <directory>src/test/java</directory>
+    </fileSet>
+    <fileSet filtered="false" packaged="false">
+      <directory>src/main/assembly</directory>
+      <includes>
+        <include>felix.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="false" packaged="false">
+      <directory></directory>
+      <includes>
+        <include>nbactions.xml</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>

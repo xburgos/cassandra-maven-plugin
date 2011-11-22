@@ -1,0 +1,4 @@
+for ( artifact: artifacts.entrySet() ) {
+  log.info("Artifact " + artifact.getKey() + " is " + artifact.getValue());
+}
+

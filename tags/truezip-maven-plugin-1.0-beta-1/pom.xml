@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <artifactId>mojo-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>19</version>
+    <relativePath>../mojo-parent</relativePath>
+  </parent>
+  
+  <artifactId>truezip-maven-plugin</artifactId>
+  <version>1.0-beta-1</version>
+  <name>Maven Plugin for TrueZIP</name>
+  
+  <packaging>maven-plugin</packaging>
+  
+  <description>Use this plugin create new or manipulate existing archives</description>
+  
+  <prerequisites>
+    <maven>2.0.6</maven>
+  </prerequisites>
+
+  <inceptionYear>2008</inceptionYear>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/truezip-maven-plugin-1.0-beta-1</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/truezip-maven-plugin-1.0-beta-1</developerConnection>
+    <url>http://fisheye.codehaus.org/browse/mojo/tags/truezip-maven-plugin-1.0-beta-1</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Dan Tran</name>
+      <email>dantran@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>5</timezone>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>Apache License 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0.6</version>
+    </dependency>
+    
+   <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0.6</version>
+    </dependency>    
+    
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+    <dependency>
+      <groupId>de.schlichtherle.io</groupId> 
+      <artifactId>truezip</artifactId> 
+      <version>6.6</version> 
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId> 
+      <artifactId>ant</artifactId> 
+      <version>1.7.0</version> 
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.ant</groupId>
+          <artifactId>ant-launcher</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>file-management</artifactId>
+      <version>1.2.1</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-maven-plugin</artifactId>
+        <version>1.3.5</version>
+        <executions>
+          <execution>
+            <id>generate</id>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>2.1</version>
+        <executions>
+          <execution>
+            <id>download-test-file</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>copy</goal>
+            </goals>
+            <configuration>
+              <artifactItems>
+                <artifactItem>
+                  <destFileName>calculator.ear</destFileName>
+                  <groupId>org.apache.geronimo.samples</groupId>
+                  <artifactId>calculator-ear</artifactId>
+                  <version>2.1.2</version>
+                  <type>ear</type>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      
+    </plugins>
+    
+  </build>
+  
+  <!--  remove this when mojo-parent-20 is released -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>2.4.2</version>
+        <configuration>
+          <requirements>
+            <jdk>${project.build.java.target}</jdk>
+          </requirements>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+    
+  <profiles>
+    <profile>
+      <id>run-its</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>shitty-maven-plugin</artifactId>
+            <version>1.0-alpha-3</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>clean</goal>
+                  <goal>install</goal>
+                  <goal>test</goal>
+                </goals>
+                <configuration>
+                  <parallel>false</parallel>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    
+  </profiles>  
+</project>

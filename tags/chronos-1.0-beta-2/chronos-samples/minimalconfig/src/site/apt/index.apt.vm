@@ -1,0 +1,49 @@
+Minimal config sample
+
+    This sample illustrates the smallest possible configuration using a lot of defaults.
+
+------------------
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>chronos-jmeter-maven-plugin</artifactId>
+            <version>${chronos.version}</version>
+            <configuration>
+              <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+            </configuration>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- configure this way with maven 3 -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.0</version>
+
+            <configuration>
+              <reportPlugins>
+                <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>chronos-report-maven-plugin</artifactId>
+                  <version>${chronos.version}</version>
+                  <reports>
+                    <report>report</report>
+                  </reports>
+                </plugin>
+              </reportPlugins>
+            </configuration>
+
+          </plugin>
+        </plugins>
+      </build>
+
+------------------
+

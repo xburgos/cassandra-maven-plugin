@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>mojo</artifactId>
+		<groupId>org.codehaus.mojo</groupId>
+		<version>16</version>
+	</parent>
+	<artifactId>apt-maven-plugin</artifactId>
+	<version>1.0-alpha-1</version>
+	<packaging>maven-plugin</packaging>
+	<name>apt maven plugin</name>
+  <description>Annotation processing tool Maven plugin</description>
+  <inceptionYear>2006</inceptionYear>
+  <organization>
+    <name>The Codehaus Mojo Project</name>
+    <url>http://mojo.codehaus.org</url>
+  </organization>
+  <prerequisites>
+    <maven>2.0.3</maven>
+  </prerequisites>
+  <developers>
+		<developer>
+			<id>JuBu</id>
+			<name>Juraj Burian</name>
+			<email>jubu@codehaus.org</email>
+			<roles>
+				<role>Java Developer</role>
+			</roles>
+			<timezone>+1</timezone>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>The MIT License</name>
+			<url>LICENSE.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-compiler-api</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-project</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.4</source>
+					<target>1.4</target>
+				</configuration>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-docck-plugin</artifactId>
+        <version>1.0-beta-1</version>
+      </plugin>      
+    </plugins>
+	</build>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/apt-maven-plugin-1.0-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/apt-maven-plugin-1.0-alpha-1</developerConnection>
+    <url>http://svn.codehaus.org/mojo/tags/apt-maven-plugin-1.0-alpha-1</url>
+  </scm>
+</project>

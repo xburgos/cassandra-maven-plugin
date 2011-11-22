@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.myco.m2</groupId>
+  <artifactId>cpkg-root</artifactId>
+  <packaging>pom</packaging>
+  <name>Parent POMs for the cpkg test pkgs</name>
+
+  <version>2.1-SNAPSHOT</version> 
+
+  <modules>
+    <module>myco-parent</module>
+    <module>cpkg</module>
+    <module>cpkg-archive</module>
+    <module>cpkg-archive-em</module>
+    <module>cpkg-archive-harvest-em</module>
+    <module>jrpm</module>
+  </modules>
+</project>

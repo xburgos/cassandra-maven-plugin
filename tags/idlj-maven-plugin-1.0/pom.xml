@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mojo</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>10</version>
+  </parent>
+  <artifactId>idlj-maven-plugin</artifactId>
+  <version>1.0</version>
+  <packaging>maven-plugin</packaging>
+  <name>Maven CORBA IDL Compiler Plugin</name>
+  <inceptionYear>2005</inceptionYear>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>      
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>      
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-compiler-api</artifactId>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+  </dependencies>
+
+  <developers>
+    <developer>
+      <id>kbravo</id>
+      <name>Kris Bravo</name>
+      <email>m2@corridor-software.us</email>
+      <organization>Corridor Software, Inc.</organization>
+      <organizationUrl>http://www.corridor-software.us</organizationUrl>
+      <roles>
+          <role>Maintainer</role>
+      </roles>
+      <timezone>EST</timezone>
+    </developer>
+    <developer>
+      <id>maguro</id>
+      <name>Alan D. Cabrera</name>
+      <email>protected</email>
+      <organization>mojo</organization>
+      <organizationUrl>http://mojo.codehaus.org</organizationUrl>
+      <roles>
+          <role>Submitter</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>na</id>
+      <name>Anders Hessellund Jensen</name>
+      <email>protected</email>
+      <organization>unknown</organization>
+      <organizationUrl>unknown</organizationUrl>
+      <roles>
+          <role>Contributor</role>
+      </roles>
+      <timezone>EST</timezone>
+    </developer>
+  </developers>
+
+
+  <scm>
+    <connection>scm:svn:https://svn.codehaus.org/mojo/tags/idlj-maven-plugin-1.0</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/idlj-maven-plugin-1.0</developerConnection>
+    <url>https://svn.codehaus.org/mojo/tags/idlj-maven-plugin-1.0</url>
+  </scm>
+</project>

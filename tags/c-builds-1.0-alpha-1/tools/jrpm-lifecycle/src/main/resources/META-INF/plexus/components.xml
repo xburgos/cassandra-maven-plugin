@@ -1,0 +1,68 @@
+<component-set>
+  <components>
+    
+    <!-- Bind mojos to the correct lifecycle phases for the 'jrpm' packaging.
+     |    
+     |   This lifecycle mapping uses four plugins:
+     | 
+     |   1. This plugin (maven-make-plugin) - Execute the meat of the build.
+     |   2. maven-source-get-plugin - Retrieve project sources from some external URL.
+     |   3. maven-patch-plugin - Retrieve and apply patches to project sources.
+     |   4. maven-rpm-plugin - Bundle the result of 'make install' (or similar) as an RPM.
+     |-->
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>jrpm</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <lifecycles>
+          <lifecycle>
+            <id>clean</id>
+            <phases>
+              <clean>org.apache.maven.plugins:maven-clean-plugin:clean</clean>
+              <post-clean>org.codehaus.mojo:rpm-maven-plugin:remove</post-clean>
+            </phases>
+          </lifecycle>
+          <lifecycle>
+            <id>default</id>
+            <phases>
+              <initialize>
+                org.codehaus.mojo:rpm-maven-plugin:set-project-file,
+                org.codehaus.mojo:remote-source-maven-plugin:resolve,
+                org.codehaus.mojo:multibuild-optimizer-maven-plugin:check-package-staleness
+              </initialize>
+              <generate-sources>
+                org.codehaus.mojo:remote-source-maven-plugin:unpack,
+                org.codehaus.mojo:remote-source-maven-plugin:relocate
+              </generate-sources>
+              <package>
+                org.codehaus.mojo:rpm-maven-plugin:generate-spec,
+                org.codehaus.mojo:rpm-maven-plugin:build
+              </package>
+              <install>
+                org.apache.maven.plugins:maven-install-plugin:install,
+                org.codehaus.mojo:rpm-maven-plugin:install
+              </install>
+              <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+            </phases>
+          </lifecycle>
+        </lifecycles>
+      </configuration>
+    </component>
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>jrpm</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <extension>rpm</extension>
+        <packaging>jrpm</packaging>
+        <type>rpm</type>
+        <!-- someday...
+        <includesDependencies>true</includesDependencies>
+        -->
+        <language>java</language>
+        <addedToClasspath>false</addedToClasspath>
+      </configuration>
+    </component>
+  </components>
+</component-set>

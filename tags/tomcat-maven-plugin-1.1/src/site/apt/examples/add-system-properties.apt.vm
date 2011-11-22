@@ -1,0 +1,38 @@
+ ---
+ Adding System Properties
+ ---
+ Olivier Lamy
+ ---
+ October 17, 2009
+ ---
+
+Adding System Properties
+
+ You can add system properties when running Tomcat (mvn tomcat:run).
+ The syntax has the following format:
+
++--
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      ...
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>tomcat-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <systemProperties>
+            <example.value.1>alpha</example.value.1>
+            <example.value.2>beta</example.value.2>
+          </systemProperties>
+        </configuration>
+      </plugin>
+      ...
+    </plugins>
+    ...
+  </build>
+  ...
+</project>
++--

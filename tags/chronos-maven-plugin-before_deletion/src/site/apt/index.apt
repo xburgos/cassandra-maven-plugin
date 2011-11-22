@@ -1,0 +1,31 @@
+
+Chronos Maven Plugin (deprecated)
+
+
+  This plugin has been replaced with 2 new plugins, and will no longer be updated. You should consider migrating to these plugins instead.
+  See link to the new version in the menu.
+
+* Goals Overview
+
+~~  General Information about the goals.
+  * {{{./jmetergui-mojo.html}chronos:jmetergui}} Launches the jmeter gui. Use this to generate a .jmx script (testplan).
+
+  * {{{./jmeter-mojo.html}chronos:jmeter}} Execute JMeter and parse the generated jtl-file (and possibly garbage collection logfile).
+
+  * {{{./savehistory-mojo.html}chronos:savehistory}} Enables you to save a snapshot of the testresults for use in historic reports.
+
+  * {{{./check-mojo.html}chronos:check}} Check whether the performance goals have been met.
+
+  * {{{./report-mojo.html}chronos:report}} Add a report of the performanceresults.
+
+  * {{{./historyreport-mojo.html}chronos:historyreport}} Create a report of historic tests.
+
+* Usage
+
+  Instructions on how to use Chronos can be found {{{./usage.html}here}}.
+
+~~* Examples
+
+~~  To provide you with better understanding of some usages of the Chronos Maven Plugin, you can take a look into the following example:
+
+~~  * {{{./examples/report-formats.html}Report Formats}}

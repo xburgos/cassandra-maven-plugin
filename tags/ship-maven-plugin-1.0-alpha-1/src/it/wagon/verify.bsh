@@ -1,0 +1,21 @@
+File f = new File(basedir, "foobar");
+if (!f.isDirectory()) {
+  print("Expected to find directory " + f.getAbsolutePath());
+  return false;
+}
+f = new File(f, "pom.xml");
+if (!f.isFile()) {
+  print("Expected to find file " + f);
+  return false;
+}
+f = new File(f.getParent(), "foo.jar");
+if (!f.isFile()) {
+  print("Expected to find file " + f);
+  return false;
+}
+f = new File(f.getParent(), "bar.jar");
+if (!f.isFile()) {
+  print("Expected to find file " + f);
+  return false;
+}
+return true;

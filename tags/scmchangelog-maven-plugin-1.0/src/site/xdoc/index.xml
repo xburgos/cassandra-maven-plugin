@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <author email="ehsavoie73@gmail.com">Emmanuel Hugonnet</author>
+    <title>Introduction</title>
+  </properties>
+  <head>
+    <meta/>
+  </head>
+  <body>
+    <!-- The body of the document contains a number of sections -->
+    <section name="Intoduction">
+
+      <subsection name="Overview">
+      <!-- Within sections, any XHTML can be used -->
+      <p>This plugin uses the SCM logs to create a changelog for each tagged version of a project.</p>
+      <p>Supported SCM tools :
+        <ul>
+          <li><a href="http://www.selenic.com/mercurial/wiki/"><img src="http://www.selenic.com/hg-logo/logo-droplets-50.png" alt="Mercurial" /></a></li>
+          <li><a href="http://subversion.tigris.org/"><img src="http://svn.collab.net/repos/svn/branches/scheme-bindings/notes/logo/256-colour/subversion_logo_hor-237x32.png" alt="Subversion" /></a></li>
+        </ul>
+      </p>
+      </subsection>
+      
+      <!-- in addition to XHTML, any number of subsections can be within a section -->
+      <subsection name="Pre-requisite">
+        <p>
+          There are some requisite for using this plugin :
+          <ul>
+            <li>
+              As this plugin uses the SCM commands, <b>it is necessary to have the svn or hg command line executable in your path</b>.
+            </li>
+            <li>
+              This plugins needs Java 1.4 or more to run correctly.
+            </li>
+          </ul>
+        </p>
+      </subsection>     
+      
+      <subsection name="Example">
+        <p><!--Necessary because of a bug removing p tags--></p>
+          <!-- Within sections, any XHTML can be used -->
+          <p>
+            This is an example of a report by the Scm Changelog Report :
+          </p>
+          <br/>
+          <img src="images/changelog_sample.png" />
+      </subsection>
+    </section>
+  </body>
+</document>

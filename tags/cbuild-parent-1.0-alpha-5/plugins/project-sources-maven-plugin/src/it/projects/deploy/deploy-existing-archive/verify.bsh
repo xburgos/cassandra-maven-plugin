@@ -1,0 +1,6 @@
+import java.io.*;
+
+File sourceArchive = new File( basedir, "target/deployment-repository/org/codehaus/mojo/projectsources/it/deploy-existing-archive/1/deploy-existing-archive-1-project-sources.zip" );
+
+return sourceArchive.exists();
+

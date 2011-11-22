@@ -1,0 +1,1 @@
+clean groovy:compile groovy:execute

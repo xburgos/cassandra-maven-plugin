@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.softwareag.cis</groupId>
+  <artifactId>cislic</artifactId>
+  <name>Crossvision Application Designer License Files (CIS License)</name>
+  <version>2.3</version>
+  <description>
+    This is an addition to the SAG License classes.
+  </description>
+  <url>http://developer.softwareag.com/crossvision/download/Application%20Designer/ProductUpdates.htm</url>
+
+  <licenses>
+    <license>
+      <name>Software AG customer license</name>
+      <distribution>manual</distribution>
+      <comments>
+        Non-free, commercial license
+      </comments>
+    </license>
+    <license>
+      <name>Software AG evaluation license</name>
+      <distribution>manual</distribution>
+      <comments>
+        Non-free, commercial license for evaluation in a limited time frame.
+      </comments>
+    </license>
+  </licenses>
+
+  <distributionManagement>
+    <downloadUrl>http://developer.softwareag.com/crossvision/download/Application%20Designer/ProductUpdates.htm</downloadUrl>
+  </distributionManagement>
+
+  <!--  Only present, because repository:bundle-create requires it. -->
+  <scm>
+    <connection>Not available</connection>
+  </scm>
+</project>
+

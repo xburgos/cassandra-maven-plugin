@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+
+  <parent>
+    <groupId>foo.bar</groupId>
+    <artifactId>BAR-ALL</artifactId>
+    <version>1.0</version>
+  </parent>
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>foo.bar</groupId>
+  <artifactId>BAR-CFG</artifactId>
+  <name>BAR CFG Package</name>
+  <version>1.0</version>
+  
+  <description>Configuration package for foo::bar software</description>
+  
+  <packaging>solaris</packaging>
+  
+  <dependencies>
+  </dependencies>
+  
+  <!-- example how to include a webapp to the package -->
+  <build>
+    <filters>
+      <filter>src/main/filters/global-replace.properties</filter>
+      <filter>src/main/filters/profile-${package.profile}-replace.properties</filter>
+    </filters>
+  </build>
+</project>

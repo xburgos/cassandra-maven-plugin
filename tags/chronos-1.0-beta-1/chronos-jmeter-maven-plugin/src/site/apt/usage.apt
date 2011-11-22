@@ -1,0 +1,92 @@
+
+Usage
+
+* Basic Configuration
+
+  The recommended basic configuration is as follows. 
+  Note that Chronos will attempt to download jMeter the first time it runs. To prevent this
+  you can download it yourself and specify the location (jmeter.home) in your POM or settings.xml file.
+  
+  JMeter can be downloaded from http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi.
+  
+  An easy way to create the test script (.jmx file) is by launching the jmeter gui using {{{./jmetergui-mojo.html}chronos:jmetergui}} eg.
+  mvn install chronos:jmetergui
+  which automatically makes the classpath of your maven project available for jmeter. For more details see {{{./usage-jmetergui.html}usage-jmetergui}}.	
+
+  Example:
+  
+-------------------
+<project>
+  ...  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.chronos</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+					<input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+    <reporting>
+	    ...
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.chronos</groupId>
+                <artifactId>chronos-report-maven-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </plugin>
+        </plugins>
+    </reporting>
+-------------------
+
+* Basic configuration with multiple files
+  
+  Chronos can also run on multiple .jmx files in one run. 
+  If <input> is specified as a directory, then all .jmx files in that directory
+  is parsed.
+  
+  Example:
+  
+-------------------
+<project>
+  ...  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.chronos</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+					<input>${basedir}/src/main/folder_with_jmx_files</input>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+	    ...
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0</version>
+			</plugin>
+		</plugins>
+	</reporting>
+-------------------

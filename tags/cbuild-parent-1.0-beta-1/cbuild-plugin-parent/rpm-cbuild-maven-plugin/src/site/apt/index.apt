@@ -1,0 +1,107 @@
+  ---
+  Maven RPM Plugin :: Summary
+  ---
+  John Casey
+  ---
+  11-Sept-2005
+  ---
+  
+Summary for Maven RPM Plugin
+
+  The RPM plugin is used to generate a RPM spec file, and then harvest a RPM 
+  package using the spec file, along with project binaries resulting from the
+  earlier phases of the build lifecycle.
+  
+  This plugin consists of seven mojos: <<<install-dependencies>>>, <<<set-project-file>>>,
+  <<<generate-spec>>>, <<<build>>>, <<<install>>>, <<<remove>>>, and 
+  <<<remove-dependencies>>>.
+  
+  As an incidental implementation detail, the <<<build>>> mojo uses the plexus
+  <<<Commandline>>> and <<<BourneShell>>> API's.
+  
+*Lifecycle Bindings
+
+  Below is the descriptor for the Make-based RPM build lifecycle:
+
++--------
+  <lifecycle>
+      <id>default</id>
+      <phases>
+          <validate>org.apache.maven.plugins:maven-make-plugin:validate-pom</validate>
+          <initialize>
+              org.apache.maven.plugins:maven-rpm-plugin:install-dependencies,
+              org.apache.maven.plugins:maven-rpm-plugin:set-project-file,
+              org.apache.maven.plugins:maven-multibuild-optimizer-plugin:check-package-staleness,
+          </initialize>
+          <compile>org.apache.maven.plugins:maven-make-plugin:compile</compile>
+          <test>org.apache.maven.plugins:maven-make-plugin:test</test>
+          <package>
+            org.apache.maven.plugins:maven-make-plugin:make-install,
+            org.apache.maven.plugins:maven-rpm-plugin:generate-spec,
+            org.apache.maven.plugins:maven-rpm-plugin:build
+          </package>
+          <install>
+            org.apache.maven.plugins:maven-install-plugin:install,
+            org.apache.maven.plugins:maven-rpm-plugin:install
+          </install>
+          <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+      </phases>
+  </lifecycle>
++--------
+
+  Notice that the lifecycle bindings are mapped against mojos from several external
+  plugins. The sole purpose of the RPM plugin is to create and install the RPM
+  package containing compiled binaries. It does not dictate how to build
+  sources to generate the binaries - that's the role of the make plugin. 
+  
+  Below is a description of what each goal in the lifecycle does:
+
+  <<make:validate-pom>> 
+  Checks for existence of required pom properties. Right now, only the prefix
+  property is required.
+  
+  <<rpm:install-dependencies>> 
+  Looks for the RPM artifacts listed as dependencies in the pom from the local
+  repository and installs each of them into the RPM system. If a RPM binary
+  is not found in the local repo, it attempts to get the source archive
+  from the remote repository, unpack and build the source, create the
+  RPM binary, store it in the local repo and install into the RPM system.
+  If any of these dependencies have dependencies on other packages then
+  they too are resolved and installed in the same manner (i.e., transitive
+  dependency resolution mechanism).
+  
+  <<rpm:set-project-file>> 
+  Setup the RPM file reference for MavenProject.getArtifact().getFile(),
+  so it can be used as a basis for determining whether to run a build or
+  not (based on the lastMod of this file vs. the latest lastMod of the
+  source files...this is handled in another plugin.)
+
+  <<multibuild-optimizer:check-package-staleness>> 
+  Checks if the RPM file referenced from MavenProject.getArtifact().getFile()
+  exists and is newer than the newest source file. If so, advices the
+  other mojos down the lifecycle that use it to decide whether to skip execution.
+  
+  <<make:compile>> 
+  Executes a Make compile target to generate binaries from the project source.
+  
+  <<make:test>>
+  Runs the make target (e.g. check) to test the compiled binaries.
+  
+  <<make:make-install>> 
+  Runs the make target to install compiled binaries directly into the system
+  at the specified location.   
+   
+  <<rpm:generate-spec>> 
+  Generates the spec file for the RPM.
+
+  <<rpm:build>> 
+  Creates the RPM from the project binaries and the generated spec file. 
+
+  <<maven:install>> 
+  Installs the pom and RPM into the local repository.
+
+  <<rpm:install>> 
+  Installs the RPM into the RPM database.
+
+  <<maven:deploy>> 
+  Deploys the RPM to the remote repository.

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>XML Beans plugin project</title>
+    <author email="m2@corridor-software.us">Kris Bravo</author>
+  </properties>
+  <body>
+
+    <release version="2.0-beta-1" date="2005-10-04">
+      <action dev="kbravo" type="update">
+        Updated the existing code from Brett Porter to the Maven 2 beta-2 plugin api.
+      </action>
+      <action dev="kbravo" type="fix" issue="MOJO-54">
+        Fixed format of xsdconfig parameters passed to the plugin.
+      </action>
+      <action dev="kbravo" type="add" issue="MOJO-54">
+        Test case for updating the parameter for xsd config files.
+      </action>
+    </release>
+
+  </body>
+</document>

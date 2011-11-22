@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mojo-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>25</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo.archetypes</groupId>
+  <artifactId>mojo-archetypes</artifactId>
+  <version>3</version>
+  <packaging>pom</packaging>
+
+  <name>Codehaus Mojo Archetypes Parent</name>
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/mojo-archetypes-3</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/mojo-archetypes-3</developerConnection>
+    <url>http://fisheye.codehaus.org/browse/mojo/tags/mojo-archetypes-3</url>
+  </scm>
+
+  <!-- Temporarily, while releasing; cf. MOJO-1573
+  <modules>
+    <module>appframework</module>
+    <module>cbuild-automvn</module>
+    <module>ear-j2ee14</module>
+    <module>ear-javaee6</module>
+    <module>ear-jee5</module>
+    <module>ejb-j2ee14</module>
+    <module>ejb-javaee6</module>
+    <module>ejb-jee5</module>
+    <module>maven-archetype-simple-jboss-jee</module>
+    <module>nbm-archetype</module>
+    <module>nbm-osgi-archetype</module>
+    <module>nbm-suite-root</module>
+    <module>netbeans-platform-app-archetype</module>
+    <module>osgi-archetype</module>
+    <module>pom-root</module>
+    <module>webapp-j2ee13</module>
+    <module>webapp-j2ee14</module>
+    <module>webapp-javaee6</module>
+    <module>webapp-jee5</module>
+  </modules>
+  -->
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin> <!-- XXX hotfix for MSITE-459 included in mojo-parent 26 -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.doxia</groupId>
+              <artifactId>doxia-module-xhtml</artifactId>
+              <version>1.1.3</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>commons-logging</groupId>
+                  <artifactId>commons-logging</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+          </dependencies>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>

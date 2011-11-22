@@ -1,0 +1,343 @@
+  ---
+  Maven Make Orchestration Plugin :: Summary
+  ---
+  John Casey
+  ---
+  11-Sept-2005
+  ---
+  
+Summary for Maven Make Orchestration Plugin
+
+  The Make Orchestration Plugin is used to invoke the various Make targets
+  needed to run the build for a project that was originally setup to be built
+  under that system. It consists of one abstract base class used to handle the
+  functionality common among all of the Make-oriented mojos - namely execution
+  of a shell command with arguments - along with several main concrete mojos and utility mojos to handle
+  the main phases of a Make build. The main mojos are: <<<validate-pom>>>, <<<configure>>>, 
+  <<<compile>>>, <<<test>>>, <<<make-clean>>>, <<<make-dist>>>, and <<<make-install>>>.
+  While the utility mojos are: <<<chmod>>>, <<<chown>>>, and <<<autoreconf>>>.
+  
+  These mojos can be configured to run an alternate shell command
+  instead of the default. They all can take command-line arguments that may embed 
+  one or more optional expressions for project paths. They all can signal 
+  that a specific file must change during the execution of that mojo. Finally,
+  they each have a flag which can signal that the specified command must first
+  have its execution bit set. This is handled by executing the utility <<<chmod>>> mojo
+  as configured in the <<<pom.xml>>>.
+  
+  Individually, the <<<validate-pom>>> mojo checks if the project property <<<prefix>>>
+  is available in the current project before allowing it to continue building.
+  The <<<configure>>> mojo can also specify a prefix for the built
+  binaries. The <<<compile>>> mojo executes a Make-ish compile target to generate binaries
+  from project source. The Make target for the <<<test>>> mojo can be specified as something
+  different from its default of 'check'; it can specify a flag telling the mojo
+  to ignore any test failures; and finally, it can specify a flag telling the mojo
+  to skip testing entirely. Finally, the Make target for the <<<make-install>>> mojo
+  can also specify a target other than the default of 'install'.
+  
+  As an incidental implementation detail, these mojos use Ant tasks internally 
+  via the <<<maven-antcall>>> API in order to invoke the various Make targets
+  and associated configuration. Therefore, any quirks in the Ant task will 
+  undoubtedly show up in these mojos as well.
+  
+*Expression Language for Path Options
+
+  The expression language supported for paths referenced inside command-line
+  options is an extremely lightweight mechanism used to refer to either the
+  Make DEST_DIR for the project being built, or the systemPath of a direct
+  dependency of the project. The syntax is accordingly lightweight and simple:
+  
+  * <<@destDir@>> - substitute the configured Make DEST_DIR in place of this
+                    expression.
+                    
+  * <<@pathOf(groupId:artifactId)@>> - lookup the dependency with the specified
+                    groupId and artifactId, and substitute its systemPath in
+                    place of this expression.
+                    
+                    NOTE: If the referenced dependency doesn't have a scope of
+                    <<<system>>>, the mojo will fail to execute citing the
+                    improperly scoped/referenced dependency in the command-line
+                    options.
+                    
+  []
+                    
+  Currently, simple regular expressions are used to make these substitutions.
+  
+*Configuration Parameters
+
+**<<All>> Mojos
+
+*------------------+----------------+----------------------------------------+----------------+---------------------------------------------------------------------------+--------------+-----------------------+
+| <<Parameter>>    | <<Alias>>      | <<Description>>                        | <<Type>>       | <<Default Value>>                                                         | <<Required>> | <<Editable>><\[1\]>   |
+*------------------+----------------+----------------------------------------+----------------+---------------------------------------------------------------------------+--------------+-----------------------+
+| workDir          | <<(none)>>     | The working directory for the command. | java.io.File   | $\{project.build.directory\}/$\{project.artifactId\}-$\{project.version\} | Yes          | Yes                   |
+*------------------+----------------+----------------------------------------+----------------+---------------------------------------------------------------------------+--------------+-----------------------+
+| dependencies     | <<(none)>>     | The list of direct dependencies.       | java.util.List | $\{project.dependencies\}                                                 | Yes          | No                    |
+*------------------+----------------+----------------------------------------+----------------+---------------------------------------------------------------------------+--------------+-----------------------+
+| project          | <<(none)>>     | MavenProject instance for resolving    | java.io.File   | $\{project\}                                                              | Yes          | No                    |
+|                  |                | Ant properties                         |                |                                                                           |              |                       |
+*------------------+----------------+----------------------------------------+----------------+---------------------------------------------------------------------------+--------------+-----------------------+
+| destDir          | <<(none)>>     | The destination directory for Make.    | java.io.File   | <<(none)>>                                                                | Yes          | Yes                   |
+*------------------+----------------+----------------------------------------+----------------+---------------------------------------------------------------------------+--------------+-----------------------+
+
+**<<<configure>>> Mojo
+
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| <<Parameter>>          | <<Description>>                             | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]>   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| skipConfig             | Flag to set if configure is to be skipped.  | boolean        | false             | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| configCommand          | The command used to configure the project.  | String         | configure         | Yes          | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| configOptions          | The list of command-line arguments.         | java.util.List | <<(none)>>        | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| prefix                 | The path prefix for binaries to use.        | String         | <<(none)>>        | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| configCheckFile        | The list of command-line arguments.         | java.util.List | <<(none)>>        | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| chmodConfigCommand     | Flag signalling to 'chmod +x' the command.  | boolean        | true              | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| searchForConfigCommand | Flag to set if configure is to be searched. | boolean        | true              | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| configWorkDir          | Temporary directory where project is built. | File           | <<</target>>>     | No           | Yes                   |
+*------------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+
+**<<<compile>>> Mojo
+
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| <<Parameter>>       | <<Description>>                            | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]>   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| skipCompile         | Flag to set if compile is to be skipped.   | boolean        | false             | No           | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| compileCommand      | The command used to compile the sources.   | String         | make              | Yes          | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| compileOptions      | The list of command-line arguments.        | java.util.List | <<(none)>>        | No           | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| compileTarget       | The Make target to invoke for compilation. | String         | <<(none)>>        | No           | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| compileCheckFile    | The list of command-line arguments.        | java.util.List | <<(none)>>        | No           | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| chmodCompileCommand | Flag signalling to 'chmod +x' the command. | boolean        | false             | No           | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| makeCompileWorkDir  | Temporary directory where project is built | File           | <<</target>>>      | No           | Yes                   |
+*---------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+
+**<<<test>>> Mojo
+
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| <<Parameter>>      | <<Description>>                            | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]>   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| testCommand        | The command used to test the sources.      | String         | make              | Yes          | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| testOptions        | The list of command-line arguments.        | java.util.List | <<(none)>>        | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| testTarget         | The Make target to invoke for compilation. | String         | <<(none)>>        | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| testCheckFile      | The list of command-line arguments.        | java.util.List | <<(none)>>        | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| chmodTestCommand   | Flag signalling to 'chmod +x' the command. | boolean        | false             | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| ignoreTestFailures | Flag for succeeding even if tests fail.    | boolean        | false             | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| skipTest           | Flag for skipping testing altogether.      | boolean        | false             | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| makeTestWorkDir    | Temporary directory where project is built | File           | <<</target>>>     | No           | Yes                   |
+*--------------------+--------------------------------------------+----------------+-------------------+--------------+-----------------------+
+
+**<<<make-dist>>> Mojo
+
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| <<Parameter>>       | <<Description>>                             | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]>   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| command             | The command to execute the 'make' program.  | String         | make              | Yes          | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| target              | The Make target to invoke for compilation.  | String         | dist              | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| skip                | Flag to set for skipping creating the dist. | boolean        | boolean           | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| options             | The list of command-line arguments.         | java.util.List | <<(none)>>        | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+
+**<<<make-install>>> Mojo
+
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| <<Parameter>>       | <<Description>>                             | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]>   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| skipInstall         | Flag for skipping install.                  | boolean        | false             | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| installCommand      | The command used to install the sources to  | String         | make              | Yes          | Yes                   |
+|                     | a working directory for package harvesting. |                |                   |              |                       |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| installOptions      | The list of command-line arguments.         | java.util.List | <<(none)>>        | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| installTarget       | The Make target to invoke for compilation.  | String         | <<(none)>>        | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| installCheckFile    | The list of command-line arguments.         | java.util.List | <<(none)>>        | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| chmodInstallCommand | Flag signalling to 'chmod +x' the command.  | boolean        | false             | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| makeInstallWorkDir  | Temporary directory where project is built. | File           | <<</target>>>     | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+
+**<<<make-clean>>> Mojo
+
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| <<Parameter>>       | <<Description>>                             | <<Type>>       | <<Default Value>> | <<Required>> | <<Editable>><\[1\]>   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| cleanBinaries       | Flag whether the binaries and object files  | boolean        | false             | No           | Yes                   |
+|                     | are removed from the source directory.      |                |                   |              |                       |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| cleanConfig         | Flag whether the files generated by         | String         | make              | Yes          | Yes                   |
+|                     | configure should be removed.                |                |                   |              |                       |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| makeWorkDir         | Temporary directory where project is built. | File           | <<</target>>>     | No           | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| filesets            | List of filesets to delete, in addition to  | java.util.List | <<(none)>>        | No           | Yes                   |
+|                     | the default directories.                    |                |                   |              |                       |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+| verbose             | Flag to set for debug level verbosity.      | String         | make              | Yes          | Yes                   |
+*---------------------+---------------------------------------------+----------------+-------------------+--------------+-----------------------+
+
+*Lifecycle Bindings
+
+  The mojos in this plugin are assigned to the following places inside the
+  build lifecycle. Where applicable, notes on the relative ordering of the
+  mojos to other mojos in the same phase are given.
+
+  * <<<valildate-pom>>> - validate
+  
+  * <<<configure>>> - process-sources, <after maven-patch-plugin:apply>
+  
+  * <<<compile>>> - compile
+  
+  * <<<test>>> - test
+  
+  * <<<make-install>>> - package, <before maven-rpm-plugin mojos>
+
+  []
+  
+**Why is <<<make-install>>> Bound to the Package Lifecycle Phase?
+
+  In adapting the Make build process to a Maven workflow, it became apparent
+  that there was a bit of mismatch in the goals of the two systems. Maven's
+  primary aim is to provide a portable package of software. The question of
+  software installation is considered outside the scope of the Maven system.
+  However, Make embraces the concept of installation, usually providing targets
+  for installing the compiled binaries directly into the system at the specified
+  location.
+  
+  Using the initial goal of generating a RPM package from the Maven build result,
+  it became apparent that the Make concept of installation went one step too far.
+  Instead, the DEST_DIR option was employed to redirect the installation of
+  project binaries into a working directory, which will be used as a basis for 
+  creating a more portable package of the built software. In this scenario, the 
+  Make concept of installation actually fits more closely with a post-assembly of
+  project binaries in preparation for packaging into RPM format...an activity
+  most closely related to the package phase. Therefore, the mojo was renamed to
+  <<<make-install>>> from <<<install>>> to annotate this mismatch, and was 
+  subsequently prepended to the package phase, ahead of the rpm-harvesting mojos 
+  in the RPM lifecycle mapping for Make-oriented builds (discussed below).
+  
+*Make-Oriented RPM Lifecycle Mapping
+
+  In addition to the aforementioned lifecycle bindings given by each mojo, this
+  plugin defines a complete lifecycle mapping component for a project packaging
+  called <<<rpm>>>. The defined mapping incorporates bindings to the following
+  external Maven plugins:
+  
+  * maven-remote-source-plugin - Used to retrieve project sources from a URL 
+                                 outside the project. This will commonly be the
+                                 case when orchestrating a Make build.
+                                 
+  * maven-patch-plugin - Along with externalized project sources, it will be
+                         common to require that a set of patches be applied prior
+                         to building. This goes along with the externalized
+                         nature of a Make-oriented build.
+                         
+  * maven-rpm-plugin - Since this packaging is named <<<rpm>>>, it makes sense
+                       that we need the ability to harvest an RPM from the project
+                       binaries. Since the logic for harvesting an RPM is reusable
+                       outside the context of a Make-oriented build, it has been
+                       encapsulated in a separate plugin, and referenced here.
+                       
+  * maven-install-plugin - Used to enable the default (jar-style) installation
+                           logic for placing the artifact in the local repository.
+                       
+  * maven-deploy-plugin - Used to enable the default (jar-style) deployment logic 
+                          for placing the artifact in the remote repository.
+                          
+  []
+                       
+**Why is the <<<rpm>>> Packaging Defined in a Make Orchestration Plugin?
+
+  The first use case we have for orchestrating Make builds involves the eventual
+  goal of building a RPM package from the build result. However, its obvious
+  that not all RPMs will be produced as a result of a Make-oriented build. The
+  compromise, therefore, is to allow the POM to declare its packaging to be <<<rpm>>>
+  and include the build extensions from this plugin - the maven-make-plugin in
+  order to supply the build process with the lifecycle mapping for that packaging.
+  
+  The net result of this separation is a definition of <<<rpm>>> packaging that
+  is specific to Make-oriented builds. Other plugins may choose to redefine the
+  process of building a RPM, which may not involve the use of Make. This use of
+  the plugin-provided build extensions makes this sort of overloading elegant.
+  In spite of the initial impression that this is a dangerous thing to overload,
+  consider that no user will care <how> a project is built, only that it has 
+  produced a RPM package. However, to the project maintainers, the <how> question
+  is at least as important as the end result of a RPM.
+  
+**The Complete Make-Oriented RPM Lifecycle Mapping
+
+  [[1]] <<initialize>>. Multiple mojos; ordering is <<NOT>> important.
+  
+        [[A]] <<<get>>> mojo in the maven-remote-source-plugin
+        
+        [[B]] <<<get>>> mojo in the maven-patch-plugin
+        
+        []
+        
+  [[2]] <<process-sources>>. Multiple mojos; ordering is <<critical>>.
+  
+        [[A]] <<<apply>>> mojo in the maven-patch-plugin
+        
+        [[B]] <<<configure>>> mojo in this plugin (maven-make-plugin)
+        
+        []
+        
+  [[3]] <<compile>>. Uses the <<<compile>>> mojo in this plugin.
+  
+  [[4]] <<test>>. Uses the <<<test>>> mojo in this plugin.
+  
+  [[5]] <<package>>. Multiple mojos; ordering is <<critical>>.
+  
+        [[A]] <<<make-install>>> mojo in this plugin
+        
+        [[B]] <<<generate-spec>>> mojo in the maven-rpm-plugin
+        
+        [[C]] <<<build>>> mojo in the maven-rpm-plugin
+        
+        []
+        
+  [[6]] <<install>>. Uses the <<<install>>> mojo in the maven-install-plugin.
+        
+  [[7]] <<deploy>>. Uses the <<<deploy>>> mojo in the maven-deploy-plugin.
+        
+  []
+  
+  <NOTE: Unlisted phases have empty bindings.>
+        
+*References
+
+  [[1]] <<Editable parameters.>> Editable parameters are those which can be
+        specified as configuration for the plugin within the POM. 
+        
+        Those which are specified as non-editable are parameters drawn from 
+        either the inherent internal structure of the Maven build, or from 
+        other built-in structures in the POM. An example of a parameter derived 
+        from the internal Maven build structure is the reference to the project 
+        Artifact, which is constructed from POM information when the POM is 
+        loaded into memory. An example of a parameter which is derived from 
+        built-in POM structures would be the list of a project's direct 
+        dependencies, which references the \<dependencies/\> stanza in the POM.
+
+  []

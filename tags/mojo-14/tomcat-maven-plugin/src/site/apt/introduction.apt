@@ -1,0 +1,23 @@
+ ---
+ Maven 2 Tomcat Plugin
+ ---
+ Mark Hobson
+ <markhobson@gmail.com>
+ ---
+ November 21, 2005
+
+Introduction
+
+ The Tomcat Maven Plugin provides goals to manipulate WAR projects within the {{{http://tomcat.apache.org/}Tomcat}} servlet container.
+ 
+How to Use
+ 
+ The following pages provide detailed information on how to use the plugin:
+ 
+ * {{{configuration.html}How to configure the plugin}}
+ 
+ * {{{deployment.html}How to deploy projects to Tomcat}}
+ 
+ * {{{context-goals.html}Goals to manipulate deployed projects within Tomcat}}
+ 
+ * {{{container-goals.html}Goals to obtain information from Tomcat}}

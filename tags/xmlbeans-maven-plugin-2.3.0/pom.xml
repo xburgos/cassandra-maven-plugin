@@ -1,0 +1,248 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>mojo</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>14</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xmlbeans-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Maven XML Beans Plugin</name>
+  <version>2.3.0</version>
+
+  <build>
+    <plugins>
+      <!--
+    -->
+      <plugin>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <debug>true</debug>
+          <projectsDirectory>src/test/projects</projectsDirectory>
+          <pomIncludes>
+            <pomInclude>**/pom.xml</pomInclude>
+          </pomIncludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <developers>
+
+    <developer>
+      <id>kbravo</id>
+      <name>Kris Bravo</name>
+      <email>m2@corridor-software.us</email>
+      <organization>Corridor Software, Inc.</organization>
+      <organizationUrl>http://www.corridor-software.us</organizationUrl>
+      <roles>
+          <role>Maintainer</role>
+      </roles>
+      <timezone>EST</timezone>
+    </developer>
+    <developer>
+      <id>brett</id>
+      <name>Brett Porter</name>
+      <organization>Apache Maven Project</organization>
+      <organizationUrl>http://maven.apache.org</organizationUrl>
+      <roles>
+          <role>Port of Original Code</role>
+      </roles>
+    </developer>
+  </developers>
+  
+  <contributors>
+    <contributor>
+      <name>Terence Haddock</name>
+      <email>protected</email>
+      <roles>
+          <role>Patch Contributor</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Nathan Sowatskey</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Dan Allen</name>
+      <email>protected</email>
+      <roles>
+          <role>Patch Contributor</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Brian Bonner</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Piotr Burdylo</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Mike Perham</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Martin Desruisseaux</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Rafal Rusin</name>
+      <email>protected</email>
+      <roles>
+          <role>Patch Contributor</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Christian Domsch</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Anita Kulshreshtha</name>
+      <email>protected</email>
+      <roles>
+          <role>Active User</role>
+      </roles>
+    </contributor>
+  </contributors>
+  
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-container-artifact</artifactId>
+      <version>1.0-alpha-3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>xml-resolver</groupId>
+      <artifactId>xml-resolver</artifactId>
+      <version>1.2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-profile</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact-manager</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+      <version>1.0-alpha-6</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+      <version>1.0-alpha-25</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-provider-api</artifactId>
+      <version>1.0-beta-2</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-repository-metadata</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0.6</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xmlbeans</groupId>
+      <artifactId>xmlbeans</artifactId>
+      <version>2.3.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>classworlds</groupId>
+      <artifactId>classworlds</artifactId>
+      <version>1.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.4.2</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <scm>
+    <connection>scm:svn:https://svn.codehaus.org/mojo/tags/xmlbeans-maven-plugin-2.3.0</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/xmlbeans-maven-plugin-2.3.0</developerConnection>
+    <url>https://svn.codehaus.org/mojo/tags/xmlbeans-maven-plugin-2.3.0</url>
+  </scm>
+</project>

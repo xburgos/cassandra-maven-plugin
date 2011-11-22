@@ -1,0 +1,4 @@
+import java.io.*;
+
+return new File( basedir, "target/unpacked-patches/first.patch" ).exists();
+

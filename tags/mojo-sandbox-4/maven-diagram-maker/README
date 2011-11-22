@@ -1,0 +1,23 @@
+To run diagrams: 
+
+1. Install atteched prefuse version into your local repository:
+
+mvn install:install-file -Dfile=libs/prefuse-beta-20070723-SNAPSHOT.jar -Dversion=beta-20070723-SNAPSHOT -DartifactId=prefuse -DgroupId=org.codehaus.mojo.sandbox.maven-diagram-maker.prefuse -Dpackaging=jar
+
+2. Build and install the maven-diagram-maker project
+
+mvn install
+
+3. Go to the project (packaging .jar/.war/... - not "pom") you want diagram. 
+
+for GUI with diagram of project's classes run: 
+
+	mvn -o install diagrams:gui -Dconnector=connector-classes
+
+for GUI with diagram of project's dependencies run (pending): 
+
+	mvn -o install diagrams:gui -Dconnector=connector-dependencies
+
+4. On the tab "Connector" (in GUI) change parameters and/or press "Apply" 
+
+5. Good luck...

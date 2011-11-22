@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testResults version="1.2">
+<httpSample t="1065" lt="847" ts="1306757759285" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="1051" lt="700" ts="1306757759481" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="1051" lt="697" ts="1306757759687" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="876" lt="703" ts="1306757759888" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="698" lt="522" ts="1306757760089" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="74562" lt="0" ts="1306757760739" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="74536" lt="0" ts="1306757760765" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="74769" lt="0" ts="1306757760532" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="75013" lt="0" ts="1306757760787" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="1135" lt="820" ts="1306757835307" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="1140" lt="816" ts="1306757835304" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1142" lt="820" ts="1306757835305" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="1042" lt="704" ts="1306757835801" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="74870" lt="0" ts="1306757836448" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="74874" lt="0" ts="1306757836444" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="74877" lt="0" ts="1306757836443" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="74974" lt="0" ts="1306757836844" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="1042" lt="814" ts="1306757911320" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1043" lt="813" ts="1306757911320" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="1041" lt="797" ts="1306757911321" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="925" lt="698" ts="1306757911820" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="74592" lt="0" ts="1306757912745" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="74975" lt="0" ts="1306757912363" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="74974" lt="0" ts="1306757912363" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="74976" lt="0" ts="1306757912363" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="984" lt="810" ts="1306757987338" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="981" lt="809" ts="1306757987341" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1128" lt="808" ts="1306757987340" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="1129" lt="803" ts="1306757987340" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="270487" lt="0" ts="1306757760358" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="2501"/>
+<httpSample t="971" lt="799" ts="1306758030847" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="74524" lt="0" ts="1306757988323" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="74527" lt="0" ts="1306757988323" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="74878" lt="0" ts="1306757988469" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="74880" lt="0" ts="1306757988469" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="1110" lt="802" ts="1306758062849" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1108" lt="801" ts="1306758062852" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="1010" lt="696" ts="1306758063348" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="1008" lt="695" ts="1306758063350" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="75034" lt="0" ts="1306758031819" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="1176" lt="849" ts="1306758106855" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="74900" lt="0" ts="1306758063960" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="74900" lt="0" ts="1306758063961" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="75001" lt="0" ts="1306758064359" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="75003" lt="0" ts="1306758064359" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="977" lt="800" ts="1306758138862" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1006" lt="803" ts="1306758138863" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="912" lt="697" ts="1306758139361" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="911" lt="693" ts="1306758139363" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="74835" lt="0" ts="1306758108032" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="972" lt="799" ts="1306758182870" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="74600" lt="0" ts="1306758140275" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="74601" lt="0" ts="1306758140274" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="75006" lt="0" ts="1306758139869" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="75037" lt="0" ts="1306758139840" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="1099" lt="806" ts="1306758214877" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="1099" lt="803" ts="1306758214879" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="1097" lt="802" ts="1306758214880" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1099" lt="803" ts="1306758214878" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="75035" lt="0" ts="1306758183851" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="1038" lt="838" ts="1306758258888" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="74916" lt="0" ts="1306758215978" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="74917" lt="0" ts="1306758215978" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="74915" lt="0" ts="1306758215979" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="74919" lt="0" ts="1306758215978" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="1176" lt="862" ts="1306758290899" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="1178" lt="865" ts="1306758290897" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="1179" lt="866" ts="1306758290896" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="1176" lt="863" ts="1306758290900" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="74977" lt="0" ts="1306758259927" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="1075" lt="902" ts="1306758334906" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="74836" lt="0" ts="1306758292076" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="74835" lt="0" ts="1306758292077" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="74838" lt="0" ts="1306758292076" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="74835" lt="0" ts="1306758292077" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="982" lt="806" ts="1306758366914" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="980" lt="804" ts="1306758366916" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="980" lt="804" ts="1306758366916" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="982" lt="805" ts="1306758366915" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="74940" lt="0" ts="1306758335982" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="1003" lt="829" ts="1306758410923" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="75031" lt="0" ts="1306758367898" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="75032" lt="0" ts="1306758367897" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="75034" lt="0" ts="1306758367897" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="75033" lt="0" ts="1306758367897" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="988" lt="812" ts="1306758442933" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-2" dt="text" by="9209"/>
+<httpSample t="994" lt="814" ts="1306758442931" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-4" dt="text" by="9209"/>
+<httpSample t="999" lt="818" ts="1306758442930" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-5" dt="text" by="9209"/>
+<httpSample t="999" lt="813" ts="1306758442932" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-3" dt="text" by="9209"/>
+<httpSample t="75012" lt="0" ts="1306758411927" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="2262" lt="1991" ts="1306758486941" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="75019" lt="0" ts="1306758443926" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-4" dt="text" by="1551"/>
+<httpSample t="75018" lt="0" ts="1306758443929" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-5" dt="text" by="1551"/>
+<httpSample t="75016" lt="0" ts="1306758443932" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-3" dt="text" by="1551"/>
+<httpSample t="75027" lt="0" ts="1306758443922" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-2" dt="text" by="1551"/>
+<httpSample t="74745" lt="0" ts="1306758489204" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="1146" lt="799" ts="1306758563950" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="74870" lt="0" ts="1306758565096" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Operation timed out" tn="Thread Group 1-1" dt="text" by="1551"/>
+<httpSample t="2122" lt="1057" ts="1306758639967" s="true" lb="jmeter site" rc="200" rm="OK" tn="Thread Group 1-1" dt="text" by="9209"/>
+<httpSample t="67292" lt="0" ts="1306758642090" s="false" lb="mojo site" rc="Non HTTP response code: java.net.ConnectException" rm="Non HTTP response message: Connection refused" tn="Thread Group 1-1" dt="text" by="1550"/>
+
+</testResults>

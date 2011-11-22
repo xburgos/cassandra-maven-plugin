@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>cbuild-plugin-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-alpha-3</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>shell-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Shell Script Executor Plugin</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>antcall</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+  </dependencies>
+</project>

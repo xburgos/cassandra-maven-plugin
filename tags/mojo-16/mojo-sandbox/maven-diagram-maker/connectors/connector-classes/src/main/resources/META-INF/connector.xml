@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connector>
+  <name>classes-diagram</name>
+  <description>Classes graph connector</description>
+  <groupId>org.apache.maven.diagram.connectors</groupId>
+  <artifactId>classes-diagram</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  
+  <connectorConfigurationClassName>org.apache.maven.diagrams.connectors.classes.config.ClassesConnectorConfiguration</connectorConfigurationClassName>
+  
+  <!-- first is preferred -->
+  <interfaces>
+	<interface>static</interface>
+  	<!--interface>listener</interface-->  	
+  </interfaces>  
+  
+  <mappings>
+  	<!--mapping>
+  		<name>dependency</name>
+  		<className>org.codehaus.plexus.component.repository.ComponentDependency</className>
+  	</mapping-->
+  	
+  	<mapping>
+  		<name>aggregating</name>
+  		<className>org.apache.maven.diagrams.connectors.classes.config.AggregateEdgeType</className>
+  	</mapping>
+   <mapping>
+  		<name>implemmenting</name>
+  		<className>org.apache.maven.diagrams.connectors.classes.config.ImplementEdgeType</className>
+  	</mapping>
+    <mapping>
+  		<name>inheritance</name>
+  		<className>org.apache.maven.diagrams.connectors.classes.config.InheritanceEdgeType</className>
+  	</mapping>
+  	<mapping>
+  		<name>include</name>
+  		<className>org.apache.maven.diagrams.connectors.classes.config.IncludeClasses</className>
+  		<converterClassName>org.apache.maven.diagrams.connectors.classes.config.IncludeClassesConverter</converterClassName>
+  	</mapping>
+  	<mapping>
+  		<name>exclude</name>
+  		<className>org.apache.maven.diagrams.connectors.classes.config.ExcludeClasses</className>
+  	</mapping>
+  </mappings>
+</connector>

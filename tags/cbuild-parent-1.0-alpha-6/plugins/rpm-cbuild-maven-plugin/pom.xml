@@ -1,0 +1,67 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>rpm-cbuild-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>RPM Plugin</name>
+
+  <parent>
+    <artifactId>cbuild-plugin-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-alpha-6</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>cbuild-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>platform-detector-maven-plugin</artifactId>
+    </dependency>    
+    <dependency>
+      <groupId>easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>create-component-descriptor</id>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>merge</id>
+            <configuration>
+              <!--output>${project.build.outputDirectory}/META-INF/plexus/components.xml</output-->
+              <descriptors>
+                <!--descriptor>${project.build.directory}/generated-resources/plexus/META-INF/plexus/components.xml</descriptor-->
+                <descriptor>${project.build.directory}/classes/META-INF/plexus/components.xml</descriptor>
+                <descriptor>src/main/resources/META-INF/plexus/components.xml</descriptor>
+              </descriptors>
+            </configuration>
+            <!--phase>generate-resources</phase-->
+            <phase>process-classes</phase>
+            <goals>
+              <goal>merge-descriptors</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

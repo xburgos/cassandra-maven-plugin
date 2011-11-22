@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<!-- $Id$ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>org.codehaus.mojo.anthill3</groupId>
+        <artifactId>anthill3</artifactId>
+        <version>1.0-alpha-1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    
+    <artifactId>anthill3-repository</artifactId>
+    <name>Anthill3 Repository</name>
+    
+    <description>
+        Handles installing Anthill3 artifacts into the Maven repository from an
+        installation directory.
+    </description>
+    
+    <properties>
+        <anthill3.groupId>com.urbancode.anthill3</anthill3.groupId>
+        <anthill3.version>3.2.1</anthill3.version>
+        
+        <!--
+        NOTE: anthill.install must be specified externally.
+        -->
+    </properties>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <source>
+                                <body>
+                                    import org.apache.maven.plugin.MojoExecutionException
+                                    
+                                    def dirname = project.properties['anthill3.install']
+                                    if (!dirname) {
+                                        throw new MojoExecutionException('Missing required property: anthill3.install')
+                                    }
+                                    
+                                    def dir = new File(dirname)
+                                    if (!dir.exists()) {
+                                        throw new MojoExecutionException('Missing required directory: ' + dir)
+                                    }
+                                </body>
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>codestation2</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>${anthill3.groupId}</groupId>
+                            <artifactId>codestation2</artifactId>
+                            <version>${anthill3.version}</version>
+                            <packaging>jar</packaging>
+                            <file>${anthill3.install}/lib/codestation2.jar</file>
+                            <pomFile>${pom.basedir}/src/main/poms/codestation2.pom</pomFile>
+                        </configuration>
+                    </execution>
+                    
+                    <!--
+                    NOTE: I've no idea where this jar comes from or what version they are using,
+                          so just install it as a thirdparty jar.
+                    -->
+                    <execution>
+                        <id>commons-httpclient-contrib</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>${anthill3.groupId}</groupId>
+                            <artifactId>commons-httpclient-contrib</artifactId>
+                            <version>${anthill3.version}</version>
+                            <packaging>jar</packaging>
+                            <file>${anthill3.install}/lib/httpclient-contrib.jar</file>
+                            <pomFile>${pom.basedir}/src/main/poms/commons-httpclient-contrib.pom</pomFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

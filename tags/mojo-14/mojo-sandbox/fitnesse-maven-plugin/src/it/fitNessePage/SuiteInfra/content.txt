@@ -1,0 +1,4 @@
+[[Test Coverage][SuiteInfra.SuiteCoverage]]
+[[Test Coverage2][SuiteInfra.SuiteCoverage2]]
+[[Test Coverage sécurisé][SuiteInfra.SuiteCoverage3]]
+[[Test Coverage UNIX][SuiteInfra.SuiteCoverage4]]

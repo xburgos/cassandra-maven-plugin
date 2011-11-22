@@ -1,0 +1,261 @@
+
+Usage
+
+* Basic Configuration
+
+  The recommended basic configuration is as follows. 
+  Note that Chronos will attempt to download jMeter the first time it runs. To prevent this
+  you can download it yourself and specifiy the location (jmeter.home) in your POM or settings.xml file. 
+  
+  JMeter can be downloaded from http://jakarta.apache.org/site/downloads/downloads_jmeter.cgi.
+  
+  An easy way to create the test script (.jmx file) is by launching the jmeter gui using {{{./jmetergui-mojo.html}chronos:jmetergui}} eg.
+  mvn install chronos:jmetergui
+  which automatically makes the classpath of your maven project available for jmeter. For more details see {{{./usage-jmetergui.html}usage-jmetergui}}.	
+
+  Example:
+  
+-------------------
+<project>
+  ...  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+					<input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+	    ...
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0</version>
+			</plugin>
+		</plugins>
+	</reporting>
+-------------------
+
+* Basic configuration with multiple files
+  
+  Chronos can also run on multiple .jmx files in one run. 
+  If <input> is specified as a directory, then all .jmx files in that directory
+  is parsed.
+  
+  Example:
+  
+-------------------
+<project>
+  ...  
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+					<input>${basedir}/src/main/resources</input>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+	    ...
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0</version>
+			</plugin>
+		</plugins>
+	</reporting>
+-------------------
+
+* Basic configuration with checks
+
+  The plugin has a check mojo enabling you to control whether performance targets
+  have been met.
+
+  Example:
+  
+-------------------
+<project>
+  ...
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+				    <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+				    <responsetimeaverage>550.0</responsetimeaverage>
+				    <maxthroughput>3.2</maxthroughput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+-------------------
+
+* Customized report
+
+  The plugin contains several possibilities to customize the information shown in the report.
+  Default is to show as much information as possible.
+  
+  This example is a report with not very much information...
+
+-------------------
+<project>
+  ...
+	<build>
+		<plugins>
+		    ...
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+				    <description>This is the description of the generated report</description>
+				    <title>Report title</title>
+				    <showaverage>false</showaverage>
+				    <showpercentile>false</showpercentile>
+				    <showinfotable>false</showinfotable>
+				    <showtimeinfo>false</showtimeinfo>
+				    <showsummary>true</showsummary>
+				    <showdetails>false</showdetails>
+				    <showresponse>true</showresponse>
+				    <showhistogram>true</showhistogram>
+				    <showthroughput>false</showthroughput>
+				    <showgc>false</showgc>
+				</configuration>
+				<reportSets>
+				  <reportSet>
+				    <reports>
+				      <report>report</report>
+				    </reports>
+				  </reportSet>
+				</reportSets>
+			</plugin>
+			...
+		</plugins>
+	</reporting>
+</project>
+-------------------
+
+* Meta data
+  
+  Meta data can now be added to the generated report.
+  
+  Meta data is added to the report by pointing to a metadata file through the <metadata> tag.
+
+  Example:
+  
+-------------------
+<project>
+  ...
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+				    <description>This is the description of the generated report</description>
+				    <title>Report title</title>
+				    <showaverage>false</showaverage>
+				    <showpercentile>false</showpercentile>
+				    <showinfotable>false</showinfotable>
+				    <showtimeinfo>false</showtimeinfo>
+				    <showsummary>true</showsummary>
+				    <showdetails>false</showdetails>
+				    <showresponse>true</showresponse>
+				    <showhistogram>true</showhistogram>
+				    <showthroughput>false</showthroughput>
+				    <showgc>false</showgc>
+				    <metadata>...\file containing metadata.txt</metadata>
+				</configuration>
+				<reportSets>
+				  <reportSet>
+				    <reports>
+				      <report>report</report>
+				    </reports>
+				  </reportSet>
+				</reportSets>
+			</plugin>
+			...
+		</plugins>
+	</reporting>
+</project>
+-------------------
+
+  The data in the metadata file is expected to the following format:
+  
+  <<Key caption>><tab><<Key value>>
+
+  Example metadata file:
+
+-------------------
+Build no.	567
+Svn tag		Test
+-------------------
+  
+  Results in following metadata:
+  
+*----------+--------------+
+| Build no. | 567 |
+*----------+--------------+
+| Svn tag | Test |
+*----------*--------------+
+
+* History data
+  
+  All data generated by Chronos is stored as XML files.
+  
+  All previous binary data is automatically migrated during the first Chronos run. 

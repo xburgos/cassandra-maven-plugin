@@ -1,0 +1,157 @@
+    ------
+    Netbeans Freeform Maven 2 Plugin 
+    ------
+    Raphaël Piéroni
+    ------
+    Mon Aug 9 2005
+    ------
+
+
+
+Netbeans Freeform Maven 2 Plugin 
+
+    This plugin is for generating a Netbeans project from a Maven 2 project.
+
+* Overview
+
+    The Netbeans Ide 4.x (http://www.netbeans.org) defines a project type called 
+    freeform. The Freeform project kind in Netbeans is a Java project using the 
+    source tree you define. It use a ant script to call the ant targets given with
+    the Java sources.
+
+    This plugin take the pom of a Maven 2 project and its tree to create the two 
+    files needed by Netbeans to view a directory as a Freeform project. These files
+    are the Netbeans project descriptor and the Ant build file.
+
+* Usage
+
+    To use this plugin, do the following steps :
+
+        * open a shell,
+   
+        * change the shell directory to the project directory,
+
+        * call Maven 2 with the goal netbeans-freeform:generate-netbeans-project,
+
+        * open your Netbeans Ide,
+
+        * open the directory of the project using Open Project and selecting the 
+        directory of the project.
+
+    When the Netbeans project for your Maven2 project is opened, you have
+    access to the project view that shows : 
+
+        * the pom.xml of your project,
+
+        * the ant script used by Netbeans to call Maven2,
+
+        * the source packages of your project.
+
+    With a right click on the project name in the project view to call the basic 
+    goals. By defaults : 
+
+        * "Build Project" mapped to the "package" goal, 
+        
+        * "Clean Project" mapped to "clean:clean", 
+
+        * "Clean and Build Project" mapped to " clean:clean" then "package", 
+
+        * "Generate Javadoc for Project" mapped to "site:site", 
+
+        * "Run Project" mapped to "install" 
+
+        * "Test Project" mapped to "test". 
+
+    Then some custom goals are visible : 
+
+        * "jalopy" mapped to "jalopy" anticipating the creation of the jalopy plugin, 
+
+        * "assembly" mapped to "assembly:assembly" 
+
+        * "refresh-project" mapped to "netbeans-freeform:generate-netbeans-project".
+
+    Configure the pom.xml file as follow if needed :
+    
+    Note : none of the following property configuration is required. Even the 
+    plugin configuration may be omitted.
+
+-------------------
+<project>
+  ...
+    <build>
+      ...
+      <plugins>
+        ...
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>netbeans-freeform-maven-plugin</artifactId>
+          <configuration>
+            <outputDirectory>/path/to/output/directory</outputDirectory>
+            <additionalGoals>plugin:xdoc site:site, projecthelp:active-profiles</additionalGoals>
+            <additionalFiles>src/main/mdo/FreeformProject.mdo</additionalFiles>
+            <additionalFolders>src/test/projects, src/site, target</additionalFolders>
+          </configuration>
+        </plugin>
+        ...
+      </plugins>
+      ...
+    </build>
+  ...
+</project>
+-------------------
+
+    As an alternative and if all your projects have common goals files or 
+    folders, you can add the following in your settings.xml : 
+
+-------------------
+<settings>
+  ...
+  <profiles>
+    ...
+    <profile>
+      <id>freeform-commons</id>
+      <properties>
+        <freeform.outputDirectory>/path/to/output/directory</freeform.outputDirectory>
+        <freeform.additionalGoals>plugin:xdoc site:site, projecthelp:active-profiles</freeform.additionalGoals>
+        <freeform.additionalFiles>src/main/mdo/FreeformProject.mdo</freeform.additionalFiles>
+        <freeform.additionalFolders>src/test/projects, src/site, target</freeform.additionalFolders>
+      </properties>
+    </profile>
+    ...
+  </profiles>
+  ...
+  <activeProfiles>
+    ...
+    <activeProfile>freeform-commons</activeProfile>
+    ...
+  </activeProfiles>
+  ...
+</settings>
+
+-------------------
+
+    The explaination of the configuration or properties is : 
+
+        * additionalGoals or freeform.additionalGoals is a list of goals to add 
+        in the project context menu in Netbeans and in the mavencall.xml file.
+        The list is a String using ',' as the separator. Multiple Maven 2 
+        goals or lifecycle phase may be called with a space character between 
+        them. "plugin:xdoc site:site,projecthelp:activate-profiles" will add 2
+        menu items/ant target. The first call Maven 2 with the goals 
+        "plugin:xdoc site:site" and the secodn with  the goal 
+        "projecthelp:activate-profiles".
+
+        * additionalFiles or freeform.additionalFiles is a list of files to add
+        in the project view in Netbeans. The list is a String using ',' as the
+        seperator. "src/main/mdo/FreeformProject.mdo" will add one file named
+        "FreeformProject.mdo".
+
+        * additionalFolders or freeform.additionalFolders is a list of folders
+        to add in the project view int Netbeans after any additional file. The
+        list is a String using ',' as the separator. "src/test/projects, 
+        src/site" will add two folders named "projects" and "site".
+
+        * outputDirectory or freeform.outputDirectory is the absolute path to 
+        the directory where the 'nbproject' folders will be created. The 
+        Netbeans' project view will see the files and folder by using an ant 
+        properties.

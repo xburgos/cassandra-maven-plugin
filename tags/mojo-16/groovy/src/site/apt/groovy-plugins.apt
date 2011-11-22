@@ -1,0 +1,51 @@
+ ------
+ Groovy Plugins
+ ------
+ ------
+ $Id$
+
+~~ 
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~  http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+~~
+
+Groovy Plugins
+ 
+ Get out your platform shoes and puff up that fro... here are some Maven 2 plugins
+ which have already gone Groovy :-)
+
+* Plugins
+
+ * {{{http://mojo.codehaus.org/retrotranslator-maven-plugin/}Retrotranslator Maven Plugin}}
+ 
+ * {{{http://mojo.codehaus.org/selenium-maven-plugin/}Selenium Maven Plugin}}
+ 
+ []
+
+* Example Plugins
+
+ * {{{http://mojo.codehaus.org/groovy/example-plugins/clean-maven-plugin/}Clean Maven Plugin}}
+ 
+ * {{{http://mojo.codehaus.org/groovy/example-plugins/install-maven-plugin/}Install Maven Plugin}}
+ 
+ []
+
+* Got a Groovy Plugin?
+
+ If you have written a Maven 2 plugin with Groovy, {{{mailto:dev@mojo.codehaus.org?subject=My_Groovy_Plugin}let us know}},
+ so we can update the list.
+

@@ -1,0 +1,34 @@
+ ------
+ Maven RPM Plugin - Operation Parameters
+ ------
+ Bob Allison
+ ------
+ 25 July 2006
+ -----
+
+Operation Parameters
+
+  The parameters described in this page control the operation of the plugin.
+
+* {workarea}
+
+  The directory to use to build the RPM.  By default, this is a directory
+  named <<<rpm>>> in the project's build directory.
+
+* {defineStatements}
+
+  A list of %define statements that should be included in the top of the spec file
+ 
++-----+
+<plugin>
+  ...
+  <configuration>
+    ...
+    <defineStatements>
+      <defineStatement>_unpackaged_files_terminate_build 0</defineStatement>
+    </defineStatements>
+    ...
+  </configuration>
+  ...
+</plugin>
++-----+

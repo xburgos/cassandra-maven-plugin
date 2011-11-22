@@ -1,0 +1,61 @@
+ ---
+ Maven 2 Tomcat Plugin
+ ---
+ Mark Hobson
+ <markhobson@gmail.com>
+ ---
+ November 21, 2005
+
+Container Goals
+
+ The plugin provides goals to retrieve various information about the Tomcat container:
+ 
+ * {{{#Listing deployed applications}Listing deployed applications}}
+ 
+ * {{{#Listing server information}Listing server information}}
+ 
+ * {{{#Listing JNDI resources}Listing JNDI resources}}
+ 
+ * {{{#Listing security roles}Listing security roles}}
+ 
+ []
+ 
+ These are described in more detail below.
+ 
+* {Listing deployed applications}
+
+ To list all the currently deployed applications in Tomcat you can type:
+ 
++--
+mvn tomcat:list
++--
+
+* {Listing server information}
+
+ To list information about the Tomcat version, OS, and JVM properties you can type:
+ 
++--
+mvn tomcat:info
++--
+
+* {Listing JNDI resources}
+
+ To list all the JNDI resources available within Tomcat you can type:
+ 
++--
+mvn tomcat:resources
++--
+
+ Alternatively, to only list JNDI resources of a specific type you can type:
+ 
++--
+mvn -Dmaven.tomcat.type=my.class.name tomcat:resources
++--
+
+* {Listing security roles}
+
+ To list the available security roles available within Tomcat you can type:
+ 
++--
+mvn tomcat:roles
++--

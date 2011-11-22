@@ -1,0 +1,26 @@
+Patch process outline
+
+X 0. If patch plugin is disabled (config: <disabled>false</disabled>) then disable 
+all patch steps
+
+X 1. Check for patch artifact given current POM info (version, etc.)
+
+X 2. If patch artifact was resolved, unpack it and set a flag for existing patch
+  artifact being found. Set the patch source dir to the unpack location.
+
+X 3. If patch artifact was not resolved, set the patch source dir to the
+  configured source directory (src/patches by default).
+
+x 4. Apply all patch files in the patch-source directory. Require an ordering
+list, and allow specification of strict-follow, to fail the build if all
+specified patches are not present.
+
+x 5. If the patch artifact was not resolved, this is a new project. Create the
+patch-archive artifact, and attach it to the project artifact for
+installation/deployment.
+
+x 6. When installing the project artifact, go back and delete the patch artifact
+from the local repository, so we can detect when the patch artifact is actually
+deployed for the first time...we'll need this to keep from installing the patch
+artifact locally, then never deploying it again (since it'll resolve from then
+on).

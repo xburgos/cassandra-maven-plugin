@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+ 
+  http://www.apache.org/licenses/LICENSE-2.0
+ 
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<faqs id="FAQ" title="Frequently Asked Questions">
+    <part id="General">
+        <faq id="question1">
+            <question>Which version of the LESS compiler is used by the plugin?</question>
+            <answer>
+                <p>The plugin depends on the <code>com.googlecode.lesscss4j:lesscss4j</code> library for compilation of the LESS sources.</p>
+                <p>The version included is 0.9.1 which uses the official LESS 1.1.4 JavaScript compiler from <a href="http://lesscss.org/">http://lesscss.org/</a>.</p>
+            </answer>
+        </faq>
+        <faq id="question2">
+            <question>The lesscss4j library / LESS compiler bundled with the plugin is outdated. Can I override it?</question>
+            <answer>
+                <p>Yes, see the <a href="./examples/override-less-version.html">Override LESS version</a> example.</p>
+            </answer>
+        </faq>
+        <faq id="question3">
+            <question>I'm developing a web application, and I want to use the LESS sources in development mode and the compiled CSS only in production. What should I do?</question>
+            <answer>
+                <p>See the <a href="./examples/webapp-configuration.html">Web application configuration</a> example.</p>
+            </answer>
+        </faq>
+    </part>
+</faqs>

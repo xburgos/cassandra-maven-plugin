@@ -1,0 +1,17 @@
+<plugin>
+  <id>eclipse</id>
+  <implementation>org.apache.maven.plugin.eclipse.EclipsePlugin</implementation>
+  <instantiation-strategy>singleton</instantiation-strategy>
+  <mode>integrated</mode>
+  <goals>
+    <goal>
+      <name>eclipse</name>
+      <parameters>
+        <parameter>
+          <name>project</name>
+          <expression>#project</expression>
+        </parameter>
+      </parameters>
+    </goal>
+  </goals>
+</plugin>

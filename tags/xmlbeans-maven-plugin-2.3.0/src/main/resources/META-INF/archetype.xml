@@ -1,0 +1,10 @@
+<archetype>
+  <id>xmlbeans-maven-plugin</id>
+  <allowPartial>true</allowPartial>
+  <resources>
+    <resource>src/main/xsd/placeholder.txt</resource>
+    <resource>src/main/xsdconfig/placeholder.txt</resource>
+    <resource>src/test/xsd/placeholder.txt</resource>
+    <resource>src/test/xsdconfig/placeholder.txt</resource>
+  </resources>
+</archetype>

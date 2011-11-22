@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>group</groupId>
+  <artifactId>artifactId</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+  <parent>
+    <groupId>group</groupId>
+    <artifactId>badancestor</artifactId>
+    <version>1</version>
+  </parent>
+</project>

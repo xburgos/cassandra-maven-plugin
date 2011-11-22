@@ -1,0 +1,29 @@
+  ---
+  Maven Remote-Source Plugin :: Summary
+  ---
+  John Casey
+  ---
+  11-Sept-2005
+  ---
+  
+Summary for Maven Remote-Source Plugin
+
+  The Remote-Source plugin is used to retrieve project sources from a remote URL,
+  and unpack them into a work directory (under /target by default). This is
+  especially useful when the Maven POM represents an add-on build for an existing
+  package that is normally built by Make or something similar.
+  
+  This plugin actually consists of two mojos: <<<resolve>>>, <<<get>>>, <<<unpack>>>
+  and <<<relocate>>>. The <<<relocate>>> mojo actually moves the 
+  project sources from a relative path under the unpack directory into 
+  $\{basedir\}.
+  
+*Lifecycle Bindings
+
+  The <<<get>>> mojo is bound to the initialize lifecycle phase, to
+  enable retrieval of the project sources before the build is started.
+  
+  The <<<relocate>>> mojo is not explicitly bound to any lifecycle
+  phase, because it is currently an optional mojo which is only to be used
+  when explicitly configured in the POM.
+

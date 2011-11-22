@@ -1,0 +1,48 @@
+Introduction to Chronos
+
+    Chronos is a tool for testing the performance of Your project.
+    It enables You to test performance via JMeter, validate that relevant performance goals have been met,
+    and create nice visualizations of the latest and historical testrun.
+
+    This will allow a developer to integrate performancetesting into an existing project and performancetest continuously,
+    maybe as a part of a nightly build.
+    This will help him to pinpoint performance problems: If You know when a performance problem was introduced,
+    it is much easier to find out which change in the codebase caused the performance degradation.
+
+    Chronos is logically separated into a testing and a reporting part.
+
+* The purpose of Chronos
+
+     There are several existing tools helping with performancetesting, both open source (JMeter or Grinder) and commercial ones.
+     The purpose of Chronos is to make integrating performancetesting in a project easier.
+     Currently only JMeter is supported, but the ambition is to extend this to other performancetesting tools (Grinder).
+
+* The structure of Chronos
+
+     Chronos is separated into 2 parts (plugins).
+
+     The chronos-jmeter plugin is used for executing performancetests or to integrate results of already existing performancetests into the Chronos infrastructure.
+     It may also be used for saving historical data, or for validating that performance goals have been met.
+
+     The chronos-report plugin uses the output from chronos-jmeter, to create current or historical reports.
+
+* When can I use Chronos?
+
+    Chronos is applicable for projects, where You are able to create performancetests in a format accepted by JMeter.
+
+* When should I use Chronos?
+
+    Chronos should be considered for any project, where continuous performancetesting is a good idea, typically projects
+    still undergoing active development.
+
+    Chronos should also be considered for projects, where nice graphs of the performance testresults are wanted.
+    For really advanced graphs You might consider using the JMeter UI instead.
+
+* How do I introduce Chronos into my project?
+
+    * Start by creating Your performancetests, so they may be run by JMeter
+      This could be as Http request, or java-code calling a remote server or simple business logic.
+
+    * (optional) Prepare initialization of testdata, creating a suitable load for the database.
+
+    * Use Chronos to invoke the initialization and the performancetest, and visualize the testresults, as part of Your Maven build.

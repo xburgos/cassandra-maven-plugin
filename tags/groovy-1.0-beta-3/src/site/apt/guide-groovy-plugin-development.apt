@@ -1,0 +1,414 @@
+ ------
+ Guide to Developing Groovy Plugins
+ ------
+ Jason Dillon
+ ------
+ $Id$
+ ------
+
+~~
+~~ Copyright (C) 2006-2007 the original author or authors.
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+~~
+
+~~
+~~ NOTE: This guide has been adapted from "Guide to Developing Java Plugins"
+~~       http://maven.apache.org/guides/plugin/guide-java-plugin-development.html.
+~~       With some elementes nicked from the "Guide to Developing Ant Plugins"
+~~       http://maven.apache.org/guides/plugin/guide-ant-plugin-development.html.
+~~
+
+Developing Groovy Plugins for Maven 2
+
+* Introduction
+
+ This guide is intended to assist users in developing {{{http://groovy.codehaus.org}Groovy}}
+ plugins for Maven 2.  Readers should already be familiar with Maven plugin concepts
+ and the basics of programming with Groovy.
+ 
+ Groovy plugins are very similar to Java plugins and actually a Groovy plugin is
+ compiled into Java byte-code, and once built, Maven can not tell the difference
+ between a plugin which has been implemented in Java or Groovy.
+ 
+ For the most part, the existing guides for developing Maven plugins with Java will
+ also apply to developing plugins with Groovy.  This guide will cover the basics of
+ how to create a plugin using Groovy as well as some finer points about how using
+ Groovy can make plugin development easier.
+
+** Conventions
+
+ In this guide, we'll use the standard Maven directory structure for projects,
+ to keep our POMs as simple as possible. It's important to note that this is
+ only a standard layout, not a requirement. The important locations for our
+ discussion are the following:
+  
++----+
+  <project-root>/
+  |
+  +- pom.xml
+  |
+  +- src/
+  |  |
+  |  +- main/
+  |  |  |
+  |  |  +- groovy/ (source location for Groovy sources)
+  |  |  |  |
+  ...
++----+
+
+* Your First Groovy Plugin
+
+ Lets start off by following the same track as the
+ {{{http://maven.apache.org/guides/plugin/guide-java-plugin-development.html}Java plugin guide}}
+ and create a simple plugin which takes no parameters and displays a message on
+ the screen when executed.
+
+** Your First Groovy Mojo
+
+ Just like Java-based Mojo's at its simplest, a Groovy Mojo consists of a single class.
+ For more complicated plugins you are free to use as many classes as needed of 
+ course, just like Java.  Do you sense the common theme here?
+ 
+ Groovy Mojo implementations are denoted by the "<<<@goal>>>" Javadoc annotation
+ on the class (er, just like Java).  Actually, <<all>> of the Javadoc annotations
+ which are supported by Java plugins are also supported by Groovy plugins.
+
+*** A Simple Groovy Mojo
+
+ Here is our simple Mojo class which has no parameters and spits out a relatively
+ meaningless string via logging.
+
++----+
+package sample.plugin
+
+import org.apache.maven.plugin.AbstractMojo
+
+/**
+ * Says "Hi" to the user... er well not really :-P.
+ *
+ * @goal sayhi
+ */
+public class GreetingMojo extends AbstractMojo
+{
+    void execute() {
+        log.info('Groovy baby!')
+    }
+}
++----+
+
+ There are a few minor points to note here.  First, we are referencing the plugins
+ logger via <<<log.info()>>>, where in Java one would need to <<<getLog().info()>>>.
+ 
+ Second, there is no need to mark the <<<execute()>>> method as throwing any exceptions,
+ though you can still throw any exceptions you need to.  You can of course declare
+ what your methods are throwing if you want to.
+ 
+ Lastly, for this simple example I used the <<<AbstractMojo>>> class for the base-class
+ of our Mojo.  But for most Groovy plugins, the special <<<GroovyMojo>>> base-class
+ should probably be used, as it helps keep Mojo development groovier by allowing some
+ extra support methods and magic to be introduced.
+ 
+ This example below shows what the same code would look like using the recommended
+ support class:
+
++----+
+package sample.plugin
+
+import org.codehaus.mojo.groovy.GroovyMojo
+
+/**
+ * Says "Hi" to the user... er well not really :-P.
+ *
+ * @goal sayhi
+ */
+public class GreetingMojo extends GroovyMojo
+{
+    void execute() {
+        log.info('Groovy baby!')
+    }
+}
++----+
+
+ Funny, it looks very similar doesn't it?  The major differences are the addition
+ of some helpers (which are not actually used here, but will be covered below in
+ more detail).
+
+** Building the Plugin
+
+ Now that you have your Mojos implemented in Groovy, we need to build the plugin.
+
+*** Project Definition
+
+ Groovy plugins use the same Java plugin descriptor extractor.  The Java extractor
+ uses the generated stubs to build the descriptor, so be sure to invoke the
+ <<<generateStubs>>> goal.
+ 
+ Instead of depending on <<<maven-plugin-api>>> Groovy plugins depend on
+ <<<groovy-mojo-support>>>. This picks up the common Maven dependencies as well
+ as the required Groovy dependencies.
+ 
+ And of course, we need to hook up the <<<groovy-maven-plugin>>> to <<<compile>>>
+ the Groovy sources into class files (as well as a few others).
+ 
+ Below is a POM for the simple sample groovy mojo:
+
++----+
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>sample.plugin</groupId>
+    <artifactId>maven-hello-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>Sample Parameter-less Maven Plugin</name>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo.groovy</groupId>
+            <artifactId>groovy-mojo-support</artifactId>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
++----+
+
+ Once you have your pom setup then you can build the plugin in the normal way via:
+
++----+
+mvn install
++----+
+
+** Executing Your First Groovy Mojo
+
+ Once you have built the plugin, using the plugin works just like Java plugins.
+ The most direct means of executing the plugin is to specify the plugin goal
+ directly on the command line.  To do this you need to configure the <<<maven-hello-plugin>>>
+ in your project:
+
++----+
+...
+<build>
+    <plugins>
+        <plugin>
+            <groupId>sample.plugin</groupId>
+            <artifactId>maven-hello-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </plugin>
+    </plugins>
+</build>
+...
++----+
+
+ And then you need to specify a fully-qualified goal in the form of:
+
++----+
+mvn groupID:artifactID:version:goal
++----+
+
+ For example, to run the simple mojo in the sample plugin, you would enter on the 
+ command line:
+
++----+
+mvn sample.plugin:maven-hello-plugin:1.0-SNAPSHOT:sayhi
++----+
+ 
+ The rules for reducing the amount of required typing to execute Groovy plugins
+ on the command line is the same as for Java plugins, as well as the configuration
+ required to attach the Mojo to the build life-cycle.  See the 
+ {{{http://maven.apache.org/guides/plugin/guide-java-plugin-development.html}Java plugin guide}}
+ for more details.
+
+* Parameters
+
+ Mojo parameters work <<exactly>> the same as they do for Java plugins.  Simply define
+ a field in your Mojo implementation and annotate the field with a "<<<@parameter>>>" Javadoc
+ tag.
+
++----+
+/**
+ * The greeting to display.
+ *
+ * @parameter default-value="Groovy baby!"
+ */
+private String greeting
++----+
+
+ Configuration of Mojo parameters is... as you might expect, the same as with Java Mojos:
+
++----+
+<plugin>
+    <groupId>sample.plugin</groupId>
+    <artifactId>maven-hello-plugin</artifactId>
+    <configuration>
+        <greeting>what say, you, we go out on the down and swing, baby? Yea</greeting>
+    </configuration>
+</plugin>
++----+
+
+ The main thing to note about Groovy Mojos and parameters, is that fields should be
+ typed so that Maven (or well, Plexus) can inject objects of the proper type.  Using
+ the <<<def>>> keyword is the same as typing the field as and <<<Object>>> which 
+ Maven will probably still inject just fine, but it won't perform any conversion.
+
+* Groovier Mojos
+
+ As mentioned earlier, Groovy Mojo's should probably extend from the <<<GroovyMojo>>>
+ class to pick up additional bits of happy Groovy fluff.
+
+ Currently Mojos which extend from this class have automatic access to a few more
+ syntactic sugar cubes to enhance your Mojo's Groovy factor.
+
+*-------------+-------------------------------------------------------------------+
+| <<<ant>>>   | Use Groovy's AntBuilder easily by referencing the <<<ant>>> field |
+*-------------+-------------------------------------------------------------------+
+| <<<fail()>>>| Easy access to throwing <<<MojoExecutionException>>> exceptions   |
+*-------------+-------------------------------------------------------------------+
+
+** Using <<<ant>>>
+
+ The <<<ant>>> field is lazily initialized when you first reference it, so there
+ is no cost to initialize it if you don't use it... though its not very costly actually.
+ Using the <<<AntBuilder>>> allows your Mojo <<full access>> to any {{{http://ant.apache.org}Ant}}
+ tasks.
+ 
+ The <<<ant>>> instance has already been hooked up to Maven's logging output, so when
+ something in Ant logs something as <<<INFO>>>, then it will come out as an <<<[info]>>>
+ log from Maven.  If you enable debug output (via <<<mvn -X>>>) then Ant <<<DEBUG>>> logs
+ will also be outputted as <<<[debug]>>> logs from Maven.
+ 
+ <<NOTE:>> The following examples assume that your Mojo implementation has already
+ defined a <<<project>>> field as in:
+
++----+
+/**
+ * @parameter expression="${project}"
+ * @required
+ * @readonly
+ */
+org.apache.maven.project.MavenProject project
++----+
+
+*** Touching a File
+
++----+
+ant.touch(file: "${project.build.directory}/stamp")
++----+
+
+*** Copying Files
+
++----+
+def dir = "${project.build.directory}/backup"
+
+ant.mkdir(dir: dir)
+
+ant.copy(todir: dir) {
+    fileset(dir: "${project.build.outputDirectoy}") {
+        include(name: '**/*')
+    }
+}
++----+
+
+*** Execute Something
+
++----+
+def propname = 'lsout'
+ant.exec(executable: '/bin/ls', outputproperty: propname)
+def value = ant.antProject.properties[propname]
++----+
+
+ Really the sky is the limit on what you can do.  See the
+ {{{http://ant.apache.org/manual/index.html}Ant User Manual}} for more
+ tasks you can execute ;-)
+
+** Using <<<fail()>>>
+
+ Most mojos need to report back some failure status, which is normally done by
+ throwing a <<<MojoExecutionException>>>.  Groovy Mojos can simply invoke the
+ <<<fail()>>> method, which handles the details of throwing for you.
+
+ Failing with a simple string:
+
++----+
+fail("That ain't no woman! It's a man, man!")
++----+
+
+ Failing with an exception detail:
+
++----+
+try {
+    ....
+}
+catch (Exception e) {
+    fail(e)
+}
++----+
+
+ Failing with an exception detail and a message:
+
++----+
+try {
+    ....
+}
+catch (Exception e) {
+    fail("She's the village bicycle! Everybody's had a ride.", e)
+}
++----+
+
+* Groovy Mojo Archetype
+
+ To help get Groovy plugins started faster, you can use the <<<groovy-mojo-archetype>>>.
+ This will create a new project with the basic POM configuration and an example Groovy-based
+ Mojo class to get you started quickly:
+ 
++----+
+mvn archetype:create
+    -DarchetypeGroupId=org.codehaus.mojo.groovy
+    -DarchetypeArtifactId=groovy-mojo-archetype
++----+
+
+* Resources
+
+** Mojo Development
+
+ [[1]] {{{http://maven.apache.org/developers/mojo-api-specification.html}Mojo API specification}}
+ 
+ [[2]] {{{http://maven.apache.org/guides/plugin/guide-java-plugin-development.html}Guide to Developing Java Plugins}}
+
+** Groovy Development
+
+ [[1]] {{{http://groovy.codehaus.org/Using+Ant+from+Groovy}Using Ant from Groovy}}
+ 
+ [[2]] {{{http://ant.apache.org/manual/index.html}Ant User Manual}}
+ 
+ [[3]] {{{http://groovy.codehaus.org/groovy-jdk.html}Groovy JDK Methods}}
+ 
+ [[4]] {{{http://groovy.codehaus.org/api/index.html}Groovy Javadocs}}
+

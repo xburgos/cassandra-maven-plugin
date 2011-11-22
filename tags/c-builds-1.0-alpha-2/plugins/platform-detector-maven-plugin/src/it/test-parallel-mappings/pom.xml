@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>test</groupId>
+  <artifactId>test-parallel-mappings</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>test-parallel-mappings</name>
+  <url>http://maven.apache.org</url>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>codehaus.snapshots</id>
+      <url>http://snapshots.repository.codehaus.org</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>platform-detector-maven-plugin</artifactId>
+        <configuration>
+          <propertiesOnly>true</propertiesOnly>
+        </configuration>
+        <executions>
+          <execution>
+            <id>P6-style</id>
+            <configuration>
+              <osProperty>p6.os</osProperty>
+              <archProperty>p6.arch</archProperty>
+            </configuration>
+            <phase>initialize</phase>
+            <goals><goal>detect</goal></goals>
+          </execution>
+          <execution>
+            <id>custom-style</id>
+            <configuration>
+              <osProperty>custom.os</osProperty>
+              <archProperty>custom.arch</archProperty>
+              <platformPatterns>
+                <osPatterns>
+                  <osPattern>
+                    <source>ref:lsb</source>
+                    <expression>ref:lsb</expression>
+                    <token>ubuntu-$1</token>
+                  </osPattern>
+                  <osPattern>
+                    <source>ref:redhat-enterprise</source>
+                    <expression>ref:redhat-enterprise</expression>
+                    <token>redhat-enterprise-$1</token>
+                  </osPattern>
+                </osPatterns>
+              </platformPatterns>
+            </configuration>
+            <phase>initialize</phase>
+            <goals><goal>detect</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <configuration>
+          <tasks>
+            <echo>P6-Style OS Token: ${p6.os}</echo>
+            <echo>P6-Style Architecture Token: ${p6.arch}</echo>
+            <echo>Custom-Style OS Token: ${custom.os}</echo>
+            <echo>Custom-Style Architecture Token: ${custom.arch}</echo>
+          </tasks>
+        </configuration>
+        <executions>
+          <execution>
+            <id>check-injected-properties</id>
+            <phase>generate-sources</phase>
+            <goals><goal>run</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

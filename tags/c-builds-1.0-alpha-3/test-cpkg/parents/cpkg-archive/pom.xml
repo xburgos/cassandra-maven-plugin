@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myco.m2</groupId>
+  <artifactId>cpkg-archive</artifactId>
+  <version>2.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg</artifactId>
+    <version>2.1-SNAPSHOT</version>
+    <relativePath>../cpkg</relativePath>
+  </parent>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>multibuild-optimizer-maven-plugin</artifactId>
+        <configuration>
+          <checkArtifact>true</checkArtifact>
+          <archiveUrl>${srcURL}</archiveUrl>
+          <checkDirectory>${workDir}</checkDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <workDir>${workDir}</workDir>
+          <prefix>${prefix}</prefix>
+          <destDir>${installDestDir}</destDir>
+        </configuration>
+        <executions>
+          <execution>
+            <id>configure</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>configure</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <configuration>
+          <sourceLocation>${project.artifactId}-${project.version}-src.tar.gz</sourceLocation>
+          <sourceArtifactType>tar.gz</sourceArtifactType>
+          <sourceUnpackSubpath>${project.artifactId}-${project.version}</sourceUnpackSubpath>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

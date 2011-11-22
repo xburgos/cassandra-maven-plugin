@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>chronos</artifactId>
+		<version>1.0-beta-2</version>
+	</parent>
+    
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>chronos-report-maven-plugin</artifactId>
+	<version>1.0-beta-2</version>
+    <packaging>maven-plugin</packaging>
+
+    <name>Chronos Report</name>
+    <inceptionYear>2011</inceptionYear>
+    <description>
+        Plugin for analyzing the result of performance tests and create nice reports of the results
+    </description>
+
+    <prerequisites>
+        <maven>2.0.6</maven>
+    </prerequisites>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven.reporting</groupId>
+			<artifactId>maven-reporting-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.reporting</groupId>
+			<artifactId>maven-reporting-impl</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math</artifactId>
+			<version>2.1</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<configuration>
+							<target>
+								<copy todir="${project.build.directory}/classes">
+									<fileset dir="${project.basedir}/src/main/java">
+										<include name="**/*.*" />
+										<exclude name="**/*.java" />
+									</fileset>
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>cbuild-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-alpha-1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>cbuild-tool-parent</artifactId>
+  <packaging>pom</packaging>
+
+  <name>C-Build Tools Root</name>
+
+  <modules>
+    <module>antcall</module>
+    <module>rpm-tools</module>
+    <module>jrpm-lifecycle</module>
+    <module>build-context</module>
+    <module>project-extras</module>
+    <module>fs-tools</module>
+    <module>platform-detective</module>
+    <module>platform-apis</module>
+  </modules>
+</project>

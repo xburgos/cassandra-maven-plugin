@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.softwareag.common.lic</groupId>
+  <artifactId>saglic</artifactId>
+  <name>Software AG License Validation Library</name>
+  <version>5.2.3.0</version>
+  <packaging>jar</packaging>
+  <description>
+    This library contain a set of classes, which are used to validate
+    the license of Software AG products. This version is distributed
+    as part of the Crossvision Application Designer (CIS) 2.3.
+  </description>
+  <url>http://developer.softwareag.com/crossvision/download/Application%20Designer/ProductUpdates.htm</url>
+
+  <licenses>
+    <license>
+      <name>Software AG customer license</name>
+      <distribution>manual</distribution>
+      <comments>
+        Non-free, commercial license
+      </comments>
+    </license>
+    <license>
+      <name>Software AG evaluation license</name>
+      <distribution>manual</distribution>
+      <comments>
+        Non-free, commercial license for evaluation in a limited time frame.
+      </comments>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>Not available</connection>
+  </scm>
+
+  <distributionManagement>
+    <downloadUrl>http://developer.softwareag.com/crossvision/download/Application%20Designer/ProductUpdates.htm</downloadUrl>
+  </distributionManagement>
+</project>

@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.codehaus.mojo.chronos-samples</groupId>
+	<artifactId>minimalreport</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-beta-1</version>
+	<name>minimalreport</name>
+	<url>http://maven.apache.org</url>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos-samples</artifactId>
+    <version>1.0-beta-1</version>
+  </parent>
+
+	<properties>
+		<jmeter.home>/Applications/Utilities/Java/jakarta-jmeter-2.3.1</jmeter.home>
+	</properties>
+
+  <prerequisites>
+      <maven>3.0.0</maven>
+  </prerequisites>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<configuration>
+					<jmeterOutput>${basedir}/src/main/resources/simplewebplan.jtl</jmeterOutput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeteroutput</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${project.version}</version>
+              <configuration>
+                  <description>This is the description of the generated report</description>
+                  <title>Report title</title>
+                  <showaverage>false</showaverage>
+                  <showpercentile>false</showpercentile>
+                  <showinfotable>false</showinfotable>
+                  <showtimeinfo>false</showtimeinfo>
+                  <showsummary>true</showsummary>
+                  <showdetails>false</showdetails>
+                  <showresponse>true</showresponse>
+                  <showhistogram>true</showhistogram>
+                  <showthroughput>false</showthroughput>
+                  <showgc>false</showgc>
+              </configuration>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+
+          </reportPlugins>
+        </configuration>
+
+      </plugin>
+
+		</plugins>
+	</build>
+</project>

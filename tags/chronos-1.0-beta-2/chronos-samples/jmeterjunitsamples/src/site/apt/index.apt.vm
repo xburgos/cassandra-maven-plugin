@@ -1,0 +1,88 @@
+JMeter junit sample
+
+    This sample illustrates reports where the tests are junit ones. Note that the chronos configuration is the same as usually.
+    We depend on JUnit (since our test cases are JUnit scripts. In this sample they reside under test-sources, so we
+    have to package a jar with the classes, to allow jmeter to see them.
+
+------------------
+
+<project>
+  ...
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>bundle-test-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${chronos.version}</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<id>jmeter</id>
+						<configuration>
+							<dataid>jmeter-report-1</dataid>
+							<input>${basedir}/src/test/resources/simplejunitplan.jmx</input>
+							<loggc>true</loggc>
+						</configuration>
+						<goals>
+							<goal>jmeter</goal>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${chronos.version}</version>
+              <configuration>
+                <dataid>jmeter-report-1</dataid>
+                <reportid>jmeter-report-1</reportid>
+                <title>JMeter Test Report</title>
+              </configuration>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+
+          </reportPlugins>
+        </configuration>
+
+      </plugin>
+    </plugins>
+    </plugins>
+  </build>
+
+  ...
+</project>
+
+------------------
+

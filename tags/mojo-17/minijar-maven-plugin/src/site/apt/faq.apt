@@ -1,0 +1,79 @@
+FAQ
+
+How do install it?
+
+ Just add minijar to your pom
+ 
++----------------------------
+     ...
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>minijar-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>ueberjar</goal>
+                        </goals>
+                        <configuration>
+                            <stripUnusedClasses>false</stripUnusedClasses>
+                            <includeDependencies>
+                                <param>org.vafer:dependency</param>
+                            </includeDependencies>
+                            <includeDependenciesInRelocation>
+                                <param>org.vafer:dependency</param>
+                            </includeDependenciesInRelocation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+     ...
++----------------------------
+
+ or call
+
++----------------------------
+ mvn -DartifactId=ARTIFACTID -DgroupId=GROUPID -Dversion=VERSION plugin:download
++----------------------------
+
+
+How do I actually use it?
+
+ Either you specify it in your pom and it will be called in the packaging phase
+ or you call one of the goals (minijars/ueberjar) explicitly on the command line.
+
+Does the relocation affect resource paths and reflection?
+
+ Yes. During the relocation calls access to resources and reflection is getting
+ wrapped in a very tiny and fast runtime resolution. (Basically just a static method)
+ While a static analysis could find only most of the names to replace, minijar will
+ catch and relocate properly all resources. No classloader magic - very simple.
+
+What is the difference to jarjar?
+
+ Just until very recently jarjar did not support the removal of unnecessary classes.
+ Inspired by minijar this was added recently. Besides that jarjar seems to use a
+ static approach to resource relocation. Also note that jarjar is GPL licensed while
+ minijar is release under ASL.
+
+What is the difference to proguard?
+
+ While minijar only does a quite straight forward transitive hull analysis, ProGuard
+ does much more. The analysis of ProGuard is much complexer and minijar was just kept
+ very simple. Minijar still gives very good results. I would recommend ProGuard if
+ you are really counting every single byte.
+ 
+Does it also remove unused methods and variables?
+
+ No. Minijar works on class basis. A few comparisons with ProGuard did not give so
+ much better results that it really was worth the effort. If you are counting bytes
+ go for ProGuard. If you just want to loose some dependency weight without spending
+ much time on that minijar is for you.
+ 
+Will there be an ant task for it?
+
+ It will ...at some stage. As of now it is maven2 only. But patches are always welcome :)

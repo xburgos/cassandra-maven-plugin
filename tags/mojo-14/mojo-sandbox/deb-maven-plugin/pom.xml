@@ -1,0 +1,43 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>mojo-sandbox</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>2</version>
+  </parent>
+  <artifactId>deb-maven-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+  <name>Maven Debian Package Plug-In</name>
+  <inceptionYear>2003</inceptionYear>
+  <developers>
+    <developer>
+      <id>trygvis</id>
+      <name>Trygve Laugstol</name>
+      <email>trygvis@inamo.no</email>
+      <url>http://home.inamo.no/~trygvis</url>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-embedder</artifactId>
+      <version>2.0.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

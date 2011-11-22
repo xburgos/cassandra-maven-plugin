@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<project>
+    <body>
+        <menu name="Overview">
+            <item name="Introduction" href="index.html"/>
+            <item name="Goals" href="plugin-info.html"/>
+            <item name="Usage" href="usage.html"/>
+            <item name="FAQ" href="faq.html"/>
+        </menu>
+        <menu name="Examples">
+            <item name="A simple sample" href="example-simple.html"/>
+<!--              
+            <item name="A simple sample with a property file" href="example-with-property-file.html"/>
+-->            
+        </menu>
+    </body>
+</project>
+
+<!--
+<project>
+  <body>
+    <menu name="Overview">
+        <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Usage" href="usage.html"/>
+    </menu>
+  </body>
+</project>
+-->

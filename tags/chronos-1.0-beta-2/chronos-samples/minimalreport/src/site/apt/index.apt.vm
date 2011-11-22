@@ -1,0 +1,69 @@
+Minimal report
+
+    Sample illustrating the smallest possible report.
+
+------------------
+
+<project>
+  ...
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${chronos.version}</version>
+				<configuration>
+					<jmeterOutput>${basedir}/src/main/resources/simplewebplan.jtl</jmeterOutput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeteroutput</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${chronos.version}</version>
+              <configuration>
+                  <description>This is the description of the generated report</description>
+                  <title>Report title</title>
+                  <showaverage>false</showaverage>
+                  <showpercentile>false</showpercentile>
+                  <showinfotable>false</showinfotable>
+                  <showtimeinfo>false</showtimeinfo>
+                  <showsummary>true</showsummary>
+                  <showdetails>false</showdetails>
+                  <showresponse>true</showresponse>
+                  <showhistogram>true</showhistogram>
+                  <showthroughput>false</showthroughput>
+                  <showgc>false</showgc>
+              </configuration>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+
+          </reportPlugins>
+        </configuration>
+
+      </plugin>
+
+		</plugins>
+	</build>
+	...
+
+</project>
+
+------------------
+

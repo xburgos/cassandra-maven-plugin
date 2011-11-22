@@ -1,0 +1,15 @@
+ ------
+ Maven 2 JasperReports Plugin
+ ------
+
+Maven 2 JasperReports Plugin
+
+  This plugin provides the capability to compile {{{http://jasperreports.sourceforge.net/}JasperReports}}
+  xml design files to the serialized file format it uses.
+  This plugin currently uses version 1.2.0 of JasperReports.
+  Much of this was inspired by the JRAntCompileTask, while trying to make it
+  slightly cleaner and easier to use with Maven.
+
+  See a {{{howto.html}quick how-to}} to get started with the plugin, and
+  the {{{compile-reports-mojo.html}configuration options}}.
+

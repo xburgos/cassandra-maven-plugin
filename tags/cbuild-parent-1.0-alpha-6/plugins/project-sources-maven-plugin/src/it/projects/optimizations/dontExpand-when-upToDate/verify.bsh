@@ -1,0 +1,6 @@
+import java.io.*;
+
+File dir = new File( basedir, "target/dontExpand-when-upToDate-1" );
+
+return dir.exists() && dir.list().length == 1;
+

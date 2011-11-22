@@ -1,0 +1,9 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.plugin.deb.ControlFileGenerator</role>
+      <implementation>org.apache.maven.plugin.deb.DefaultControlFileGenerator</implementation>
+      <instatiation-strategy>per-lookup</instatiation-strategy>
+    </component>
+  </components>
+</component-set>

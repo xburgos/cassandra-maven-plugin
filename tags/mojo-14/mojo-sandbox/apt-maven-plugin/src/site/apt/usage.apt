@@ -1,0 +1,47 @@
+ ------
+ Maven 2 APT Plugin 
+ ------
+ Juraj Burian
+ <jubu@codehaus.org>
+ ------
+ October 12, 2005
+
+Usage
+
+ This plugin execute APT (Annotation processing tool).
+ Configuration below gives the most simple usage example
+ 
+
+-------------------
+<project>
+   ...
+      <build>
+         ...
+        <plugins>
+            ...
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                            <goal>test-execute</goal>                        
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            ...
+         </plugins>
+         ...
+      </build>
+   ...
+</project>
+-------------------
+
+  There are other parameters that you can configure includes/include, debug, showWarnings etc.
+  
+  There are unsupported options, namely: -version, -help.
+  
+  For full documentation, click {{{index.html}here}},  {{{faq.html}faq}} or {{{plugin-info.html}plugin-info}}.
+ 

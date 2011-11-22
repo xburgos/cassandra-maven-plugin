@@ -1,0 +1,1 @@
+clean org.codehaus.mojo.groovy:groovy-bootstrap-maven-plugin:testing:compile test

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>openjpa-mojo-test</groupId>
+  <artifactId>openjpa-maven-plugin-test-project-1</artifactId>
+  <version>99.0</version>
+  <name>OpenJPA Maven Plugin Test Project</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.openjpa</groupId>
+      <artifactId>openjpa</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>openjpa-maven-plugin</artifactId>
+        <version>test</version>
+        <configuration>
+          <!-- Pass properties to the Plugin here -->
+          <toolProperties>
+            <property>
+              <name>addDefaultConstructor</name>
+              <value>true</value>
+            </property>
+          </toolProperties>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

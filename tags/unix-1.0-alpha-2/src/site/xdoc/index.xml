@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ -->
+<document>
+  <properties>
+    <title>About</title>
+    <author email="trygvis@codehaus.org">Trygve Laugstol</author>
+  </properties>
+  <body>
+    <section name="About">
+      <p>
+        The unix-maven-plugin is a Maven plugin for producing installation packages for UNIX platforms.
+      </p>
+      <p>
+        The current release is <b>1.0-alpha-2</b>. This release is meant as a technology preview release. The plugin
+        is useful but work is in progress to make sure it support even more use cases. The documentation is currently
+        lacking, but the integration tests currently act as the documentation.
+      </p>
+      <p>
+        See the <a href="http://svn.codehaus.org/mojo/trunk/mojo/unix/TODO.txt">TODO.txt</a> for the latest status
+        on supported cases and planned features. See the
+        <a href="http://svn.codehaus.org/mojo/trunk/mojo/unix/unix-maven-plugin/src/it/README.txt">README.txt</a> in
+        the integration test directory for an explanation of the different integration tests.
+      </p>
+      <subsection name="Highlights">
+        <p>
+          The plugin currently support the following packaging formats and platforms:
+        </p>
+        <ul>
+          <li>
+            <code>dpkg</code> - Debian and Debian-based platforms like Ubuntu
+          </li>
+          <li>
+            <code>pkg</code> - Platforms with System V packaging tools like Solaris and HP-UX. Only Solaris is tested.
+          </li>
+          <li>
+            <code>rpm</code> - RedHat, Fedora and other platforms using RPM. Many platforms have RPM even if they use
+            another format as their primary format.
+          </li>
+        </ul>
+        <p>
+          Other features
+        </p>
+        <ul>
+          <li>
+            <b>Simplified assembly</b>: the plugin supports assembling the package with correct file ownership and modes.
+          </li>
+          <li>
+            <b>Repository index generation</b>: Goals for running dpkg-scanpackages
+<!--
+            catalog generation for pkg-get
+-->
+          </li>
+<!-- Not implemented yet
+          <li>
+            Optional compression of packages. Only applicable for the PKG format as DPKG and RPM automatically
+            compress the data files.
+          </li>
+-->
+        </ul>
+      </subsection>
+    </section>
+    <section name="Requirements">
+      <p>
+        When building packages for a specific format these the packaging tools need to be available on PATH.
+      </p>
+      <ul>
+        <li>
+          <code>dpkg</code> - dpkg-deb and optionally fakeroot
+        </li>
+        <li>
+          <code>pkg</code> - pkgmk and pkgtrans
+        </li>
+        <li>
+          <code>rpm</code> - rpmbuild
+        </li>
+      </ul>
+    </section>
+  </body>
+</document>

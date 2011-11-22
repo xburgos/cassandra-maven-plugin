@@ -1,0 +1,15 @@
+ ------
+ Maven 2 JBoss Packaging Plugin
+ ------
+
+Introduction
+
+  This plugin packages various JBoss deployable archive files including SAR, HAR and Spring. Such archives are specially named JAR files
+  with a deployable-specific XML descriptor and file extension. 
+  
+  Refer to {{{howto.html}How To Use}} for more specific details.
+
+  The full description of goals is available {{{index.html}here}}.
+
+
+

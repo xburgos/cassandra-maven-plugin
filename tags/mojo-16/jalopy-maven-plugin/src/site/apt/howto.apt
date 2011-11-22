@@ -1,0 +1,74 @@
+ ------
+ Usage
+ ------
+ Johnny R. Ruiz III
+ <jruiz@exist.com>
+ ------
+ September 1, 2005
+ ------
+
+Usage
+
+ The Maven 2 Jalopy Plugin is used to format java source files following a coding convention.  
+ Please see {{{http://jalopy.sourceforge.net}Jalopy Home Page}}.
+
+ This plugin will format all java source files in the sourceDirectory and testDirectory following a coding convention.
+  
+*Available Configuration Options
+ 
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ <<Parameter>>       | <<Optional>> | <<Description>>                                                                                     
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ fileFormat          | Optional     | Sets the file format of the output files.  The file format controls what end of line 
+                     |              | character is used.  Either one of "UNIX", "DOS", "MAC", "DEFAULT" or "AUTO" can be 
+                     |              | used. Defaults to "AUTO" (case insensitive).
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ history             | Optional     | Specifies the history policy to use. Either one of "COMMENT", "FILE" or "NONE" 
+                     |              | can be used. Defaults to "none". 
+*--------------------+--------------*--------------------------------------------------------------------------------------+ 
+ failOnError         | Optional     | Indicates whether a build should fail if errors occured. Defaults to "true".
+*--------------------+--------------*--------------------------------------------------------------------------------------+ 
+ convention          | Optional     | Sets the preferences file to use - given either relative to the project's basedir or 
+                     |              | as an absolute local path or internet address. If omitted, the current preferences 
+                     |              | are used, if available. Otherwise the Jalopy built-in defaults will be used. 
+                     |              | The built-in configuration file is called <<<jalopy.xml>>>, so take care of not putting your
+                     |              | configuration file in the default package with the same name.
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ srcIncludesPattern  | Optional     | For Source Directory. Specifies a fileset of source files to format. This is a comma- 
+                     |              | or space-separated  list of patterns of files. Defaults to <<<**\\*.java>>>. 
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ srcExcludesPattern  | Optional     | For Source Directory. Source files excluded from format. This is a comma- or 
+                     |              | space-separated  list of patterns of files. Defaults to <<<**\\*.exc>>>.
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ testIncludesPattern | Optional     | For Test Directory. Specifies a fileset of test source files to format. This is a comma- or 
+                     |              | space-separated  list of patterns of files. Defaults to <<<**\\*.java>>>. 
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+ testExcludesPattern | Optional     | For Test Directory. Test source files excluded from format. This is a comma- or 
+                     |              | space-separated list of patterns of files. Defaults to <<<**\\*.exc>>>.
+*--------------------+--------------*--------------------------------------------------------------------------------------+
+
+*How to Use
+ 
+-------------------
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jalopy-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </plugin>
+    </plugins>
+    ...
+  </build>
+  ...
+</project>
+-------------------
+
+*To run Jalopy plugin
+
+-------------------
+mvn jalopy:format
+-------------------

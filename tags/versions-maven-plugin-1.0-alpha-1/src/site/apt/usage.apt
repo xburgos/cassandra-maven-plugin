@@ -1,0 +1,72 @@
+ ~~ Licensed to the Apache Software Foundation (ASF) under one
+ ~~ or more contributor license agreements.  See the NOTICE file
+ ~~ distributed with this work for additional information
+ ~~ regarding copyright ownership.  The ASF licenses this file
+ ~~ to you under the Apache License, Version 2.0 (the
+ ~~ "License"); you may not use this file except in compliance
+ ~~ with the License.  You may obtain a copy of the License at
+ ~~
+ ~~   http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing,
+ ~~ software distributed under the License is distributed on an
+ ~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~~ KIND, either express or implied.  See the License for the
+ ~~ specific language governing permissions and limitations
+ ~~ under the License.
+
+ -----
+ Usage
+ -----
+ Stephen Connolly
+ ------
+ 2008-09-02
+ ------
+
+Usage
+
+  The plugin offers goals for updating the versions of artifacts referenced in
+  a Maven <<<pom.xml>>> file.
+
+* Basic Usage
+
+  Maven 2.0 does not currently support re-reading modifications of the <<<pom.xml>>> within one invocation of Maven.
+  As the {{{update-parent-mojo.html}versions:update-parent}} and {{{update-properties-mojo.html}versions:update-properties}} goals
+  modify the <<<pom.xml>>> file, you need to run these goals separately from any other goals or life-cycle phases.
+
+** Updating the parent version
+
+  To update the parent version of your POM to the latest available, just invoke the <<<update-parent>>> goal.
+
+---
+mvn versions:update-parent
+---
+
+  {{{examples/update-parent.html} A more detailed example of the <<<update-parent>>> goal}}.
+
+** Checking for new versions of plugins
+
+  To get information about newer versions of plugins that you are using in your build, just invoke the
+  <<<display-plugin-updates>>> goal.
+
+---
+mvn versions:display-plugin-updates
+---
+
+  {{{examples/display-plugin-updates.html} A more detailed example of the <<<display-plugin-updates>>> goal}}.
+
+** Checking for new versions of dependencies
+
+  To get information about newer versions of dependencies that you are using in your build, just invoke the
+  <<<display-dependency-updates>>> goal.
+
+---
+mvn versions:display-dependency-updates
+---
+
+  {{{examples/display-dependency-updates.html} A more detailed example of the <<<display-dependency-updates>>> goal}}.
+
+** Updating versions specified by properties
+
+  This goal helps when you use properties to define versions.  Please see the
+  {{{examples/update-properties.html}<<<update-properties>>> example}}.

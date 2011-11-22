@@ -1,0 +1,20 @@
+<component-set>
+  <components>
+
+    <!--
+     |
+     | GroovyMojoDescriptorExtractor, a MojoDescriptor extractor to read
+     | descriptors from groovy sources.
+     |
+     -->
+    <component>
+      <role>org.apache.maven.tools.plugin.extractor.MojoDescriptorExtractor</role>
+      <role-hint>javalike</role-hint>
+      <implementation>org.apache.maven.tools.plugin.extractor.javalike.JavaMojoDescriptorExtractor</implementation>
+      <configuration>
+        <srcPrefixes>.java .groovy</srcPrefixes>
+      </configuration>
+    </component>
+    
+  </components>
+</component-set>

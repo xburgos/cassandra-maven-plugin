@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>cbuild-tool-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-alpha-1</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>antcall</artifactId>
+  <name>Ant Caller</name>
+  <description>Runs ant scripts from API calls</description>
+  <developers>
+    <developer>
+      <id>jdcasey</id>
+      <name>John Casey</name>
+      <email>jdcasey@apache.org</email>
+    </developer>
+    <developer>
+      <id>kenney</id>
+      <name>Kenney Westerhof</name>
+      <email>kenney@apache.org</email>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-container-default</artifactId>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,27 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.libexpat</groupId>
+  <artifactId>expat</artifactId>
+  <version>1.95.8</version>
+  <packaging>rpm</packaging>
+  
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg-archive-em</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <configuration>
+          <installOptions>
+             <installOption implementation="java.lang.String">prefix="${installDestDir}${prefix}"</installOption>
+          </installOptions>
+        </configuration>
+      </plugin>
+    </plugins>
+ </build>
+</project>

@@ -1,0 +1,84 @@
+Multiple tests sample
+
+    This sample illustrates 2 tests and 2 reports in the same project.
+
+------------------
+
+<project>
+  ...
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+        <version>${chronos.version}</version>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <id>simple</id>
+                        <configuration>
+                          <dataid>simple</dataid>
+                          <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+                        </configuration>
+                        <goals>
+                            <goal>jmeter</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <id>codehausmojo</id>
+                        <configuration>
+                          <dataid>codehausmojo</dataid>
+                          <input>${basedir}/src/main/resources/codehausmojowebplan.jmx</input>
+                        </configuration>
+                        <goals>
+                            <goal>jmeter</goal>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${chronos.version}</version>
+              <configuration>
+                <dataid>simple</dataid>
+                <reportid>simple</reportid>
+                <title>JMeter Test Report</title>
+                <description>This is a test report, which illustrates the different parts of the reports.</description>
+              </configuration>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${project.version}</version>
+              <configuration>
+                <dataid>codehausmojo</dataid>
+                <reportid>codehausmojo</reportid>
+                <title>JMeter Test Report</title>
+              </configuration>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+
+  ...
+</project>
+
+------------------
+

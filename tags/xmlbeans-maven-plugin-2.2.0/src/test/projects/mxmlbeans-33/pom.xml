@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>xmlbeans-mxmlbeans-33</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>XMLBeans mishandled classes dir MXMLBEANS-33</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>xmlbeans</goal>
+            </goals>
+          </execution>
+        </executions>
+        <inherited>true</inherited>
+        <configuration>
+           <classGenerationDirectory>target/generated-classes/xmlbeans-away</classGenerationDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>

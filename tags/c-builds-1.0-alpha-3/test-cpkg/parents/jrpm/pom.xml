@@ -1,0 +1,134 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.myco.m2</groupId>
+  <artifactId>jrpm</artifactId>
+  <version>2.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>myco-parent</artifactId>
+    <version>2.1-SNAPSHOT</version>
+    <relativePath>../myco-parent</relativePath>
+  </parent>
+
+  <properties>
+    <EMPkgVersionDir>${version}</EMPkgVersionDir>
+    <EMNoArchPrefix>/myco/pkgs/linux/intel/${EMPkgNameDir}/${EMPkgVersionDir}</EMNoArchPrefix>
+    <prefix>${EMNoArchPrefix}</prefix> 
+
+    <unpackTarget>${project.build.directory}/unpacked-sources</unpackTarget>
+    <unpackSubpath>${project.artifactId}-${project.version}</unpackSubpath>
+
+    <workDir>${unpackTarget}/${projectDirectoryName}</workDir>
+
+    <rpmBasedir>${project.build.directory}/rpm-basedir</rpmBasedir>
+
+    <relocateTarget>${rpmBasedir}/${prefix}</relocateTarget>
+  </properties>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jrpm-lifecycle</artifactId>
+        <version>${cbuildsPluginVersion}</version>
+      </extension>
+    </extensions>
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>multibuild-optimizer-maven-plugin</artifactId>
+        <configuration>
+          <checkDirectory>${srcURLPath}</checkDirectory>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>project-sources-maven-plugin</artifactId>
+        <configuration>
+          <sourceLocation>${project.artifactId}-${project.version}-src.tar.gz</sourceLocation>
+          <sourceArtifactType>tar.gz</sourceArtifactType>
+          <sourceUnpackDirectory>${unpackTarget}</sourceUnpackDirectory>
+          <sourceUnpackSubpath>${unpackSubpath}</sourceUnpackSubpath>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>relocations</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>relocate</goal>
+            </goals>
+            <configuration>
+              <from>${unpackTarget}/${unpackSubpath}</from>
+              <to>${relocateTarget}</to>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>remote-source-maven-plugin</artifactId>
+        <configuration>
+          <sourceArchive>${srcURL}</sourceArchive>
+          <expandTarget>${unpackTarget}</expandTarget>
+          <relativeSourceBase>${projectDirectoryName}</relativeSourceBase>
+          <relocateTarget>${relocateTarget}</relocateTarget>
+          <workDir>${workDir}</workDir>
+        </configuration>
+      </plugin>
+
+     <!-- NOTE: we use relocateTarget, cuz Plugins fire *after* a phase, 
+                and relocate has already occurred
+     --> 
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>shell-maven-plugin</artifactId>
+        <configuration>
+          <trimScript>true</trimScript>
+          <chmod>true</chmod>
+          <messageLevel>debug</messageLevel>
+          <skipPomProjects>true</skipPomProjects>
+        </configuration>
+        <executions>
+          <execution>
+            <id>chmod-scripts</id>
+            <phase>process-sources</phase>
+            <configuration>
+              <!-- Uncomment this to keep the file the plugin uses for this script -->
+              <debug>true</debug>
+
+              <script><![CDATA[
+#!/bin/sh
+##########################
+chmod a+x ${relocateTarget}/bin/*
+              ]]></script>
+
+            </configuration>
+            <goals>
+              <goal>shell</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-cbuild-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <prefix>${prefix}</prefix>
+          <destDir>${rpmBasedir}</destDir>
+          <skipPlatformPostfix>true</skipPlatformPostfix>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+  </build>
+</project>

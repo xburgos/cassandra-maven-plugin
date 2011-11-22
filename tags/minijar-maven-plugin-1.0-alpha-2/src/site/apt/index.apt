@@ -1,0 +1,3 @@
+Introduction
+
+ This plugin analysis the (transitive) dependencies of a project on the class level. Quite often you don't need all that classes from dependencies like commons-lang (just to give an example). Maybe you use 1-2 classes. So what to do? Copy-and-past the code you need? Don't! Minijar can create a mini version of your dependencies that just fulfills your needs.

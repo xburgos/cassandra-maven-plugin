@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor id="ear-jee5" partial="false" name="JEE5 EAR archetype">
+
+  <fileSets>
+    <fileSet filtered="true" packaged="false">
+      <directory>src/main/application</directory>
+      <includes>
+	<include>**/*.*</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+</archetype-descriptor>

@@ -1,0 +1,131 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>mojo</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>16</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>castor-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Castor Maven Plugin</name>
+  <version>2.0-SNAPSHOT</version>
+  <prerequisites>
+    <maven>2.0</maven>
+  </prerequisites>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.codehaus.org/browse/MCASTOR</url>
+  </issueManagement>
+  <inceptionYear>2005</inceptionYear>
+  <description>
+    The Castor plugin is a Maven plugin that provides the functionality of
+    Castor's SourceGenerator for generating Java beans and associated Marshallers
+    and Unmarshallers from XML Schema files.
+  </description>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>jtolentino</id>
+      <name>john tolentino</name>
+      <email>john.tolentino@mergere.com</email>
+      <url>http://www.mergere.com</url>
+      <organization>Mergere, Inc.</organization>
+      <timezone>+8 GMT</timezone>
+    </developer>
+    <developer>
+      <id>brozow</id>
+      <name>Matt Brozowski</name>
+      <email>brozow@opennms.org</email>
+      <url>http://www.opennms.org</url>
+      <organization>The OpenNMS Group</organization>
+      <timezone>-5 GMT</timezone>
+    </developer>
+    <developer>
+      <id>wguttmn</id>
+      <name>Werner Guttmann</name>
+      <email>wguttmn@codehaus.org</email>
+      <url>http://www.indoqa.com</url>
+      <organization>Indoqa Ltd.</organization>
+      <timezone>+1 GMT</timezone>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>nicolas de loof</name>
+      <email>nicolas@apache.org</email>
+      <timezone>+1</timezone>
+    </contributor>
+  </contributors>  
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-compiler-api</artifactId>
+      <version>1.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-plugin-testing-harness</artifactId>
+      <version>1.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.castor</groupId>
+      <artifactId>castor-codegen</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+        <groupId>velocity</groupId>
+        <artifactId>velocity</artifactId>
+        <version>1.5</version>	
+    </dependency>
+  </dependencies>
+  
+    <profiles>
+        <profile>
+            <activation>
+                <jdk>1.4</jdk>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>xerces</groupId>
+                    <artifactId>xercesImpl</artifactId>
+                    <version>2.6.2</version>
+                    <exclusions>
+                        <exclusion>
+                            <artifactId>xml-apis</artifactId>
+                            <groupId>xml-apis</groupId>
+                        </exclusion>
+                    </exclusions>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+  
+</project>

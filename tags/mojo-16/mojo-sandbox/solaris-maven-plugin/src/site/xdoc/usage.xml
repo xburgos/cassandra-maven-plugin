@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License. 
+ *
+ -->
+<document>
+  <properties>
+    <title>Usage</title>
+    <author email="hohwille@users.sourceforge.net">J&#246;rg Hohwiller</author>
+  </properties>
+  <body>
+    <section name="Usage">
+      <p>Besides your maven projects for development that produce artifacts like
+      jars, wars, ears, etc. you create a maven projects for your
+      deployment packages. There you set the packaging to "solaris" and add 
+      dependencies to your development project(s) as needed. If you have more 
+      than one deployment package, you should use a parent project
+      with packaging "pom" where each deployment package is inherited from.
+      </p>
+      <subsection name="Resources">
+        <p>Typically there are resources such as start-/stop-skripts, additional
+        config files, license files, etc. that should be deployed without 
+        modification. Such files should be put under
+        <code>src/main/resources/ROOT/&lt;PATH&gt;</code> where 
+        <code>PATH</code> is the absolute installation path on the deployment 
+        machine (e.g. <code>opt/foo</code> or <code>var/log/bar</code>).
+	      </p>
+      </subsection>
+      <subsection name="Templates">
+        <p>Templates are like resources but contain variables that will be
+        replaced by maven when building the package. This can be done in the same
+        way as for regular resources using <code>filtered resources</code>
+        (see <a href="http://maven.apache.org/guides/getting-started/index.html">here</a>).
+        </p>
+        <p>You may want to create a configuration package from a single maven
+        project with different results for various target systems. Be aware
+        that this is agains the philosophy of maven that says "one artifact 
+        per project". Anyways you can use a varibale in the declaration of 
+        the according filter:
+        <source><![CDATA[
+<filter>src/main/filters/filter-${package.profile}.properties</filter>
+         ]]></source>
+        Then you need to supply the profile when calling maven. E.g.:
+        <source>
+mvn -Dpackage.profile=linux-test
+        </source>
+        </p>
+        <p>In any case you will need the following templates located at "src/main/templates":<br/>
+        <ul><li>A file named "pkginfo" with the following content:</li></ul>
+        <source><![CDATA[
+CLASSES="none"
+PKG=${project.artifactId}
+NAME="${project.name}"
+DESC="${project.description}"
+VERSION=${project.version}
+ARCH=none
+CATEGORY=application
+ISTATES="S s 1 2 3"
+RSTATES="S s 1 2 3"
+         ]]></source>        
+        <ul><li>A file named "prototype.template" with the following content (The first line is needed others are an example.):</li></ul>
+        <source><![CDATA[
+i pkginfo=${project.build.outputDirectory}/pkginfo
+d none / 0755 root root
+d none /opt 0755 root sys
+d none /var 0755 root sys
+s none /opt/foo/var=/var/foo
+         ]]></source>
+        </p>
+      </subsection>
+      <subsection name="Dependencies">
+        <p>To include your development artifacts in the package, add the master 
+        development project(s) as dependency. To include them in the package
+        use the <a href="http://maven.apache.org/plugins/maven-dependency-plugin/">
+        maven-dependency-plugin</a> that can copy these including all transitive 
+        dependnecies from the local repository to a configurable directory that 
+        should be <code>${project.build.outputDirectory}/ROOT/&lt;PATH&gt;</code>
+        where <code>PATH</code> is the absolute installation path on the deployment 
+        machine (e.g. <code>opt/foo/lib</code>).
+        </p>
+      </subsection>
+      <subsection name="Parent POM">
+        <p>The parent POM for the deployment packages
+        should look similar to this example:
+        <source><![CDATA[
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <!-- fill out the ... with real values -->
+  <groupId>...</groupId>
+  <artifactId>...</artifactId>
+  <name>...</name>
+  <version>...</version>
+  <description>...</description>
+  <packaging>solaris</packaging>
+  <build>  
+    <outputDirectory>target/package</outputDirectory>
+    <!-- if you want to separate templates from resources -->
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/templates</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>solaris-maven-plugin</artifactId>
+        <!-- IMPORTANT: the extensions flag is required to activate the 'solaris' packaging -->
+        <extensions>true</extensions>
+        <!-- these are all the defaults and should fit -->
+        <configuration>         
+          <!-- <packageName>${project.artifactId}</packageName> -->
+          <!-- <packageFilename>${project.artifactId}-${project.version}.pkg</packageFilename> -->
+          <!-- <outputDirectory>${project.build.outputDirectory}</outputDirectory> -->
+          <!-- <outputRootFolder>ROOT</outputRootFolder> -->
+          <!-- <packageRoot>/</packageRoot> -->
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+        ]]></source>
+        </p>
+      </subsection>      
+    </section>
+  </body>
+</document>

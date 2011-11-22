@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<project>
+	<parent>
+		<artifactId>connectors</artifactId>
+		<groupId>org.apache.maven.diagrams</groupId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.apache.maven.diagrams.connectors</groupId>
+	<artifactId>connector-classes</artifactId>
+	<name>connector-classes</name>
+	<version>0.1-SNAPSHOT</version>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<artifactId>asm</artifactId>
+			<groupId>asm</groupId>
+			<version>3.0</version>
+		</dependency>
+
+		<dependency>
+			<artifactId>asm-tree</artifactId>
+			<groupId>asm</groupId>
+			<version>3.0</version>
+		</dependency>
+		
+				<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<version>1.4.5</version>
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Java 1.5 - parser does not work
+				
+				plugin>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-maven-plugin</artifactId>
+				<executions>
+				<execution>
+				<goals>
+				<goal>descriptor</goal>
+				</goals>
+				</execution>
+				</executions>
+				</plugin-->
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,59 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.chronos-samples</groupId>
+  <artifactId>minimalconfig</artifactId>
+  <version>1.0-beta-2</version>
+  <name>minimalconfig</name>
+  <url>http://maven.apache.org</url>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos-samples</artifactId>
+    <version>1.0-beta-2</version>
+  </parent>
+
+  <prerequisites>
+      <maven>3.0.0</maven>
+  </prerequisites>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jmeter</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- configure this way with maven 3 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${project.version}</version>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

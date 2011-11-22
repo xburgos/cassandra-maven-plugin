@@ -1,0 +1,20 @@
+<plugin>
+  <id>deb</id>
+  <implementation>org.apache.maven.plugin.deb.DebPlugin</implementation>
+  <instantiation-strategy>singleton</instantiation-strategy>
+  <mode>integrated</mode>
+  <goals>
+    <goal>
+      <name>deb</name>
+      <prereqs>
+        <prereq>jar</prereq>
+      </prereqs>
+      <parameters>
+        <parameter>
+          <name>project</name>
+          <expression>#project</expression>
+        </parameter>
+      </parameters>
+    </goal>
+  </goals>
+</plugin>

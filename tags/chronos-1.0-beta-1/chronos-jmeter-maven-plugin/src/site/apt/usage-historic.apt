@@ -1,0 +1,50 @@
+Saving historic data
+
+*  Introduction
+
+   Chronos allows generating historic reports thus allowing to follow long-time trends in performance.
+   This is done by saving some of the data as part of each build and later generating a report
+   summarizing the performance results across many historic builds.
+
+*  Usage
+
+   Saving historic data is enabled by attaching the goal as an execution. As default it will executed as part of the post-integration-test-phase of the build lifecycle.
+
+   Example:
+
+
+------------------
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-maven-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+          <executions>
+            <execution>
+              <id>perftest</id>
+              <configuration>
+                <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+                <dataid>performancetest</dataid>
+              </configuration>
+              <goals>
+                <goal>jmeter</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>savehistory</id>
+              <configuration>
+                <dataid>performancetest</dataid>
+                <historydir>target/history</historydir>
+              </configuration>
+              <goals>
+                <goal>savehistory</goal>
+              </goals>
+            </execution>
+          </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+
+------------------

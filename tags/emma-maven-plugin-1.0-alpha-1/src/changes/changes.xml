@@ -1,0 +1,29 @@
+<document>
+  <properties>
+    <title>Maven 2.x Emma Plugin changelog</title>
+    <author email="stephen.alan.connolly@gmail.com">
+      Stephen Connolly
+    </author>
+  </properties>
+  <body>
+    <!-- uncomment once the vote has passed
+    <release version="1.0-alpha-1" date="2008-10-01" description="First alpha release">
+      <action dev="romale" type="fix" issue="MOJO-1068">
+        Fixed.
+      </action>
+      <action dev="romale" type="fix" issue="MOJO-1135">
+        Fixed.
+      </action>
+      <action dev="bentmann" type="fix" issue="MOJO-1174">
+        Fixed.
+      </action>
+      <action dev="stephenconnolly" type="update">
+        Updated the site documentation.
+      </action>
+      <action dev="stephenconnolly" type="update">
+        Fixed all the checkstyle errors, warnings and infos.
+      </action>
+    </release>
+    -->
+  </body>
+</document>

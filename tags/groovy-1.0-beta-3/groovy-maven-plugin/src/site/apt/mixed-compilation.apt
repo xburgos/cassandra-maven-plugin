@@ -1,0 +1,99 @@
+ ------
+ Mixed Compilation
+ ------
+ ------
+ $Id$
+
+~~
+~~ Copyright (C) 2006-2007 the original author or authors.
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+~~
+
+Mixed Compilation
+
+ Ever wished you could have your <<<.groovy>>> sources depend on <<<.java>>> sources and your
+ <<<.java>>> sources depend on <<<.groovy>>> sources?  Well, guess what... you can!  As of
+ <<<1.0-beta-2>>> of the <<<groovy-maven-plugin>>> you can do just that and create a
+ <<mixed-compile>> project.
+
+ It works by adding an extra goal execution to generate <<stubs>> during the <<<generate-sources>>>
+ and <<<generate-test-sources>>> phases. These stubs are created from your Groovy source files
+ and translated into minimal Java sources (containing JavaDoc, classes, fields, methods, etc.
+ but omitting the implementation details.  This allows Maven's <<<maven-compiler-plugin>>> to be
+ invoked as normal to compile Java sources <and> the Groovy Java stubs, thus allowing the compilation
+ to resolve classes.  After the normal Java compile, the Groovy compiler kicks in and then re-generates
+ the <<real>> classes into places and everything is happy happy.
+
+* Enable Mixed Compile
+
+ To enable the mixed compilation, all you need to do is enable the <<<generateStubs>>> and/or
+ <<<generateTestStubs>>> goals as such:
+
++-----------+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo.groovy</groupId>
+            <artifactId>groovy-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generateStubs</goal>
+                        <goal>compile</goal>
+                        <goal>generateTestStubs</goal>
+                        <goal>testCompile</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
++-----------+
+
+* The <<<groovy-jar>>> Packaging
+
+ In addition to adding executions to your project, you can use the <<<groovy-jar>>> packaging, which will
+ setup the default life-cycle to automatically invoke the stub-generation and compilation goals.
+
+ To do this you must configured the <<<groovy-maven-plugin>>> as an extension so that the packaging configuration
+ is picked up by Maven:
+
++-----------+
+<project>
+    ...
+    <packaging>groovy-jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
++-----------+
+
+* Generating JavaDocs
+
+ A really neat side-effect of the stub-generation is that you can use the normal <<<maven-javadoc-plugin>>>
+ to generate documentation which includes both Java and Groovy classes!

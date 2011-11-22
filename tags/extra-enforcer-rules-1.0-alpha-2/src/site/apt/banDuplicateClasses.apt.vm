@@ -1,0 +1,127 @@
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~ http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+
+  ------
+  Ban Duplicate Classes
+  ------
+  Stephen Connolly
+  Robert Scholte
+  ------
+  October 2011
+  ------
+
+Ban Duplicate Classes
+
+  This rule checks the dependencies and fails if any class is present in more than one dependency.
+
+   The following parameters are supported by this rule:
+
+   * ignoreClasses - a list of classes to ignore duplicates of. Wildcards can be specified using the * character.
+
+   * findAllDuplicates - a boolean to indicate whether the rule should find all duplicates or fail fast at the first duplicate. Defaults to <<<false>>>.
+
+   * message - an optional message to provide when duplicates are found.
+   
+   * dependencies - a list of dependencies for which you want to ignore specific classes.
+
+   []
+
+
+  Sample Plugin Configuration:
+
++---+
+<project>
+  [...]
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${enforcerApiVersion}</version> <!-- find the latest version at http://maven.apache.org/plugins/maven-enforcer-plugin/ -->
+        <executions>
+          <execution>
+            <id>enforce-ban-duplicate-classes</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <banDuplicateClasses>
+                  <ignoreClasses>
+                    <!-- example of ignoring one specific class -->
+                    <ignoreClass>com.xyz.i18n.Messages</ignoreClass>
+
+                    <!-- example of ignoring with wildcards -->
+                    <ignoreClass>org.apache.commons.logging.*</ignoreClass>
+                  </ignoreClasses>
+                  <findAllDuplicates>true</findAllDuplicates>
+                </banDuplicateClasses>
+              </rules>
+              <fail>true</fail>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+  [...]
+</project>
++---+
+
+  You can even ignore classes per dependency if you'd like. For every dependency you can specify either the <<<groupId>>>, <<<artifactId>>>, <<<type>>> or <<<classifier>>>.\
+  You can't specify the version, because once Maven has resolved the version of a specific dependency there's only one version available.\
+  Note that you can use wildcard-expressions for these values, i.e. a '?' for one character and a '*' for any number of characters. 
+
+  The configuration would look like this
+
++---+
+<configuration>
+  <rules>
+    <banDuplicateClasses>
+      <ignoreClasses>
+        <ignoreClass>org.slf4j.*</ignoreClass>
+      </ignoreClasses>
+      <dependencies>
+        <dependency>
+          <artifactId>jcl-over-slf4j</artifactId>
+          <ignoreClasses>
+            <ignoreClass>org.apache.commons.logging.impl.*</ignoreClass>
+          </ignoreClasses>
+        </dependency>
+        <dependency>
+          <groupId>org.*</groupId>
+          <artifactId>maven-*</artifactId>
+          <type>*ar</type>
+          <classifier>sources</classifier>
+        </dependency>
+      </dependencies>
+    </banDuplicateClasses>
+  </rules>
+</configuration>
++---+
+
+
+* Trademarks
+
+  Apache, Apache Maven, Maven and the Apache feather logo are trademarks of The Apache Software Foundation.

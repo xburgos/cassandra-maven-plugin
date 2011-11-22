@@ -1,0 +1,16 @@
+import java.io.*;
+
+File testFile = new File( basedir, "target/purge-patch-artifact-1-patches.zip" );
+
+System.out.println( "Does " + testFile + " exist? " + testFile.exists() );
+
+boolean check1 = testFile.exists();
+
+// this one is based not in basedir, but in the current build directory, which is the plugin basedir.
+File testRepoFile = new File( "target/local-repository/org/codehaus/mojo/patch/it/purge-patch-artifact/1/purge-patch-artifact-1-patches.zip" );
+
+System.out.println( "Does " + testRepoFile + " exist? " + testRepoFile.exists() );
+
+boolean check2 = !testRepoFile.exists();
+
+return check1 && check2;

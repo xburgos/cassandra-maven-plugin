@@ -1,0 +1,49 @@
+<project name="Dashboard Maven Plugin">
+   <bannerLeft>
+      <name>Mojo</name>
+      <src>http://mojo.codehaus.org/images/mojo_logo.png</src>
+      <href>http://mojo.codehaus.org</href>
+   </bannerLeft>
+   <bannerRight>
+      <name>Codehaus</name>
+      <src>http://mojo.codehaus.org/images/codehaus-small.png</src>
+      <href>http://www.codehaus.org</href>
+   </bannerRight>
+   <body>
+      <links>
+         <item name="Mojo" href="http://mojo.codehaus.org/"/>
+         <item name="Maven" href="http://maven.apache.org/"/>
+      </links>
+    <menu name="Mojo">
+      <item name="mojo" href="http://mojo.codehaus.org/" />
+    </menu>
+    <menu name="Overview">
+      <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="FAQ" href="faq.html"/>
+    </menu>
+    <menu name="Documentation">
+      <item name="Standard Usage" href="usage.html"/>
+      <item name="Continuum Integration" href="continuum.html"/>
+      <item name="Clover Support" href="clover_support.html"/>
+      <item name="FindBugs Support" href="findbugs_support.html"/>
+    </menu>
+    <menu name="Documentation for historic support">
+      <item name="Standard Usage" href="usage_historic.html"/>
+      <item name="Continuum Integration" href="continuum_historic.html"/>
+      <item name="Standard Dashboard Configuration" href="standard_config.html"/>
+      <item name="Custom Dashboard Configuration" href="custom_config.html"/>
+      <item name="Custom Dashboard Multimodule Configuration" href="custom_multi_config.html"/>
+    </menu>
+    <menu name="Sample reports">
+      <item name="Single project" href="examples/dashboard-report.html" />
+      <item name="Multimodule projects" href="examples/dashboard-report-summary.html" />
+      <item name="Historic report" href="examples/dashboard-report-historic.html" />
+    </menu>
+    <menu name="History">
+      <item name="Changes" href="changes-report.html" />
+      <item name="Road Map" href="roadmap.html" />
+    </menu>
+    ${reports}
+  </body>
+</project>

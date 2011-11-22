@@ -1,0 +1,6 @@
+d none /bin null mysystem mysystem
+f none /bin/yo null mysystem mysystem
+d none /etc null mysystem mysystem
+f none /etc/conf null mysystem mysystem
+d none /var null mysystem mysystem
+d none /var/logs null mysystem mysystem

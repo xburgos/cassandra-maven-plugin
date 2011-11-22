@@ -1,0 +1,42 @@
+ ------
+ Maven 2 JBoss Plugin
+ ------
+ Jeff Genender
+ <jgenender@apache.org>
+ ------
+ October 3, 2005
+
+How To Use
+
+  This plugin manages the ability start/stop JBoss and deploy/undeploy applications via JMX
+
+  Your configuration must set the location to your JBoss Home directory.  If you do not set this, you will get and error if you try to start or stop Jboss with this plugin.  You set the home directory with the <<<jbossHome>>> tag. 
+  You can change your configurations by setting the properties in the plugin configuration.  Click on the goal's link for a list of each of the configurable properties. For example to change your port that JBoss is listening on to 9090, your POM would look like the following:
+
++------------------------------------------+
+<project>
+.
+.
+.
+    <build>
+        <defaultGoal>package</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jboss-maven-plugin</artifactId>
+                <configuration>
+                    <jbossHome>/Library/JBoss/4.0.2</jbossHome>
+                    <port>9090</port>
+                </configuration>
+            </plugin>
+            .
+            .
+            .
++------------------------------------------+
+
+  Using this is as simple as typing in m2 and one of the goals found {{{index.html}here}}, like so:
+
++------------------------------------------+
+m2 jboss:deploy
++------------------------------------------+
+

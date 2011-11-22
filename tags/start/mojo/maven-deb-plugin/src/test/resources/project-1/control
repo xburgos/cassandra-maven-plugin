@@ -1,0 +1,12 @@
+Section: devel
+Priority: standard
+Maintainer: Trygve Laugstol <trygvis@apache.org>
+Package: bar-project-1
+Version: 1.0
+Architecture: all
+Depends: junit-junit (=3.8.1), commons-logging-commons-logging (=1.0.3)
+Description: A test project for the debian package creator plugin.
+ This is the longer description
+ over several lines with a lot of whitespace.
+ .
+ And text sections.

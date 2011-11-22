@@ -1,0 +1,24 @@
+<document>
+  <properties>
+    <title>xmlbeans-maven-plugin - Overview</title>
+  </properties>
+  <body>
+    <section name="xmlbeans-maven-plugin">
+      <p>Goals available: </p>
+      <table>
+        <tr>
+          <th>Goal</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>
+            <a href="xmlbeans-mojo.html">
+              <code>xmlbeans:xmlbeans</code>
+            </a>
+          </td>
+          <td><p>A Maven 2 plugin which parses xsd files and produces a corresponding object model based on the Apache XML Beans parser.</p> <p>The plugin produces two sets of output files referred to as generated sources and generated classes. The former is then compiled to the build <code>outputDirectory</code>. The latter is generated in this directory.</p> <p>Note that the descriptions for the goal's parameters have been blatently copied from http://xmlbeans.apache.org/docs/2.0.0/guide/antXmlbean.html for convenience.</p></td>
+        </tr>
+      </table>
+    </section>
+  </body>
+</document>

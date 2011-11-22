@@ -1,0 +1,14 @@
+<archetype>
+  <id>cbuild-automvn</id>
+  <sources>
+  </sources>
+  <resources>
+  </resources>
+  <testSources>
+  </testSources>
+  <testResources>
+  </testResources>
+  <siteResources>
+  </siteResources>
+  <allowPartial>true</allowPartial>
+</archetype>

@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.codehaus.mojo.chronos-samples</groupId>
+	<artifactId>jmeterjunitsamples</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-beta-2</version>
+	<name>jmeterjunitsamples</name>
+	<url>http://maven.apache.org</url>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos-samples</artifactId>
+    <version>1.0-beta-2</version>
+  </parent>
+
+  <prerequisites>
+      <maven>3.0.0</maven>
+  </prerequisites>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>bundle-test-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${project.version}</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<id>jmeter</id>
+						<configuration>
+							<dataid>jmeter-report-1</dataid>
+							<input>${basedir}/src/test/resources/simplejunitplan.jmx</input>
+							<loggc>true</loggc>
+						</configuration>
+						<goals>
+							<goal>jmeter</goal>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${project.version}</version>
+              <configuration>
+                <dataid>jmeter-report-1</dataid>
+                <reportid>jmeter-report-1</reportid>
+                <title>JMeter Test Report</title>
+              </configuration>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+
+          </reportPlugins>
+        </configuration>
+
+      </plugin>
+		</plugins>
+	</build>
+</project>

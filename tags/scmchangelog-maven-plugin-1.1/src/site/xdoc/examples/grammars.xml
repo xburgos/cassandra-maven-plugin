@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+  <properties>
+    <author email="ehsavoie73@gmail.com">Emmanuel Hugonnet</author>
+    <title>Grammars</title>
+  </properties>
+  <head>
+    <meta/>
+  </head>
+  <body>
+    <section name="Commons">
+      <subsection name="Operations">
+        <p>
+         We support currently 2 grammars:
+          <ul>
+            <li>MANU</li>
+            <li>REMY</li>
+          </ul>
+          both with the same operations. The operations are <b>NOT</b> case sensitive.
+          <br/>
+          <ul>
+            <li>
+              <b>add</b>: when you add a new feature or some code to your projet.
+            </li>
+            <li>
+              <b>remove</b>: when you remove a feature or some code from your projet.
+            </li>
+            <li>
+              <b>update</b>: when you update a feature or some code in your projet.
+            </li>
+            <li>
+              <b>fix</b>: when you fixe a feature or some code in your projet.
+            </li>
+          </ul>
+        </p>
+      </subsection>
+      <subsection name="What about the issue id?">
+        <p>
+          Well it is quite simple, each bug tracker is associated with a pattern.  When an issue id is provided (which is <i>optionnal</i>) we use the pattern to link the entry to the tracker.
+        </p>
+      </subsection>
+    </section>
+    <section name="Grammars">
+      <subsection name="MANU">
+        <p>
+         The <b>MANU</b> grammar uses the pattern:<source>@operation:${issueId};</source>
+         So for example, to link to the bug MSCMCHGLOG-7 and you would have:</p>
+        <p>
+          <source>@update:MSCMCHGLOG-7;The documentation has been updated.</source>
+        </p>
+        <p>
+         If you don't have a issue id but still want to add an entry you could use the following comment:
+          <source>@fix:;The url to the JIRA tracker has been fixed.</source>
+        </p>
+      </subsection>
+      <subsection name="REMY">
+        <p>
+         The <b>REMY</b> grammar uses the pattern: <source>[operation:${issueId}]</source>
+         So for example, to link to the bug MSCMCHGLOG-7 and you would have:</p>
+        <p>
+          <source>[update:MSCMCHGLOG-7]The documentation has been updated.</source>
+        </p>
+        <p>
+         If you don't have a issue id but still want to add an entry you could use the following comment:
+          <source>[@fix:]The url to the JIRA tracker has been fixed.</source>
+        </p>
+      </subsection>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,184 @@
+Building a groovyc plugin in groovy
+
+ This tutorial is to demonstrate how easy it is to write a plugin for maven
+ using the groovy language. 
+
+ We'll write a plugin that could compile all <<<.groovy>>> in a given
+ directory when asked to achieve the goal 'compile'.
+ 
+* Objectives
+
+ * We are lazy and just want to write as quickly as possible. There is already an ant
+ task for performing this action in the groovy distribution. We should find a way to reuse
+ it in our plugin. Groovy itself seems to be an obvious choice when looking for an
+ implementation language because of its ability to easily reuse ant tasks.
+
+ * The plugin should work with no parameters because everything usefull is already
+ in the project's <<<pom.xml>>>. However it should be parametrable to fit uncommon needs
+ too.
+ 
+* Firing a new project
+
+ After a successfull installation of the <<<maven-archetype-mojo>>>, do
+
++---
+mvn archetype:create \
+  -DgroupId=org.codehaus.mojo \
+  -DpackageName=org.codehaus.mojo.groovyc \
+  -DartifactId=groovyc-maven-plugin \
+  -DarchetypeVersion=1.0 \
+  -DarchetypeGroupId=org.codehaus.archetype
+  -DarchetypeArtifactId=groovymojo-maven-archetype
++---
+
+* Declare the needed parameters
+
+ Rename <<<MyMojo.groovy>>> to <<<GroovycMojo.groovy>>> and edit it.
+
+ In front of the class declaration (rename the class' name to <<<GroovycMojo>>> too), you have
+ to change the comment :
+ 
++---
+/**
+ * A plugin that reuse the groovyc Ant task to compile .groovy files
+ *
+ * @goal compile
+ * @phase compile
+ * @description Compile the project's .groovy files
+ * @author me
+ * @version $Id$
+ */
++---
+
+ The javadoc annotations are really important here (@goal, @phase, ...) since they will be used by
+ maven during the packaging of the plugin to generate the plugin descriptor. Once deployed in your
+ maven repository, this descriptor is read by maven each time you use the groovyc plugin
+ in other projects' build process.
+ 
+ We need 2 parameters for the plugin: the source directories and the target directory.
+ Default values are just provided by mvn at runtime through the use of expressions (again annotations
+ are essential). Because the <<<project>>> variable is defined an passed to the plugin, theses expressions
+ could work in groovy code too. However we need to parametrize things so we choose to not using them directly.
+ 
++---
+    /**
+     * Source directories
+     *
+     * @parameter expression="${project.compileSourceRoots}"
+     * @required
+     */
+    private List srcDirs;
+    
+    /**
+     * Build directory
+     *
+     * @parameter expression="${project.build.outputDirectory}"
+     * @required
+     */
+    private String buildDir;
++---
+ 
+ 
+* Use the ant task
+
+ To use the ant task, we need :
+
+ [[1]] to know a little more about {{{http://groovy.codehaus.org/Ant+Scripting}GroovyAnt}} syntax,
+
+ [[1]] to declare the external task to ant,
+
+ [[1]] to look which parameters (xml attributes in ant) are needed by the task and passing them accordingly.
+ 
++---
+public void execute() {
+  def ant = new AntBuilder()
+  ant.taskdef(name: "groovyc", classname: "org.codehaus.groovy.ant.Groovyc")
+
+  ant.mkdir(dir: buildDir)
+
+  for (srcDir in srcDirs) {
+    ant.groovyc(srcdir: srcDir, destdir: buildDir)
+  }
+}
++---
+
+* Declare the project and its dependencies to the build process
+
+ Edit {{{pom.xml}}}
+
++---
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>groovyc-maven-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>Maven Groovyc Mojo</name>
+    <url>http://maven.apache.org</url>
+    <description>This is a maven 2 plugin to compile .groovy files.</description>
+    ...
+</project>
++---
+
+ The <<<o.c.g.a.Groovyc >>> class is defined in the groovy's jar, so we need to tell maven
+ about this depency. Edit the <<<pom.xml>>>
+ 
++---
+        ...
+        <dependency>
+            <groupId>groovy</groupId>
+            <artifactId>groovy-1.0-jsr</artifactId>
+            <version>03-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        ...
++---
+
+* Compiling, installing and using
+
++---
+mvn clean install
++---
+
+ * Using the plugin directly
+ 
++---
+mvn groovyc:compile
++---
+
+ * bind the plugin to the 'compile' phase in another project
+ 
++---
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>groovyc-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
++---
+
+* Conclusion
+
+ It's simple. Each time you need :
+ 
+ [[1]] to reuse ant tasks,
+ 
+ [[1]] to convert a script based on ant tasks (jelly, ant target),
+ 
+ [[1]] conciseness for your code,
+
+ just use Groovy.
+
+* See also
+ 
+ The maven site for deeper explanations on {{{http://maven.apache.org/guides/plugin/guide-java-plugin-development.html}how
+ to write plugins}} because the exactly same rules apply between java and Groovy.

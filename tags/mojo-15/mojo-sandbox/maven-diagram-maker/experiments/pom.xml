@@ -1,0 +1,20 @@
+<?xml version="1.0"?><project>
+  <parent>
+    <artifactId>diagrams</artifactId>
+    <groupId>org.apache.maven.diagrams</groupId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.maven.diagrams</groupId>
+  <artifactId>experiments</artifactId>
+  <name>experiments</name>
+  <version>1.0-SNAPSHOT</version>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+        <groupId>org.prefuse</groupId>
+	<artifactId>prefuse</artifactId>
+        <version>beta-20060220</version>
+    </dependency>
+  </dependencies>
+</project>

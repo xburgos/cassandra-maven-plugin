@@ -1,0 +1,237 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>patch-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Patch Plugin</name>
+  
+  <parent>
+    <artifactId>cbuild-plugin-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>1.0-beta-1</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>cbuild-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-archiver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-provider-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact-manager</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <configuration>
+          <settingsFile>src/it/settings.xml</settingsFile>
+          <projectsDirectory>src/it</projectsDirectory>
+          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+          <!--postBuildHookScript>verify.bsh</postBuildHookScript-->
+          <!--debug>true</debug-->
+          <setupIncludes>
+            <setupInclude>it-project-parent/pom.xml</setupInclude>
+          </setupIncludes>
+          <pomIncludes>
+            <pomInclude>**/pom.xml</pomInclude>
+          </pomIncludes>
+          <pomExcludes>
+            <pomExclude>remote-repository/**/pom.xml</pomExclude>
+          </pomExcludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <!-- install goal does't work with eclipse -->
+              <!-- goal>install</goal -->
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- cbuild-plugin-parent pom -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>install-cbuild-parent</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${settings.localRepository}/org/codehaus/mojo/cbuild-parent/${project.parent.version}/cbuild-parent-${project.parent.version}.pom</file>
+              <artifactId>cbuild-parent</artifactId>
+              <createChecksum>true</createChecksum>
+              <groupId>${project.parent.groupId}</groupId>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <packaging>pom</packaging>
+              <version>${project.parent.version}</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- cbuild-plugin-parent pom -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>install-cbuild-plugin-parent</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${settings.localRepository}/org/codehaus/mojo/cbuild-plugin-parent/${project.parent.version}/cbuild-plugin-parent-${project.parent.version}.pom</file>
+              <artifactId>cbuild-plugin-parent</artifactId>
+              <createChecksum>true</createChecksum>
+              <groupId>${project.parent.groupId}</groupId>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <packaging>pom</packaging>
+              <version>${project.parent.version}</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- cbuild-utils pom -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>install-cbuild-utils</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${settings.localRepository}/org/codehaus/mojo/cbuild-utils/${project.parent.version}/cbuild-utils-${project.parent.version}.pom</file>
+              <artifactId>cbuild-utils</artifactId>
+              <createChecksum>true</createChecksum>
+              <groupId>${project.parent.groupId}</groupId>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <packaging>pom</packaging>
+              <version>${project.parent.version}</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- cbuild-utils jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>install-cbuild-utils-jar</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${settings.localRepository}/org/codehaus/mojo/cbuild-utils/${project.parent.version}/cbuild-utils-${project.parent.version}.jar</file>
+              <artifactId>cbuild-utils</artifactId>
+              <createChecksum>true</createChecksum>
+              <groupId>${project.parent.groupId}</groupId>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <packaging>jar</packaging>
+              <version>${project.parent.version}</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- patch pom -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>install-myself</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${basedir}/pom.xml</file>
+              <artifactId>${project.artifactId}</artifactId>
+              <createChecksum>true</createChecksum>
+              <groupId>${project.parent.groupId}</groupId>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <packaging>pom</packaging>
+              <version>${project.parent.version}</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- patch jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-install-plugin</artifactId>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <id>install-myself-jar</id>
+            <!-- Do this after the package phase so that the jar will be there -->
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>install-file</goal>
+            </goals>
+            <configuration>
+              <file>${project.build.directory}/${project.artifactId}-${project.parent.version}.jar</file>
+              <artifactId>${project.artifactId}</artifactId>
+              <createChecksum>true</createChecksum>
+              <groupId>${project.parent.groupId}</groupId>
+              <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+              <packaging>jar</packaging>
+              <version>${project.parent.version}</version>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <extend>${maven.repo.local}/maven/poms/maven-plugin-parent-2.0-SNAPSHOT.pom</extend>
+  <groupId>maven</groupId>
+  <artifactId>maven-eclipse-plugin</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Maven</name>
+  <inceptionYear>2001</inceptionYear>
+  <package>org.apache.maven</package>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:maven-components/maven-plugins/maven-scm-plugin</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:maven-components/maven-plugins/maven-scm-plugin</developerConnection>
+    <url>http://cvs.apache.org/viewcvs.cgi/maven/</url>
+  </repository>
+  <dependencies>
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>2.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>2.0-SNAPSHOT</version>
+    </dependency>    
+    <dependency>
+      <groupId>maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>2.0-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,31 @@
+<document>
+  <properties>
+    <author email="m2@corridor-software.us">Kris Bravo</author>
+    <title>Usage</title>
+  </properties>
+  <head/>
+  <body>
+    <section name="Release Notes - XML Beans Maven Plugin - Version 2.0">
+<h2>Bug</h2>
+<ul>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-54'>MOJO-54</a>] - XMLBeans plugin xmlConfig property does not work with reactor</li>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-76'>MOJO-76</a>] - Usage Documentation is incorrect  either that or articleid is incorrect for xmlbeans</li>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-89'>MOJO-89</a>] - problems with managing paths when using xmlbeans-plugin in test phase</li>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-93'>MOJO-93</a>] - There is no javaSource parameter.</li>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-114'>MOJO-114</a>] - NullPointer exception when no *.xsd files</li>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-130'>MOJO-130</a>] - Can't change the schemaDirectory with xmlbeans plugin configuration</li>
+</ul>
+    
+<h2>New Feature</h2>
+<ul>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-72'>MOJO-72</a>] - Generate schema objects from xsd's stored in another artifacts jar file.</li>
+</ul>
+    
+<h2>Improvement</h2>
+<ul>
+<li>[<a href='http://jira.codehaus.org/browse/MOJO-69'>MOJO-69</a>] - only generate for changed schemas or missing outputs</li>
+</ul>
+    </section>
+
+  </body>
+</document>

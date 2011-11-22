@@ -1,0 +1,11 @@
+import java.io.*;
+
+File target = new File( basedir, "target/dontExpand-when-upToDate-1/test.txt" );
+target.getParentFile().mkdirs();
+
+FileWriter writer = new FileWriter( target );
+writer.write( "test" );
+writer.flush();
+writer.close();
+
+return true;

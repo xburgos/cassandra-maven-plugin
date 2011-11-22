@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <body>
+    <menu ref="parent" inherits="top"/>
+
+    <menu name="Overview">
+      <item name="Introduction" href="index.html"/>
+      <item name="Roadmap" href="roadmap.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="FAQ" href="faq.html"/>
+    </menu>
+
+    <menu name="Lifecycles">
+      <item name="rpm-stb Lifecycle" href="lc-rpm-stb.html"/>
+      <item name="rpm Lifecycle" href="lc-rpm.html"/>
+      <item name="rpm-light Lifecycle" href="lc-rpm-light.html"/>
+      <item name="jrpm Lifecycle" href="lc-jrpm.html"/>
+    </menu>
+
+    <menu ref="modules"/>
+
+    <!--menu name="Examples">
+      <item name="description1" href="examples/example-one.html"/>
+      <item name="description2" href="examples/example-two.html"/>
+    </menu-->
+  </body>
+</project>

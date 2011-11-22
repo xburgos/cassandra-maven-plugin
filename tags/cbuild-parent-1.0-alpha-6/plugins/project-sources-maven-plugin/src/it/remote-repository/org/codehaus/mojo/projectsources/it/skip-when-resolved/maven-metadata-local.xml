@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+  <groupId>org.codehaus.mojo.projectsources.it</groupId>
+  <artifactId>skip-when-resolved</artifactId>
+  <version>1</version>
+  <versioning>
+    <versions>
+      <version>1</version>
+    </versions>
+    <lastUpdated>20070108235546</lastUpdated>
+  </versioning>
+</metadata>

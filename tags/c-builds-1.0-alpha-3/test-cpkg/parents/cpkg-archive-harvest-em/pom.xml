@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.myco.m2</groupId>
+  <artifactId>cpkg-archive-harvest-em</artifactId>
+  <version>2.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>cpkg-archive-em</artifactId>
+    <version>2.1-SNAPSHOT</version>
+    <relativePath>../cpkg-archive-em</relativePath>
+  </parent>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        <configuration>
+          <patchingEnabled>false</patchingEnabled>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>shell-maven-plugin</artifactId>
+
+        <configuration>
+          <trimScript>true</trimScript>
+          <chmod>true</chmod>
+          <skipPomProjects>true</skipPomProjects>
+          <messageLevel>debug</messageLevel>
+        </configuration>
+
+        <executions>
+          <execution>
+            <id>install-it</id>
+            <phase>test</phase>
+            <configuration>
+              <!-- Uncomment this to keep the file the plugin uses for this script 
+              <debug>true</debug> -->
+
+              <script>
+#!/bin/sh
+mkdir -p ${installDestDir}/${prefix}
+cp -rv * ${installDestDir}/${prefix}
+          </script>
+            </configuration>
+            <goals>
+              <goal>shell</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>make-maven-plugin</artifactId>
+        <configuration>
+          <skipConfig>true</skipConfig>
+          <skipCompile>true</skipCompile>
+          <skipTest>true</skipTest>
+          <skipInstall>true</skipInstall>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

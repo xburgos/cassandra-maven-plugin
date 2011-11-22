@@ -1,0 +1,30 @@
+<document>
+  <properties>
+    <title>Changes was6-maven-plugin</title>
+    <author email="david@davidkarlsen.com">David J. M. Karlsen</author>
+  </properties>
+  <body>
+    <release version="1.0-alpha-1" date="2008-04-20" description="Initial release">
+      <action dev="david" type="fix" due-to="" issue="MOJO-1010">
+        Import and codehaus adjustments.
+      </action>
+      <action dev="david" type="fix" due-to="" issue="MOJO-1064">
+        Java 1.4 compability.
+      </action>
+    </release>
+    <release version="1.0-alpha-2" date="2008-05-06" description="2. alpha release">
+      <action dev="david" type="fix" issue="MWAS-3">
+        wsAdmin goal not passing args to script
+      </action>
+      <action dev="david" type="fix" issue="MWAS-5">
+        Plugin script is incompatible with Apache Ant 1.5
+      </action>
+      <action dev="david" type="fix" issue="MWAS-6">
+        Exception during Build on Linux
+      </action>
+      <action dev="david" type="fix" issue="MWAS-7">
+        ejbdeploy mojo fails due to bug in IBM ant task
+      </action>
+    </release>
+  </body>
+</document>

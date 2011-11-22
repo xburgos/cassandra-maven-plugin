@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <includes>
+  	<!--include>.*\.log4j\.lf5\..*</include-->
+  	<!--include></include-->
+  	<include>.*</include>
+  </includes>
+  <excludes>
+  	<exclude>
+  		<pattern>org.apache.log4j.Appender</pattern>
+  	</exclude>
+  </excludes>
+  <fullInheritancePath>true</fullInheritancePath>
+  <nodes>
+    <compressJavaBeanProperties>true</compressJavaBeanProperties>
+    <propagateInheritedMethods>false</propagateInheritedMethods>
+    <propagateInheritedFields>false</propagateInheritedFields>
+  </nodes>
+  <edges>
+    <!--aggregating/-->
+    <implemmenting/>
+    <inheritance/>
+  </edges>
+</configuration>

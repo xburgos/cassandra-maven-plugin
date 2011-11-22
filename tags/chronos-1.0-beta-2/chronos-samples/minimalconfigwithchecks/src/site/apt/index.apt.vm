@@ -1,0 +1,57 @@
+Minimal config with checks sample
+
+    This sample illustrates the 'check' goal, validating a few performance goals.
+
+------------------
+
+<project>
+  ...
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+        <version>${chronos.version}</version>
+        <configuration>
+          <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+          <responsetimeaverage>528.0</responsetimeaverage>
+          <maxthroughput>9.5</maxthroughput>
+          <responsetime99>1401</responsetime99>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jmeter</goal>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- configure this way with maven 3 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${chronos.version}</version>
+              <reports>
+                <report>report</report>
+              </reports>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  ...
+</project>
+
+------------------
+

@@ -1,0 +1,26 @@
+import java.io.*;
+
+// expat tarball
+File sourceArchive = new File( localRepositoryPath, "../deployment-repository/org/codehaus/mojo/cbuild-parent/it/stbs/expat/1.95.8/expat-1.95.8.tar.gz" );
+
+if ( ! sourceArchive.exists() )
+{
+  return false;
+}
+
+
+// openssl tarball
+sourceArchive = new File( localRepositoryPath, "../deployment-repository/org/codehaus/mojo/cbuild-parent/it/stbs/openssl/0.9.8k/openssl-0.9.8k.tar.gz.sha1" );
+
+if ( ! sourceArchive.exists() )
+{
+  return false;
+}
+
+// expat binary
+sourceArchive = new File( localRepositoryPath, "../integration-tests/target/rpm-prefix/bin/xmlwf" );
+
+return sourceArchive.exists();
+
+
+

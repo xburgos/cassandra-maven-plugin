@@ -1,0 +1,57 @@
+  ---
+  Maven Patch Plugin :: Summary
+  ---
+  John Casey, Lee Thompson
+  ---
+  11-Sept-2005 - 5-Oct-2008
+  ---
+  
+Maven Patch Plugin
+
+  The <<<get>>> and <<<apply>>> mojos are legacy and are replaced with a more
+  complete lifecycle which includes <<<resolve-patches>>>, <<<apply-directory>>>,
+  <<<package-patches>>>, and <<<purge-local-patch-artifact>>>.
+  
+  Implemented with the plexus Commandline and BourneShell utilities.
+
+*Patch process outline
+
+  [[0]] If patch plugin is disabled (config: \<disabled\>false\</disabled\>) then disable 
+  all patch steps
+
+  [[1]] Check for patch artifact given current POM info (version, etc.)
+
+  [[2]] If patch artifact was resolved, unpack it and set a flag for existing patch
+  artifact being found. Set the patch source dir to the unpack location.
+
+  [[3]] If patch artifact was not resolved, set the patch source dir to the
+  configured source directory (src/patches by default).
+
+  [[4]] Apply all patch files in the patch-source directory. Require an ordering
+  list, and allow specification of strict-follow, to fail the build if all
+  specified patches are not present.
+
+  [[5]] If the patch artifact was not resolved, this is a new project. Create the
+  patch-archive artifact, and attach it to the project artifact for
+  installation/deployment.
+
+  [[6]] When installing the project artifact, go back and delete the patch artifact
+  from the local repository, so we can detect when the patch artifact is actually
+  deployed for the first time...we'll need this to keep from installing the patch
+  artifact locally, then never deploying it again (since it'll resolve from then
+  on).
+
+  []
+
+*Lifecycle Bindings
+
+  The <<<resolve-pathces>>> mojo is bound to the initialize lifecycle phase, to enable
+  retrieval of patches before the main build process starts.
+  
+  The <<<apply-directory>>> mojo is bound to the process-sources lifecycle phase, to
+  modify the source code before it is compiled. It's important to note that
+  the <<<apply-directory>>> mojo's placement in the lifecycle must be tightly controlled
+  relative to other mojos in the process-sources phase, especially in the case 
+  of Make-based builds, since these builds commonly require a configuration 
+  step to execute prior to code compilation.
+

@@ -1,0 +1,22 @@
+<project name="Maven Axis Tools Plug-In">
+   <bannerLeft>
+      <name>Mojo</name>
+      <src>/images/mojo_logo.png</src>
+      <href>http://wrapper.codehaus.org</href>
+   </bannerLeft>
+   <bannerRight>
+      <name>Codehaus</name>
+      <src>http://wrapper.codehaus.org/images/codehaus-small.png</src>
+      <href>http://www.codehaus.org</href>
+   </bannerRight>
+   <body>
+      <links>
+         <item name="Mojo" href="http://wrapper.codehaus.org"/>
+         <item name="Maven" href="http://maven.apache.org/maven2"/>
+      </links>
+      <menu name="Axistools Plugin Quickstart">
+         <item name="Overview" href="howto.html"/>
+      </menu>
+      ${reports}
+   </body>
+</project>

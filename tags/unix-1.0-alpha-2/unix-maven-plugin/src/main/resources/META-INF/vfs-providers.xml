@@ -1,0 +1,5 @@
+<providers>
+
+  <extension-map extension="war" scheme="jar"/>
+
+</providers>

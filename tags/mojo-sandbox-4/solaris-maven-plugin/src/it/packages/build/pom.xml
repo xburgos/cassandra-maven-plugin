@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+  <groupId>foo.bar</groupId>
+  <artifactId>build</artifactId>
+	<name>Foo-Bar Packagebuild</name>
+	<version>1.0</version>
+	<description>Main-Script for the packagebuild</description>
+	<packaging>pom</packaging>
+	<build>
+		<plugins>
+			<!-- 
+      currently maven ignores multiple execution's with the same lifecycle phase
+      therefore this looks a little funny
+      -->
+      <!-- Step 1 checkout from subversion supply -Dsvn.dir=trunk for testing or -Dsvn.dir=tags/1.0 for real -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<configuration>
+				  <!-- better NOT supply your password here. 
+				    Checkout once manually with the same user you will run this build with
+				    and authenticate will save your password within your home settings...
+				    -->
+					<!--
+          <username>login</username>
+          <password>secret</password>
+          -->
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkout-develop</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>checkout</goal>
+						</goals>
+						<configuration>
+							<connectionUrl>scm:svn:https://foo.bar.com:8443/svn/foo/bar/${svn.dir}/develop</connectionUrl>
+							<checkoutDirectory>${project.build.directory}/checkout/develop</checkoutDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>checkout-packages</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>checkout</goal>
+						</goals>
+						<configuration>
+							<connectionUrl>scm:svn:https://foo.bar.com:8443/svn/foo/bar/${svn.dir}/packages</connectionUrl>
+							<checkoutDirectory>${project.build.directory}/checkout/packages</checkoutDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Step 2 build using maven -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<executions>
+				  <!-- 2.a. build and install develop -->
+					<execution>
+						<id>mvn-install-develop</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>mvn</executable>
+							<workingDirectory>${project.build.directory}/checkout/develop</workingDirectory>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				  <!-- 2.b. install regular packages POM -->
+					<execution>
+						<id>mvn-install-package</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>mvn</executable>
+							<workingDirectory>${project.build.directory}/checkout/packages</workingDirectory>
+							<arguments>
+								<argument>-N</argument>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				  <!-- 2.c. build BAR-ALL package -->
+					<execution>
+						<id>mvn-package-all</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>mvn</executable>
+							<workingDirectory>${project.build.directory}/checkout/packages/BAR-ALL</workingDirectory>
+							<arguments>
+								<argument>package</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				  <!-- 2.c. build BAR-CFG package for test -->
+					<execution>
+						<id>mvn-package-cfg-test</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>mvn</executable>
+							<workingDirectory>${project.build.directory}/checkout/packages/BAR-CFG</workingDirectory>
+							<arguments>
+								<argument>-Dpackage.profile=test</argument>
+								<argument>package</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				  <!-- 2.c. build BAR-CFG package for live -->
+					<execution>
+						<id>mvn-package-cfg-live</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>mvn</executable>
+							<workingDirectory>${project.build.directory}/checkout/packages/BAR-CFG</workingDirectory>
+							<arguments>
+								<argument>-Dpackage.profile=live</argument>
+								<argument>package</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

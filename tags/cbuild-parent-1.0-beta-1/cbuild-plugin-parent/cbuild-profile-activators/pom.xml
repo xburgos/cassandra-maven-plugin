@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<project xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd' xmlns='http://maven.apache.org/POM/4.0.0'>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>cbuild-profile-activators</artifactId>
+  <name>Custom Profile Activators</name>
+  
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>cbuild-parent</artifactId>
+    <version>1.0-beta-1-SNAPSHOT</version>
+  </parent>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>create-component-descriptor</id>
+            <goals>
+              <goal>descriptor</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <configuration>
+          <settingsFile>src/it/settings.xml</settingsFile>
+          <projectsDirectory>src/it</projectsDirectory>
+          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <localRepositoryPath>${project.build.directory}/it-repo</localRepositoryPath>
+          <!--postBuildHookScript>verify.bsh</postBuildHookScript-->
+          <!--debug>true</debug-->
+          <setupIncludes>
+            <setupInclude>it-project-parent/pom.xml</setupInclude>
+          </setupIncludes>
+          <pomIncludes>
+            <pomInclude>**/pom.xml</pomInclude>
+          </pomIncludes>
+          <pomExcludes>
+            <pomExclude>remote-repository/**/pom.xml</pomExclude>
+          </pomExcludes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>integration-test</id>
+            <goals>
+              <goal>install</goal>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+    </plugins>
+  </build>
+</project>

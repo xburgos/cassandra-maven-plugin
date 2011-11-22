@@ -1,0 +1,71 @@
+<document>
+  <properties>
+    <author email="kenney@neonics.com">Kenney Westerhof</author>
+    <title>Introduction</title>
+  </properties>
+  <head/>
+  <body>
+    <section name="Usage">
+      <p>
+				Please read the
+				<a href="http://maven.apache.org/maven2/plugins/maven-antrun-plugin/usage.html">
+				AntRun plugin usage guide</a> first.
+			</p>
+
+      <p>Here's an example configuration - you'll get the general idea.
+        <source>
+<![CDATA[
+<plugin>
+  <artifactId>xdoclet-maven-plugin</artifactId>
+  <groupId>org.codehaus.mojo</groupId>
+  <version>1.0-alpha-1</version>
+  <executions>
+    <execution>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>xdoclet</goal>
+      </goals>
+      <configuration>
+        <tasks>
+
+          <!-- example : -->
+
+          <ejbdoclet destdir="${project.build.outputDirectory}">
+            <fileset dir="${basedir}/src/main/java" includes="**/*Bean.java"/>
+            <entitycmp destDir="${project.build.outputDirectory}"/>
+            <deploymentdescriptor
+              destDir="${project.build.outputDirectory}"/META-INF"
+            />
+          </ejbdoclet>
+          
+        </tasks>
+      </configuration>
+    </goal>
+  </goals>
+</plugin>
+]]>
+        </source>
+      </p>
+
+      <p>
+        You can use the same expressions as Plugin builders
+        can use. However, the ${project.sourceRootPaths}
+        does not work - you have to hardcode <code>src/main/java</code>
+        in the fileset. This will be changed in the future.
+      </p>
+
+			<p>
+				As you can see, I've also specified <i>destDir</i> attributes on
+				the subtasks (like <i>entitycmp</i>. This is because
+				of <a href="http://opensource.atlassian.com/projects/xdoclet/browse/XDT-1505">
+				a bug in XDoclet</a>, when XDoclet is used more than once (for instance,
+				in a reactor build).
+			</p>
+
+      <p>
+        The goal to be called is <code>xdoclet:xdoclet</code>.
+      </p>
+    </section>
+
+  </body>
+</document>

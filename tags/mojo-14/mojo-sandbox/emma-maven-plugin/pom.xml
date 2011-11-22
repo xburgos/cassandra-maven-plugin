@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo-sandbox</artifactId>
+    <version>2-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>emma-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Maven EMMA plugin</name>
+  <version>1.0-SNAPSHOT</version>
+  <description>A Maven 2 plugin for generating Emma code coverage reports</description>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>emma</groupId>
+      <artifactId>emma</artifactId>
+      <version>2.0.5312</version>
+    </dependency>
+  </dependencies>  
+</project>

@@ -1,0 +1,58 @@
+Creating reports
+
+*  Introduction
+
+   Chronos allows generating nice reports of Your performancetests thus allowing to visualize performance.
+   This is done by executing performancetest, and llater generating a report based on the results.
+
+*  Usage
+
+   The report is typically invoked by attaching it to the site-generation as seen in the example below.
+   See {{{./report-mojo.html}chronos:report}} for a more detailed specification of the possible parameters.
+
+   For more details concerning parameters see {{{./report-mojo.html}chronos:report}}
+   The example illustrates the parameters (with default values). :
+
+
+------------------
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-maven-plugin</artifactId>
+				<version>1.0-SNAPSHOT</version>
+				<configuration>
+				    <reportid>performancetest</reportid>
+				    <dataid>performancetest</dataid>
+				    <description>A short description of the generated report</description>
+				    <title>Title for the report</title>
+				    <showaverage>false</showaverage>
+				    <showpercentile>false</showpercentile>
+				    <showinfotable>false</showinfotable>
+				    <showtimeinfo>false</showtimeinfo>
+				    <showsummary>true</showsummary>
+				    <showdetails>false</showdetails>
+				    <showresponse>true</showresponse>
+				    <showhistogram>true</showhistogram>
+				    <showthroughput>false</showthroughput>
+				    <showgc>false</showgc>
+				</configuration>
+				<reportSets>
+				  <reportSet>
+				    <reports>
+				      <report>report</report>
+				    </reports>
+				  </reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
+------------------
+
+    Note that You might consider another place for the historic data to avoid wiping them on a clean build.
+    Please also note that garbage collection is only relevant, when the real work is performed inside the jmeter proces,
+    as opposed to inside an external web server.
+
+    The historic data are expected to be found in ${historydir}/${dataid}.
+
+   

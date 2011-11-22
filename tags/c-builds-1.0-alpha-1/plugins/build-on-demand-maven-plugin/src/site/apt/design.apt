@@ -1,0 +1,55 @@
+  ---
+  Dependency Builder Plugin - Design Sketch
+  ---
+  John Casey
+  ---
+  26-Apr-2006
+
+Dependency Builder Plugin - Design Sketch
+
+* Introduction
+
+  This plugin is meant to support two general use cases:
+  
+    * A project's dependency set is unlikely to be in a Maven repository
+  
+    * It is important to build a project and all of its dependencies up 
+      completely from source
+  
+    []
+  
+* Notes on the Design Approach
+
+  I've decided to approach this as a plugin implementation, for two important
+  reasons:
+  
+    [[1]] Implementing it as a plugin can more easily isolate the explosion of
+          complexity involed in firing off a nested Maven process. The plugin API
+          can easily serve as a portal to the nested build logic, and provides a
+          good mechanism for reporting errors.
+          
+    [[2]] This functionality is often asked for in the community, and will help
+          address other tangentially-related ET tasks. Therefore, I want to make
+          it separable from the RPM artifact resolver.
+          
+    []
+    
+* Design
+
+  * Plugin MUST execute ahead of anything that has @requiresDependencyResolution
+    set.
+    
+  * Plugin MUST NOT @requiresDependencyResolution itself.
+  
+  * Plugin MUST support the following configuration options:
+  
+    * flag to override and <<always>> build all dependencies.
+    
+    * phase to execute when building dependencies.
+    
+    []
+    
+* Assumptions
+
+  * All dependency POMs must be in the remote repository, or in the reactor.
+

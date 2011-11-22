@@ -1,0 +1,61 @@
+Notes on Test Builds
+--------------------
+
+1. Using Deployed Project-Sources and Patch-Set Artifacts
+2. List of Projects Converted to Use Project-Source and Patch-Set Artifacts
+3. Using the Build-on-Demand Plugin to Build Project Dependencies
+
+
+1. Using Deployed Project-Sources and Patch-Set Artifacts
+
+Once you've built a project using the local source tarball (usually located within
+the project directory itself) to the 'deploy' lifecycle phase, you have the option
+to rebuild the project using the deployed project-source and patch artifacts in
+the remote repository. Using these, it's possible to build a project when you only
+have its POM on your local disk. Assuming you've built the project to the 'deploy'
+phase, you can see this work by executing the following steps:
+
+  1. Create a temporary directory.
+  2. Copy the project's pom.xml file into the temporary directory.
+  3. `cd` into the temporary directory.
+  4. Execute `mvn install`
+
+Maven should resolve the appropriate source and patch archives, unpack them, and
+execute the project build. The result should be the same binary as was created
+during the original project build, or else a platform-specific variant (if you're
+building on a different platform than that of the original build that deposited
+the project-source and patch artifacts).
+
+
+
+2. List of Projects Converted to Use Project-Source and Patch-Set Artifacts
+
+  * expat
+  * log4c
+  * test-myutil
+  * decNumber
+  * test-harvest
+  * test-jrpm
+
+
+
+3. Using the Build-on-Demand Plugin to Build Project Dependencies
+
+If your project has all of its dependencies' project-sources and patches present
+in the Maven repository system (remote- or local-repository), you have the option
+to build your project's dependencies on-demand. This will execute the build (from
+source) of each project in the dependency closure, to produce a fresh binary for
+each one...all prior to executing the main build for your project.
+
+To build dependencies on-demand, follow these steps:
+
+  1. `cd` into your project's directory
+  2. Execute `mvn -P buildOnDemand install`
+
+Maven will iterate through all project dependencies (transitively), and build
+each one to the 'install' lifecycle phase, which includes installation of the
+resulting binary into the running operating system (this is a configuration option).
+Once this is complete, your project's build will execute, resulting in your project
+binary being installed in the running operating system as well.
+
+

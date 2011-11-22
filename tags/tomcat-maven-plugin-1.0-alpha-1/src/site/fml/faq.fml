@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<faqs title="Frequently Asked Questions">
+
+	<part id="faq">
+	
+		<faq id="war-deploy">
+			<question>
+				Why do I have to specify a <code>war</code> goal when running
+				<code>tomcat:exploded</code> or <code>tomcat:inplace</code> ?
+			</question>
+			<answer>
+				Because there's currently no way for a goal to depend upon
+				another plugin's goal.  See
+				<a href="http://jira.codehaus.org/browse/MNG-1649">MNG-1649</a>
+				for more information.
+			</answer>
+		</faq>
+		
+		<faq id="war-redeploy">
+			<question>
+				Why do I have to specify a <code>war</code> goal when running
+				<code>tomcat:redeploy</code> ?
+			</question>
+			<answer>
+				Because the different methods of deployment have different
+				prerequisites - it would be tiresome to always package the WAR
+				if you were just deploying an exploded WAR.
+			</answer>
+		</faq>
+		
+	</part>
+	
+</faqs>

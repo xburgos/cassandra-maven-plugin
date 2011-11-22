@@ -1,0 +1,69 @@
+ ------
+ Maven 2 Jspc Plugin
+ ------
+ Jeff Genender
+ <jgenender@apache.org>
+ ------
+ December 31, 2005
+
+How To Use
+
+  This plugin allows you to precompile your JSPs and have them included in your war file.
+  
+  First, your web.xml needs to have a tag that tells the jspc plugin where to inject the servlet/jsp mapping. The default tag is <<<\<!-- [INSERT FRAGMENT HERE] --\>>>>. It is very important that these markings are located between the last servlet defined, and the first servlet-mapping that is defined.  Here is an example:
+  
++------------------------------------------+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+.
+.
+.
+    </servlet>
+    
+    <!-- [INSERT FRAGMENT HERE] -->
+    
+    <servlet-mapping>
+.
+.
+.
+</web-app>
++------------------------------------------+
+
+  You must use the jspc plugin in conjunction with the maven-war-plugin.  The maven-war-plugin must have its <webXml> configuration parameter set to the newly created web.xml, which is ${basedir}/target/jspweb.xml by default.  See the following example configuration.
+
++------------------------------------------+
+<project>
+.
+.
+.
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jspc-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>jspc</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webXml>${basedir}/target/jspweb.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+
+            .
+            .
+            .
++------------------------------------------+
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>foo.bar</groupId>
+  <artifactId>foo</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>Foo</name>
+  <description>This demo shows how to use the maven-solaris-plugin.</description>
+  <modules>
+    <module>bar</module>
+  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.0</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

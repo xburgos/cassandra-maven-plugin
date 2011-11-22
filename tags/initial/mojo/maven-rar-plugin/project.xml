@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project>
+  <parent>
+    <groupId>maven</groupId>
+    <artifactId>maven-plugin-parent</artifactId>
+    <version>2.0-SNAPSHOT</version>
+  </parent>
+  <groupId>maven</groupId>
+  <artifactId>maven-rar-plugin</artifactId>
+  <name>Maven RAR Plugin</name>
+  <version>1.0-SNAPSHOT</version>
+  <package>org.apache.maven</package>
+</project>

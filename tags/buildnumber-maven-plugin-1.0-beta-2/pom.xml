@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo-parent</artifactId>
+    <version>18</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>buildnumber-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Build Number Maven Plugin</name>
+  <version>1.0-beta-2</version>
+
+  <prerequisites>
+    <maven>2.0.6</maven>
+  </prerequisites>
+  
+  
+  <description>
+     This plugin is designed to give you a build number. So when you might make 100 builds of version
+     1.0-SNAPSHOT, you can differentiate between them all.
+  </description>
+  
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/buildnumber-maven-plugin-1.0-beta-2</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/buildnumber-maven-plugin-1.0-beta-2</developerConnection>
+    <url>http://fisheye.codehaus.org/browse/mojo/tags/buildnumber-maven-plugin-1.0-beta-2</url>
+  </scm>
+  
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>woodj</id>
+      <name>Julian Wood</name>
+      <email>woodj@ucalgary.ca</email>
+      <organization>Learning Commons, University of Calgary</organization>
+      <organizationUrl>http://commons.ucalgary.ca</organizationUrl>
+      <roles>
+        <role>Programmer</role>
+      </roles>
+    </developer>
+  </developers>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>${maven.api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-settings</artifactId>
+      <version>${maven.api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>${maven.api.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-api</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-manager-plexus</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-svnexe</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-cvsexe</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-starteam</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-clearcase</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.scm</groupId>
+      <artifactId>maven-scm-provider-perforce</artifactId>
+      <version>${maven.scm.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId> 
+      <version>1.5.6</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+  
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-idea-plugin</artifactId>
+          <configuration>
+            <downloadSources>false</downloadSources>
+            <downloadJavadocs>false</downloadJavadocs>
+          </configuration>
+        </plugin>
+      
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <systemProperties>
+              <property>
+                <!-- to handle time sentisive test -->
+                <name>user.timezone</name>
+                <value>UTC</value>
+              </property>
+            </systemProperties>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+      
+    
+  <properties>
+    <maven.scm.version>1.1</maven.scm.version>
+    <maven.api.version>2.0.6</maven.api.version>
+  </properties>
+</project>

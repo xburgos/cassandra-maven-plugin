@@ -1,0 +1,39 @@
+ ------
+ Introduction
+ ------
+ Mark Hobson
+ <markhobson@gmail.com>
+ ------
+ 22 April 2008
+ ------
+
+
+Apt Maven Plugin
+
+ This plugin provides goals to run the {{{http://java.sun.com/j2se/1.5.0/docs/guide/apt/GettingStarted.html}Annotation 
+ Processing Tool (apt)}} against project sources.
+
+* Goals Overview
+
+ The Apt Maven Plugin has the following goals:
+
+ * {{{process-mojo.html}apt:process}} Executes apt on project sources.
+  
+ * {{{test-process-mojo.html}apt:test-process}} Executes apt on project test sources.
+  
+ * {{{eclipse-mojo.html}apt:eclipse}} Generates Eclipse files for apt integration.
+
+* Usage
+
+ Instructions on how to use the Apt Maven Plugin can be found on the {{{usage.html}usage page}}.
+
+* Examples
+
+ To provide you with better understanding of some usages of the Plugin Name, you can take a look into the following 
+ examples:
+
+ * {{{examples/configuring-a-factory.html}Configuring a factory}}
+ 
+ * {{{examples/forking-the-execution.html}Forking the execution}}
+ 
+ * {{{examples/configuring-staleness-checking.html}Configuring staleness checking}}

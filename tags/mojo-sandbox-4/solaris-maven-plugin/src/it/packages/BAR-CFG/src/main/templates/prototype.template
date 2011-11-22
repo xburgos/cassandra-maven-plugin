@@ -1,0 +1,5 @@
+i pkginfo=${project.build.outputDirectory}/pkginfo
+d none / 0755 root root
+d none /opt 0755 root sys
+d none /var 0755 root sys
+s none /opt/foo/var=/var/foo

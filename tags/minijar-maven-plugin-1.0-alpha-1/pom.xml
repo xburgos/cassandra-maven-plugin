@@ -1,0 +1,60 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo</artifactId>
+    <version>13</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>minijar-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Maven MiniJar Plugin</name>
+  <version>1.0-alpha-1</version>
+  <scm>
+    <connection>scm:svn:https://svn.codehaus.org/mojo/tags/minijar-maven-plugin-1.0-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/minijar-maven-plugin-1.0-alpha-1</developerConnection>
+    <url>https://svn.codehaus.org/mojo/tags/minijar-maven-plugin-1.0-alpha-1</url>
+  </scm>
+  <developers>
+    <developer>
+      <id>tcurdt</id>
+      <name>Torsten Curdt</name>
+      <email>tcurdt at apache.org</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.vafer</groupId>
+      <artifactId>dependency</artifactId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.2</version>
+    </dependency>
+  </dependencies>
+
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+</project>

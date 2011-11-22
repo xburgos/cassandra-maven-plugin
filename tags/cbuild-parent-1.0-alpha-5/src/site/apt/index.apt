@@ -1,0 +1,94 @@
+ ------
+ Introduction
+ ------
+ Lee Thompson <stimpy@codehaus.org>
+ ------
+ 05 Oct 2008
+ ------
+
+
+C-BUILDS maven plugins
+
+  The c-builds plugins were developed with the recognition that any distributed application of even
+  modest complexity will involve numerous languages, tools, and approaches within the computing 
+  end-points of the whole applications construct.  The goal of these plugins are to utilize a
+  generic lifecycle facade that maven utilizes over non-java development processes.  The approach
+  is decidedly tool-chain in approach by leveraging existing stable infrastructure like gnu's
+  autotools, RPM and eventually a package transmission system like YUM.
+
+* Child projects
+
+  Current utility objects and plugins underneath the master cbuild-parent are
+  
+** {{{cbuild-utils/index.html}cbuild-utils}}
+
+  Utility objects for the plugins including BuildAdvisor which stores state about the build.
+
+** {{{cbuild-plugin-parent/cbuild-lifecycles/index.html}cbuild-lifecycles}}
+
+  The definition of the packaging types and the lifecycles which utilize these plugins.
+  
+** {{{cbuild-plugin-parent/platform-detector-maven-plugin/index.html}platform-detector-maven-plugin}}
+
+  Utilities and an initialization goal which detects details about your Operating System which 
+  will be utilized during configure/complile/package.  State is stored via the BuildAdvisor
+  cookie storage and retrieval object.
+
+** {{{cbuild-plugin-parent/project-sources-maven-plugin/index.html}project-sources-maven-plugin}} 
+
+  Mojo used to retrieve and unpack source tarballs from the maven repo.
+
+** {{{cbuild-plugin-parent/remote-source-maven-plugin/index.html}remote-source-maven-plugin}} 
+
+  Mojo used to retrieve and unpack source tarballs off the internet.
+
+** {{{cbuild-plugin-parent/patch-maven-plugin/index.html}patch-maven-plugin}}
+
+  Utilizing patches on released code is often the most pragmatic and stable method 
+  of systems development.  This Mojo is utilized to apply and store the patches.  
+  This plugin utilizes BuildAdvisor to detect when maven is calling it more than once.
+
+** {{{cbuild-plugin-parent/make-maven-plugin/index.html}make-maven-plugin}}
+
+  Mojo implements the autotools lifecycle which is configure \-\> make \-\> make check \-\>
+  make install.  Need to extend this Mojo to call "make distcheck".
+
+** {{{cbuild-plugin-parent/shell-maven-plugin/index.html}shell-maven-plugin}}
+
+  Mojo to execute a lifecycle goal from a shell script.  Typically used when a package
+  sings it's own tune when being built and this plugin facilitates getting the package
+  into the maven facade.
+
+** {{{cbuild-plugin-parent/rpm-cbuild-maven-plugin/index.html}rpm-cbuild-maven-plugin}}
+
+  Mojo will take the output of the make-maven-plugin staged install directory (aka DESTDIR) 
+  and package it into an RPM.  It will also preserve the POM's dependencies in the package.
+
+** {{{cbuild-plugin-parent/build-on-demand-maven-plugin/index.html}build-on-demand-maven-plugin}}
+
+  Mojo used to resolve and build/install dependencies in various modes.
+
+** {{{cbuild-plugin-parent/multibuild-optimizer-maven-plugin/index.html}
+    multibuild-optimizer-maven-plugin}}
+
+  Mojo is used to determine if a package is stale and a rebuild is needed.  State is
+  stored using BuildAdvisor.
+
+** cbuild-profile-activators
+
+  Functionality on hold for maven 3.x and commented out of the build
+
+* Usage
+
+  Instructions on how to use the C-BUILDS maven plugins can be found on the {{{usage.html}usage page}}.
+
+* News
+
+  This system of plugins are still alpha release quality.  It was bound to yet to be released maven 
+  3.x functionality since January '07.  To re-kick functional development, the decision was made
+  to downport the code to maven 2.x forgoing features that require the 3.x codebase. What little 
+  was gained with maven 3.x was quickly eaten up by instability and a lack of forward progress.
+
+* Examples
+
+  TBD

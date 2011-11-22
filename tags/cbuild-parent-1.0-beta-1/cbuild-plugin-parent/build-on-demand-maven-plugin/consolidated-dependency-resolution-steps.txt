@@ -1,0 +1,29 @@
+Build-on-Demand, RPM Artifact Resolver Consolidation :: Functional Steps
+
+1. Resolve dependency POMs (do NOT search for binaries here)
+
+2. Order dependency POMs
+
+3. If mode == BUILD_ON_DEMAND || mode == BINARIES_ONLY, then resolve RPMs:
+
+   A. If RPM is installed in RPM db, use that to constrain any dependency version
+      ranges.
+      
+   B. If RPM is not installed, but can be resolved in the repository system,
+      install it in the RPM db.
+      
+   C. If RPM is not installed in the RPM db, and cannot be resolved, cache it in
+      a failed-binary-check List (maintain original order relative to others 
+      that land in the same list).
+      
+4A. If mode == BUILD_ON_DEMAND || mode == SOURCE_ONLY, go through the 
+    failed-binary-check List, and build each one.
+    
+    NOTE: What about using/not using the RPM --force option on this? What if
+    mode == BUILD_ON_DEMAND, and the version of the dependency installed in the
+    RPM db is not compatible with the one requested? Two versions of a single
+    dependency cannot coexist in the RPM db. What if mode == SOURCE_ONLY, and 
+    the dependency is already installed in the RPM db?
+    
+4B. If mode == BINARIES_ONLY, stop the build, citing the failed dependencies
+

@@ -1,0 +1,58 @@
+ ---
+ Using the Maven Sysdeo Tomcat Eclipse Plugin
+ ---
+Tim O'Brien
+<tobrien@discursive.com>
+ ---
+ January 5, 2008
+
+Usage
+
+  <<Step Zero:>> Install the System Tomcat Plugin, and configure your Eclipse preferences to point to an instance of Tomcat which has been configured with the DevLoader.zip classes.  You can find instructions for this {{{http://www.sysdeo.com/eclipse/tomcatplugin}here}}.
+
+  <<Step One:>> Add the plugin to your web application's
+  <<<pom.xml>>>.  This will include the sysdeo-tomcat-plugin, which
+  will produce a <<<.tomcatplugin>>> file if your application is of
+  "war" packaging type:
+
+---
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>sysdeo-tomcat-maven-plugin</artifactId>
+    <version>1.0</version>
+  </plugin>
+---
+
+  <<Step Two:>> include this plugin configuration for the
+  maven-eclipse-plugin in your project's <<<pom.xml>>> this will add
+  the Sysdeo Tomcat plugin nature to your Eclipse <<<.project>>> file.
+  This <<<projectnature>>> is required, without it, the Tomcat menu
+  will not appear for this project in Eclipse.
+
+---
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-eclipse-plugin</artifactId>
+    <configuration>
+      <additionalProjectnatures>
+        <projectnature>com.sysdeo.eclipse.tomcat.tomcatnature</projectnature>
+      </additionalProjectnatures>
+    </configuration>
+  </plugin>
+---  
+  
+  <<Step Three:>> After doing this, you should then take note of the <<<.tomcatplugin>>> file which
+  should be generated when you run:
+
++---  
+    mvn eclipse:eclipse sysdeo-tomcat:generate
++---
+    
+  You can run this plugin's <<<generate goal>>> at the top-level of a large
+  multimodule project that contains projects of different packaging
+  type.  This plugin is configured to skip a project that does not
+  have <<<war>>> packaging.
+
+  <<Note:>> You must explicitly run the <<<sysdeo-tomcat:generate>>>
+  goal after the <<<eclipse:eclipse>>> goal
+  

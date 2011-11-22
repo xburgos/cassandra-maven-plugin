@@ -1,0 +1,73 @@
+  ---
+  Maven Remote-Source Plugin :: Summary
+  ---
+  John Casey
+  ---
+  11-Sept-2005
+  ---
+  
+Summary for Maven Remote-Source Plugin
+
+  The Remote-Source plugin is used to retrieve project sources from a remote URL,
+  and unpack them into a work directory (under /target by default). This is
+  especially useful when the Maven POM represents an add-on build for an existing
+  package that is normally built by Make or something similar.
+  
+  This plugin actually consists of two mojos: <<<get>>> and 
+  <<<relocate>>>. The <<<relocate>>> mojo actually moves the 
+  project sources from a relative path under the unpack directory into 
+  $\{basedir\}.
+  
+*Configuration Parameters
+
+**<<<get>>> Mojo
+
+*---------------+------------------------------------+--------------+------------------------------+--------------+-----------------------+
+| <<Parameter>> | <<Description>>                    | <<Type>>     | <<Default Value>>            | <<Required>> | <<Editable>><\[1\]> |
+*---------------+------------------------------------+--------------+------------------------------+--------------+-----------------------+
+| url           | Remote URL for the source archive. | String       | <<(none)>>                   | Yes          | Yes                   |
+*---------------+------------------------------------+--------------+------------------------------+--------------+-----------------------+
+| project       | MavenProject reference.            | MavenProject | $\{project\}                 | Yes          | No                    |
+*---------------+------------------------------------+--------------+------------------------------+--------------+-----------------------+
+| expandTarget  | Location to unpack archive into.   | java.io.File | $\{project.build.directory\} | Yes          | No                    |
+*---------------+------------------------------------+--------------+------------------------------+--------------+-----------------------+
+| wagonManager  | Wagon transport manager.           | WagonManager | N/A (component)              | Yes          | No                    |
+*---------------+------------------------------------+--------------+------------------------------+--------------+-----------------------+
+
+
+**<<<relocate>>> Mojo
+
+*--------------------+------------------------------------------+--------------+------------------------------+--------------+-------------------+
+| <<Parameter>>      | <<Description>>                          | <<Type>>     | <<Default Value>>            | <<Required>> | <<Editable>><\[1\]> |
+*--------------------+------------------------------------------+--------------+------------------------------+--------------+-------------------+
+| relativeSourceBase | Path of sources relative to expandTarget | String       | <<(none)>>                   | Yes          | Yes               |
+*--------------------+------------------------------------------+--------------+------------------------------+--------------+-------------------+
+| expandTarget       | Location where sources were unpacked.    | java.io.File | $\{project.build.directory\} | Yes          | No                |
+*--------------------+------------------------------------------+--------------+------------------------------+--------------+-------------------+
+| basedir            | Project base directory.                  | java.io.File | $\{basedir\}                 | Yes          | No                |
+*--------------------+------------------------------------------+--------------+------------------------------+--------------+-------------------+
+
+*Lifecycle Bindings
+
+  The <<<get>>> mojo is bound to the initialize lifecycle phase, to
+  enable retrieval of the project sources before the build is started.
+  
+  The <<<relocate>>> mojo is not explicitly bound to any lifecycle
+  phase, because it is currently an optional mojo which is only to be used
+  when explicitly configured in the POM.
+
+*References
+
+  [[1]] <<Editable parameters.>> Editable parameters are those which can be
+        specified as configuration for the plugin within the POM. 
+        
+        Those which are specified as non-editable are parameters drawn from 
+        either the inherent internal structure of the Maven build, or from 
+        other built-in structures in the POM. An example of a parameter derived 
+        from the internal Maven build structure is the reference to the project 
+        Artifact, which is constructed from POM information when the POM is 
+        loaded into memory. An example of a parameter which is derived from 
+        built-in POM structures would be the list of a project's direct 
+        dependencies, which references the \<dependencies/\> stanza in the POM.
+
+  []

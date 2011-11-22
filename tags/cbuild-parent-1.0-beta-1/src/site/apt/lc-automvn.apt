@@ -1,0 +1,62 @@
+ ---
+ AUTOMVN (autconf with maven) Lifecycle
+ ---
+ Lee Thompson <stimpy@codehaus.org>
+ ---
+ May 17, 2009
+ ---
+
+CBUILD AUTOMVN Source Tarball Lifecycle
+
+  The <<automvn>> lifecycle merges the GNU autoconf lifecycle with Apache maven
+  project automation.  Autoconf does not deal with transitive dependencies and
+  project release websites like maven does so the extended maven project
+  lifecycle is added to autoconf for those undefined areas.  For instance, if
+  your project has a dependency on rrdtool, autoconf does not try to satisfy that
+  dependency, but automvn will.  Autoconf is used underneath maven since maven is
+  a lifecycle management tool with no non-java build tools.
+
+  This lifecycle is for developers with source code commit access and the ability
+  to release a new version of the project so patching is not needed.
+
+  Document written May 17, 2009.
+
+
+*------------------------+--------------------------------------------------------------------------------------------------------+
+| <<Phase>>              | <<Goals>>                                                                                              |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| validate               | {{{cbuild-plugin-parent/make-maven-plugin/validate-pom-mojo.html}validate-pom}}                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| initialize             | {{{cbuild-plugin-parent/build-on-demand-maven-plugin/resolve-mojo.html}resolve dependencies}},         |
+|                        | {{{cbuild-plugin-parent/make-maven-plugin/autoreconf-mojo.html}run autoreconf on project}}             |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| generate-sources       |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-sources        |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-resources      |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| generate-resources     | {{{cbuild-plugin-parent/make-maven-plugin/configure-mojo.html}configure}}                              |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| compile                | {{{cbuild-plugin-parent/make-maven-plugin/compile-mojo.html}compile}}                                  |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-classes        |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| process-test-resources |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| test-compile           |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| test                   | {{{cbuild-plugin-parent/make-maven-plugin/test-mojo.html}test}}                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| prepare-package        | {{{cbuild-plugin-parent/make-maven-plugin/make-install-mojo.html}make install}}                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| package                | {{{cbuild-plugin-parent/make-maven-plugin/make-dist-mojo.html}make dist}},                             |
+|                        | {{{http://maven.apache.org/plugins/maven-jar-plugin/jar-mojo.html}make dummy jarfile}}                 |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| integration-test       |                                                                                                        |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| install                | {{{http://maven.apache.org/plugins/maven-install-plugin/install-mojo.html}install artifacts to repo}}  |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+| deploy                 | {{{http://maven.apache.org/plugins/maven-deploy-plugin/deploy-mojo.html}deploy}}                       |
+*------------------------+--------------------------------------------------------------------------------------------------------+ 
+AUTOMVN CBUILD Lifecycle

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE responsetimesamples PUBLIC "SYSTEM" "chronos-responsetimesamples.dtd">
+<groupedresponsetimesamples succeeded="4">
+    <responsetimesamplegroup name="/connect.jsp" index="92">
+        <sample responsetime="2876" timestamp="1240337349466" success="true" threadId="JIRA Use Case 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="/login.jsp" index="89">
+        <sample responsetime="292" timestamp="1240337349466" success="true" threadId="JIRA Use Case 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="/secure/" index="90">
+        <sample responsetime="55" timestamp="1240337349767" success="true" threadId="JIRA Use Case 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="/secure/Dashboard.jspa" index="91">
+        <sample responsetime="2520" timestamp="1240337349822" success="true" threadId="JIRA Use Case 1-1"/>
+    </responsetimesamplegroup>
+</groupedresponsetimesamples>

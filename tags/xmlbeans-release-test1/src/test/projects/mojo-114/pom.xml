@@ -1,0 +1,25 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>xmlbeans-mojo-114</artifactId>
+  <groupId>org.codehaus.mojo</groupId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+  <name>Test Case for MOJO-114</name>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>xmlbeans-maven-plugin</artifactId>
+        <executions>
+           <execution>
+              <goals>
+                 <goal>xmlbeans</goal>
+                 <goal>xmlbeans-test</goal>
+              </goals>
+           </execution>
+        </executions>
+        <inherited>true</inherited>
+      </plugin>
+    </plugins>
+  </build>
+</project>

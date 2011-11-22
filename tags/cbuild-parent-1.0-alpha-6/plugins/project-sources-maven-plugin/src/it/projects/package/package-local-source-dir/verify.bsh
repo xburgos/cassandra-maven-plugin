@@ -1,0 +1,25 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
+
+String zipPath = "target/package-local-source-dir-1-project-sources.zip";
+
+File archive = new File( basedir, zipPath );
+
+boolean checkArchive = archive.exists();
+
+System.out.println( "Project-sources archive: " + archive + " exists? " + checkArchive );
+
+ZipFile zipFile = new ZipFile( archive );
+
+ZipEntry entry = zipFile.getEntry( "src/main/java/App.java" );
+
+boolean checkSourceFile = entry != null;
+
+entry = zipFile.getEntry( "pom.xml" );
+
+boolean checkSourcePom = entry != null;
+
+return checkArchive && checkSourceFile && checkSourcePom;

@@ -1,0 +1,364 @@
+ ------
+ Roadmap
+ ------
+ Lee Thompson <stimpy@codehaus.org>
+ ------
+ Oct 30, 2008
+ ------
+
+Summary
+
+  This document covers the design concepts behind the 1.0-beta release of c-builds
+  and specific functional requirements that come out of those concepts.  The 1.0
+  final release will focus on testing, maven version upgrades that will surely
+  come out during this project's development, and documentation. 
+
+1.0-beta design concepts
+
+* Non-Java complexities
+
+  Most old-school languages make decisions build time.  That is one of the reasons
+  why autoconf exists.  Because of this, you can have several variants of 
+  openssl.org's software openssl.  For example, if you compile openssl with blowfish
+  encryption turned off (-DOPENSSL_NO_BF) and then compile it again with blowfish 
+  turned on, both are considered "openssl" but you have two entirely different
+  runtime artifacts, both based on the same input artifact (openssl-0.9.8i).  In
+  Java you use java properties to select these behavior differences and can keep
+  with the maven "convention over configuration" single input single output
+  behavior.  Build time properties (and obvious machine differences between 32 bit
+  linux, 64 bit linux, MacIntosh OSX, etc, etc) require multiple outputs from a 
+  single upstream artifact.
+
+** Use of attached artifacts to support platform specific binaries
+
+  The {{{http://java.freehep.org/freehep-nar-plugin/philosophy.html}NAR plugins}}
+  use an attached artifact concept which creates a JAR output as well as binary
+  packages.  There is an excellent
+  {{{http://java.freehep.org/freehep-nar-plugin/NARPlugin.ppt}powerpoint presentation}}
+  on the NAR plugins.  The manifest in the JAR output has a macro which is expanded
+  to point to a binary package relevant for the system that maven is being executed
+  on.  The macros in the NAR plugins are able to deal with Architecture, Operating
+  System, and Linker (AOL) differences between platforms.  The beta release of
+  c-builds will follow the NAR attached artifact mechanism but the macros will
+  point to machine relevant RPM's, not jars of binaries which is what the NAR
+  plugins do. 
+
+  The NAR attached artifact concept will also be carried into the input artifact
+  as well.  Often times the "source" release from an upstream provider is not
+  source code, but a binary.  Oracle, Sybase, most JDKs come compiled and there
+  will be one source release for each platform the platform the upstream provider 
+  supports.  Sun provides 32-bit and 64-bit linux JDKs for instance.  (Interesting
+  to note that Sun does not provide a MacIntosh JDK.  Fortunately a somewhat recent
+  JDK comes standard with Mac OSX but it does make a need for a build profile in 
+  maven).
+
+** Release numbers
+
+  Build numbers are notated as "release" in the 1.0-alpha CBUILDS plugins  and
+  designate the different patch and compile options used.  This is the standard way
+  RPM based systems deal with the versioning of different compiles of the same
+  upstream artifact.  The openssl team determines what is "openssl-0.9.8i" and if
+  you decide to patch it or change a Configure build variable, you need to bump the
+  build number and generate a version like "0.9.8i-4" specifying the 4th release of
+  a openssl 0.9.8i build.
+
+  Different from the 1.0-alpha c-builds release, the 1.0-beta will include the 
+  build number in the version and the repository will have the build number in the
+  file path.  The "release" property will be removed in 1.0-beta.  Release 3 and 4
+  will appear in the repository as shown below, noting the actual source tarballs
+  from the upstream projects like openssl will not be in the SNAPSHOT or RELEASE
+  repos at all (stb layout described later).
+
+  If a project is a SNAPSHOT, the RPM's generated will have the "-SNAPSHOT" removed
+  from the rpm name as this is not compatible with RPM versioning.
+
+* Package platform releases not coterminous
+
+  Package releases for all platforms will not occur on the same scheduled time.  It
+  is common that package support has a primary release on the most used platform and
+  less commonly used packages get generated later in a release cycle off the same 
+  build recipies.  In order to keep the maven remote and local repos in synch
+  without constant re-checks, the packages will be stored in a separate directory
+  (with separate manifests).  Hopefully the standard maven deploy/release plugins
+  can be used to upload the pom and NAR like jar files while the rpm deploy and
+  release goals can store the RPMs.  As a sanity check, the 2nd RPM platform package
+  release will need to validate that the pom and jars in the repo are identical and
+  fail if there is an inconsistency.  Obviously, the 2nd RPM release will not need
+  to update the POM/JAR part of the repo but will need to update the pkg part of the
+  repo.
+
+  See the proposed repo layout for RELEASES below.  The snapshot release will be
+  similar except that the SNAPSHOT will be removed from the RPM version as that is 
+  not compatible with RPM versioning.
+
++------------------------------------------------+
+ /<groupId>/openssl
+ +---  0.9.8i-3
+       +---  openssl-0.9.8i-3.jar
+       +---  openssl-0.9.8i-3.jar.md5
+       +---  openssl-0.9.8i-3.jar.sha1
+       +---  openssl-0.9.8i-3.pom
+       +---  openssl-0.9.8i-3.pom.md5
+       +---  openssl-0.9.8i-3.pom.sha1
+       +---  openssl-0.9.8i-3-sources.jar
+       +---  openssl-0.9.8i-3-sources.jar.md5
+       +---  openssl-0.9.8i-3-sources.jar.sha1
+ +---  0.9.8i-4
+       +---  openssl-0.9.8i-4.jar
+       +---  openssl-0.9.8i-4.jar.md5
+       +---  openssl-0.9.8i-4.jar.sha1
+       +---  openssl-0.9.8i-4-patches.zip
+       +---  openssl-0.9.8i-4-patches.zip.md5
+       +---  openssl-0.9.8i-4-patches.zip.sha1
+       +---  openssl-0.9.8i-4.pom
+       +---  openssl-0.9.8i-4.pom.md5
+       +---  openssl-0.9.8i-4.pom.sha1
+       +---  openssl-0.9.8i-4-sources.jar
+       +---  openssl-0.9.8i-4-sources.jar.md5
+       +---  openssl-0.9.8i-4-sources.jar.sha1
+ +---  pkgs
+       +---  cent5.i386
+             +---  openssl-0.9.8i-3.cent5.i386.rpm
+             +---  openssl-0.9.8i-3.cent5.i386.rpm.md5
+             +---  openssl-0.9.8i-3.cent5.i386.rpm.sha1
+             +---  openssl-0.9.8i-4.cent5.i386.rpm
+             +---  openssl-0.9.8i-4.cent5.i386.rpm.md5
+             +---  openssl-0.9.8i-4.cent5.i386.rpm.sha1
+       +---  osx5.i386
+             +---  openssl-0.9.8i-3.osx5.i386.rpm
+             +---  openssl-0.9.8i-3.osx5.i386.rpm.md5
+             +---  openssl-0.9.8i-3.osx5.i386.rpm.sha1
+             +---  openssl-0.9.8i-4.osx5.i386.rpm
+             +---  openssl-0.9.8i-4.osx5.i386.rpm.md5
+             +---  openssl-0.9.8i-4.osx5.i386.rpm.sha1
+       +---  rhel5.i386
+             +---  openssl-0.9.8i-3.rhel5.i386.rpm
+             +---  openssl-0.9.8i-3.rhel5.i386.rpm.md5
+             +---  openssl-0.9.8i-3.rhel5.i386.rpm.sha1
+             +---  openssl-0.9.8i-4.rhel5.i386.rpm
+             +---  openssl-0.9.8i-4.rhel5.i386.rpm.md5
+             +---  openssl-0.9.8i-4.rhel5.i386.rpm.sha1
++------------------------------------------------+
+
+  Release 3 has 3 binaries created, for Mac OSX5, Red Hat Ent Linux 5, and Centos 5.
+  Release 4 has the same platforms, but adds a patch to openssl which gets saved
+  in the repository with the POM (functionality introduced in 1.0-alpha-5). The 
+  sources.jar file is AOL macro expanded pointer to an attached artifact (see below).
+
+* YUM toolchain
+
+  To formally hand off the packaged output of development to managed integrated
+  testing and production environments, a YUM (aka Yellowdog Updater Modifier)
+  plugin will be added to c-builds.  The YUM plugin will behave very similar to
+  the maven "site" plugin creating a YUM package repository or repositories based 
+  on specifications found in src/yum/manifest/\<yumreponame\>.xml files.  The plugin
+  will read a list of packages (and versions) and publish those packages into
+  a remote or local filesystem which will be a completely useable YUM repository
+  which managed servers which do not use maven can subscribe to maven generated 
+  package updates.
+
+* Reduce Repository duplication
+
+  When you have apache in two applications; one with encryption compiled on, and
+  one with encryption off - you have a divergent dependency.  You can deal with this
+  in a couple of different ways.  One way is to build two separate YUM channels and
+  have two POMs with different maven groupId's and don't install the divergent apps
+  on the same virtual or physical machine.  Other method is to again use two
+  POMs with separate groupId's, but this time have a different installation prefix 
+  directories (realizing lots of open source packages have bugs when linking to
+  libraries not installed in /usr).  When you have two POMs for the same upstream
+  project, both POM's need the same apache tarball.  To optimize repository size,
+  both output jars will have a manifest pointing to a source tarball cache
+  (stbCacheDir) and the NAR style manifest will go to your stbCache server which
+  should be faster than going out on the internet to build the package.  The
+  stbCache will be shared between SNAPSHOT and RELEASE repository of packages
+  so effectively, you have five types of target repos; SNAPSHOT, RELEASE, stbCache,
+  site, and YUM.
+
+  The actual source tarballs for the  previous openssl would look like so.
+
++------------------------------------------------+
+ /<stbCacheDir>/openssl
+ +--- 0.9.8i
+       +---  openssl-0.9.8i.tar.gz
+       +---  openssl-0.9.8i.tar.gz.md5
+       +---  openssl-0.9.8i.tar.gz.sha1
++------------------------------------------------+
+
+  The project-sources-maven-plugin will introduce some new properties to deal with
+  this source tarball cache concept.  (Note, not sure if this should be added to 
+  project-sources-maven-plugin or remote-source-maven-plugin.  If 
+  project-sources-maven-plugin is used, remote-source-maven-plugin should be
+  obsoleted.)
+
++------------------------------------------------+
+ stbCacehDir - where and how to write a new tarball to the cache via ftp, scp, or file
+ stbCacheURL - where the cached tarball can be retieved via file, ftp, scp, or http(s)
++------------------------------------------------+
+
+  The project-sources-maven-plugin will need new goals to retrieve AOL expanded
+  tarballs from the internet and store those in the source tarball cache.
+
+  External opensource projects that you are not a committer on will have their 
+  source tarballs stored in the stbCache.  Projects that you are using maven to
+  assist develop with (you have commit rights on) will store source tarballs
+  in the RELEASE repo similar to standard maven projects.  If you need to compile
+  the internally developed package in a few different variants, pick one groupID 
+  that your development team will publish SNAPSHOT and RELEASE on (rpm lifecycle)
+  and have the variants treat the project as an external project using the rpm-stb
+  lifecycle.  In this use case, the tarballs will exist in the STB, SNAPSHOT, and
+  RELEASE repos since you are using both rpm and rpm-stb lifecycles.
+
+1.0-beta functional requirements
+
+* Only use formally released versions of Maven
+
+  No milestone or SNAPSHOT releases will be acceptable for plugins or maven releases.
+  This may require the occasional hack in order to maintain stability of the system
+  and that is fine.  The BuildAdvisor.java is very hacky for instance, but requires
+  development versions of Maven to eliminate the hack.  The hack will remain until
+  Maven 3.0 is out of milestone releases.  This was done with 1.0-alpha-5 and is a 
+  checkoff item for version 1.0-beta and version 1.0.
+
+* Use mojo-parent
+
+  The project will inherit for the latest mojo-parent to keep current with the
+  latest mojo project standards.  This was done with 1.0-alpha-5 and is a checkoff
+  item for version 1.0-beta and version 1.0.
+
+* Development done with eclipse
+
+  That said, when Maven 2.1 and Maven 3.0 become available, this code should upgrade.
+  Upgrades will be held back until maven eclipse integration issues are worked out
+  with the latest release of Maven.  For instance, if Maven 3.0 is available, but
+  Eclipse IDE development tools are not ready for Maven 3.0, the older version of
+  maven will be used.
+
+* Project Creation
+
+  As per convention, projects will have the option to be created using the 
+  {{{http://maven.apache.org/guides/mini/guide-creating-archetypes.html}maven archetype}}
+  mechanism.  Two types of archetypes will be developed the beta release; one for 
+  external project dependencies (like openssl), and one for non-java projects developed
+  with maven (used for development project automation and dependency management) and 
+  autoconf (for actual builds).
+
+** External Dependency Project Creation
+
+  You will be able to create an external project's RPM via an archetype command like this
+
++----------------------------------------------+
+mvn archetype:create                          \
+  -DarchetypeGroupId=org.codehaus.mojo        \
+  -DarchetypeArtifactId=cbuild-extpkg         \ 
+  -DarchetypeVersion=<archetype-version>      \
+  -DgroupId=<my.groupid>                      \
+  -DartifactId=<my-artifactId>
++----------------------------------------------+
+
+  This will create the pom.xml, an example src/site/site.xml and src/site/apt/index.xml,
+  as well as the src/patches and src/releases directories.  The pom.xml will be partially
+  filled out and ready for the package maintainer to complete.
+
+
+** Autoconf Software Project Creation
+
+  You will be able to create a source autoconf package that you will develop via an
+  archetype command like this
+
++----------------------------------------------+
+mvn archetype:create                          \
+  -DarchetypeGroupId=org.codehaus.mojo        \
+  -DarchetypeArtifactId=cbuild-srcpkg         \ 
+  -DarchetypeVersion=<archetype-version>      \
+  -DgroupId=<my.groupid>                      \
+  -DartifactId=<my-artifactId>
++----------------------------------------------+
+
+  This will create the pom.xml, an example src/site/site.xml and
+  src/site/apt/index.xml, as well as the src/patches and src/releases directories.
+  The pom.xml will be partially filled out and ready for the package maintainer to
+  complete.  Also, the standard autoconf files will be created with an MIT license.
+  The files partially created will be configure.ac, Makefile.am, AUTHORS, COPYING,
+  ChangeLog, INSTALL, NEWS, README, and THANKS.
+
+* Package Development
+
+  "mvn clean install" functionality developed in 1.0-alpha will be used.
+
+* Package Release
+
+  "mvn deploy" and "mvn release" will be used to publish to the SNAPSHOT, STB, and
+  RELEASE repos.  As an aid to developers switching frequently between SNAPSHOT and
+  RELEASE versions of software of STB's, release numbers should be incremental
+  between the two repositories since "SNAPSHOT" is not something RPM's understand.
+  Build number bumps can occur on both SNAPSHOT and RELEASE repos based on
+  development or release issue resolution such that openssl-0.9.8i may have 
+  build numbers 1 and 2 on SNAPSHOT, 3 and 4 on RELEASE, 5 on SNAPSHOT, and 6 on
+  RELEASE.  A developer on openssl-0.9.8i-5 which is a SNAPSHOT changing their
+  version away from SNAPSHOT to LATEST should get 0.9.8i-6 out of the RELEASE repo.
+
+* Package Handoff to YUM
+
+  As previously mentioned, development packages will be released to a YUM repo 
+  maintained by a maven plugin via the following two commands.
+
++------------------------------------------------+
+  $ mvn yum
+  $ mvn yum:deploy
++------------------------------------------------+
+
+  The yum plugin will read a yum server manifest XML filei(s) and generate a YUM
+  server.  If multiple files exist, multiple YUM servers will be generated.
+
+
+1.0 release requirements
+
+* Documentation
+
+  All lifecycles ({{{lc-rpm-light.html}rpm-light}}, {{{lc-jrpm.html}jrpm}},
+  {{{lc-rpm.html}rpm}}, {{{lc-rpm-stb.html}rpm-stb}}) will be documented thoroughly
+  with example usage.  The changes report will be converted from changes.xml to
+  a JIRA live report (see
+  {{{http://maven.apache.org/plugins/maven-changes-plugin/usage.html}maven changes
+  plugin docs}} and the history of jira reports will be cleaned up to reflect
+  the release versions they were released (needs jira project admin rights).
+
+* Testing and Test Coverage
+
+  All java source code will report at least 50% test coverage as reported in
+  Coburtura.  This should be an indication of unit tests being created.  Obviously
+  the objective is to test the code in a meaningful way and not to generate 
+  a code coverage number.
+
+  For integration tests (IT), all archetypes will have IT tests.  IT tests which
+  create RPMs will use a RPM database created in a temp directory (a project target?)
+  such that no root or sudo access is required.  All RPMs created by IT tests will
+  have a prefix of $HOME/opt/cbuilds-test.
+
+  All lifecycles will have IT tests.  {{{lc-rpm-light.html}rpm-light}} will have
+  an IT test which builds git-manpages.  {{{lc-rpm-stb.html}rpm-stb}} will have an
+  IT test which builds git and git's dependencies which includes perl, openssl,
+  expat, and curl.  The {{{lc-rpm.html}rpm}} lifecycle will create a simple autoconf
+  project which has a simple script that cloans the github
+  {{{http://github.com/stagrlee/perlmod_bldr/tree/master}perlmod_core project}}
+  with the git program.  The IT test will create the project,
+  compile/run/test/package/release the project.  The {{{lc-rpm.html}jrpm}} lifecycle
+  will generate a RPM for tomcat and install/start tomcat and see if the standard
+  tomcat index.html file can be loaded.
+
+  "mvn clean" will deinstall all IT generated RPMs and delete the RPM database.
+
+* Converged Dependencies
+
+  The alpha-5 release worked on converging dependencies into a single version
+  instead of some modules needing different versions of the same dependency.
+  Dependency Convergence is a report generated when the plugin site is built
+  with "mvn site:deploy".  Convergence will need to maintained throughout the
+  development of the plugins.
+
+* Code Style
+
+  Code style reports generated by the latest mojo-parent plugins will report clean.
+  No issues (error, info, or warnings) should exist.  The Alpha releases suffer 
+  from codestyle problems.

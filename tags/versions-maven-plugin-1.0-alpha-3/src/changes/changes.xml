@@ -1,0 +1,75 @@
+<document>
+  <properties>
+    <title>Maven 2.x Versions Plugin changelog</title>
+    <author email="stephen.alan.connolly@gmail.com">
+      Stephen Connolly
+    </author>
+  </properties>
+  <body>
+    <release version="1.0-alpha-3" date="2009-04-23" description="Third alpha release">
+      <action dev="pgier" type="add" issue="MVERSIONS-24">
+        Enable resolution of dependency version ranges
+      </action>
+      <action dev="stephenconnolly" type="add" issue="MVERSIONS-21">
+        Add mojo to lock snapshots to timestamp version
+      </action>
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-3">
+        display-plugin-updates now identifys the
+        plugin version as not being provided when derived from the super-pom
+      </action>
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-8">
+        Property Placedholders no longer output in versions:display-plugin-updates
+      </action>
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-8">
+        display-plugin-updates now can differentate between that version is
+        not defined if same versio as in parent pom is defined
+      </action>
+      <action dev="stephenconnolly" type="add" issue="MVERSIONS-8">
+        Add comparisonMethod=mercury
+      </action>
+      <action dev="stephenconnolly" due-to="mbeerman" due-to-email="mbeerman@yahoo.com"
+              type="add" issue="MVERSIONS-18">
+        Expose updated versions as a report
+      </action>
+      <action dev="stephenconnolly" type="update" issue="MVERSIONS-12">
+        Fixed site documentation.
+      </action>
+    </release>
+    <release version="1.0-alpha-2" date="2008-12-05" description="Second alpha release">
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-5">
+        Implemented update-child-modules mojo.
+      </action>
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-8">
+        Fixed how properties get updated so that more than one property can be updated in a pom by
+        a single execution of update-properties mojo.
+      </action>
+      <action dev="stephenconnolly" type="update">
+        Implemented auto-detection of properties for the update-properties mojo.
+      </action>
+      <action dev="stephenconnolly" type="update">
+        Implemented integration tests for four of the mojos.
+      </action>
+      <action dev="stephenconnolly" type="update">
+        Updated project site documentation.
+      </action>
+    </release>
+    <release version="1.0-alpha-1" date="2008-09-05" description="First alpha release">
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-1">
+        Rewrote the plugin detection code to correctly identify the current version of
+        a plugin that is in use.
+      </action>
+      <action dev="stephenconnolly" type="fix" issue="MVERSIONS-2">
+        Updated the plugin detection code to add plugins from the project lifecycle.
+      </action>
+      <action dev="dennisl" type="update">
+        Upgraned to mojo-parent version 18.
+      </action>
+      <action dev="stephenconnolly" type="update">
+        Updated the site documentation.
+      </action>
+      <action dev="dennisl" type="update">
+        Refactored plugin parameters to ensure that they only apply to the goals to which they apply.
+      </action>
+    </release>
+  </body>
+</document>

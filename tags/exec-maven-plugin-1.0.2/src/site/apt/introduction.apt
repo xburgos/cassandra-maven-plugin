@@ -1,0 +1,162 @@
+ ------
+ Maven Exec Plugin
+ ------
+ Jerome Lacoste
+ ------
+ 12 Oct 2005
+ ------
+
+Maven Exec Plugin
+
+ The plugin provides 2 goals to make execution of programs. The {{{exec-mojo.html} exec}} 
+ goal allow to execute programs and Java programs in a separate process, while the 
+ The {{{java-mojo.html} java}} goal focuses on running Java programs in the same VM.
+
+
+Exec goal
+
+ You can use the plugin in one of two ways, formally specifying all the relevant
+ information in the plugin configuration or through the use of system variables.
+ Using the system variable you would just execute it like the following example.
+
+* Command line
+
+ The configuration accepts a list of <arguments>. Special treatment of some arguments, facilitate the running of 
+Java programs in external processes.
+
+-----
+> mvn exec:exec -Dexec.executable="maven" [-Dexec.workingdir="/tmp"] -Dexec.args="-X myproject:dist"
+-----
+ 
+* Exec Plugin Configuration
+
+ Add configuration similar to the following to your POM:
+
+-------------------
+<project>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            ...
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>maven</executable>
+          <!-- optional -->
+          <workingDirectory>/tmp</workingDirectory>
+          <arguments>
+            <argument>-X</argument>
+            <argument>myproject:dist</argument>
+            ...
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+   ...
+</project>
+-------------------
+
+ To execute Java programs, the exec plugin helps by allowing the <classpath> argument:
+
+-------------------
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Dmyproperty=myvalue</argument>
+            <argument>-classpath</argument>
+            <!-- automatically creates the classpath using all project dependencies, 
+                 also adding the project build directory -->
+            <classpath/>
+            <argument>com.example.Main</argument>
+            ...
+          </arguments>
+        </configuration>
+-------------------
+
+ or if one wants to restrict the dependencies in the classpath:
+
+-------------------
+        <configuration>
+          <executable>java</executable>
+          <arguments>
+            <argument>-Dmyproperty=myvalue</argument>
+            <argument>-classpath</argument>
+            <classpath>
+              <dependency>commons-io:commons-io</dependency>
+              <dependency>commons-lang:commons-lang</dependency>
+            </classpath>
+            <argument>com.example.Main</argument>
+            ...
+          </arguments>
+        </configuration>
+-------------------
+
+
+Java goal
+
+* Command line
+
+  If you want to execute Java programs in the same VM, you can either use the command line version
+
+-----
+> mvn exec:java -Dexec.mainClass="com.example.Main" [-Dexec.arguments="argument1"] [-DkillAfter=60000] ...
+-----
+
+* Java Plugin Configuration
+ 
+  either configure the plugin in your pom:
+
+-------------------
+<project>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            ...
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>com.example.Main</mainClass>
+          <arguments>
+            <argument>argument1</argument>
+            ...
+          </arguments>
+          <systemProperties>
+            <systemProperty>
+              <key>myproperty</key>
+              <value>myvalue</value>
+            </systemProperty>
+            ...
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+   ...
+</project>
+-------------------
+
+  Note: the java goal doesn't spawn a new process. Any VM specific option that you want to pass to the executed class must be passed to the maven VM using
+  the MAVEN_OPTS environment variable.
+  E.g.
+
+-------------------
+MAVEN_OPTS=-Xmx1024m 
+-------------------
+
+  Otherwise consider using the exec goal.

@@ -1,0 +1,19 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.myco.m2</groupId>
+    <artifactId>jrpm</artifactId>
+    <version>2.1-SNAPSHOT</version>
+  </parent>
+ 
+  <groupId>com.myco</groupId>
+  <artifactId>blah</artifactId>
+  <version>1.4.2_09</version>
+  <packaging>jrpm</packaging>
+
+  <properties>
+    <EMPkgNameDir>blah2</EMPkgNameDir> 
+    <projectDirectoryName>j2blah-${version}</projectDirectoryName>
+  </properties>
+</project>

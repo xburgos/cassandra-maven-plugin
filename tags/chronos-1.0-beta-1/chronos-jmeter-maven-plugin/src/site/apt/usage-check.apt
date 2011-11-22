@@ -1,0 +1,43 @@
+Validating test results
+
+*  Introduction
+
+    The purpose of the {{{./check-mojo.html}check mojo}} is to validate the result of performancetests to
+    see whether performance goals have been met.
+
+    It is possible to validate responsetimes, throughput and garbage collection statistics. It is also possible to halt the build, if any of the
+    requests fail (eg a JUnit testcase failing or an Http request resulting in an http error code).
+
+    For details on the possible parameters, see {{{./check-mojo.html}chronos:check}}
+
+* Usage
+
+    The goal is typically invoked by attaching it as an execution. The will cause validations to be performed in the verify phase of the build lifecycle.
+
+    Example:
+
+-------------------
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.chronos</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<configuration>
+					<input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+					<responsetimeaverage>550.0</responsetimeaverage>
+					<maxthroughput>3.2</maxthroughput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+-------------------
+      
+

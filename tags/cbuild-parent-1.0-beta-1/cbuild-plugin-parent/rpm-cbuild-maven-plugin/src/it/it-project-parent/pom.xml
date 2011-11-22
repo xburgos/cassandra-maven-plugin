@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.rpm.it</groupId>
+  <artifactId>it-project-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1</version>
+  <name>it-project-parent</name>
+
+  <parent>
+    <artifactId>cbuild-plugin-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>@project.version@</version>
+  </parent>
+
+  <repositories>
+    <repository>
+      <id>integration.test.remote.repo</id>
+      <url>@test.remote.repo.url@</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>integration.test.deploy.repo</id>
+      <url>@test.deploy.repo.url@</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cbuild-lifecycles</artifactId>
+        <!-- extension plugins must specify version are bad stuff happens -->
+        <version>@project.version@</version>
+        <extensions>true</extensions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rpm-cbuild-maven-plugin</artifactId>
+        <!-- extension plugins must specify version are bad stuff happens -->
+        <version>@project.version@</version>
+        <extensions>true</extensions>
+        <configuration>
+          <prefix>${prefix}</prefix>
+          <rpmDbPath>@project.build.directory@/rpm-db</rpmDbPath>
+          <useSudo>false</useSudo>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

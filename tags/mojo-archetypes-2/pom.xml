@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>mojo-parent</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>19</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>mojo-archetypes</artifactId>
+  <groupId>org.codehaus.mojo.archetypes</groupId>
+  <version>2</version>
+  <packaging>pom</packaging>
+  <name>Codehaus Mojo archetypes Parent</name>
+  <modules>
+    <module>nbm-archetype</module>
+    <module>netbeans-platform-app-archetype</module>
+    <module>maven-archetype-simple-jboss-jee</module>
+    <module>webapp-jee5</module>
+    <module>webapp-j2ee14</module>
+    <module>webapp-j2ee13</module>
+    <module>ejb-jee5</module>
+  </modules> 
+
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/mojo-archetypes-2</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/mojo-archetypes-2</developerConnection>
+    <url>http://fisheye.codehaus.org/browse/mojo/tags/mojo-archetypes-2</url>
+  </scm>
+</project>

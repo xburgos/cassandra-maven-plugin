@@ -1,0 +1,47 @@
+ ------
+ Maven 2 Native Plugin
+ ------
+ Dan T. Tran
+ <dantran@gmail.com>
+ ------
+ September 29, 2005
+
+Native Maven Plugin
+
+  Use this plugin to compile c and c++ source under Maven 2 with  
+  compilers such as gcc, msvc, etc ... 
+
+* Usage
+  
+  Instructions on how to use the Native Maven Plugin can be found {{{usage.html}here}}.
+  
+* Goals Overview
+
+  * {{{initialize-mojo.html}native:initialize}}: Initialize build lifecycle 
+  
+  * {{{compile-mojo.html}native:compile}}: Compile source files into native object files 
+  
+  * {{{link-mojo.html}native:link}}: Link all previously built object and dependent library files into final build artifact 
+  
+  * {{{javah-mojo.html}native:javah}}: Generate jni include files based on a set of class names
+   
+  * {{{ranlib-mojo.html}native:ranlib}}: ranlib a Unix linker output file 
+  
+  * {{{resource-compile-mojo.html}native:resource-compile}}: Compile Windows resource files 
+  
+  * {{{message-compile-mojo.html}native:compile-message}}: Compile Windows message files 
+  
+  []
+  
+  
+* Examples
+
+  * Buildable examples can be found in 
+  {{{http://svn.codehaus.org/mojo/trunk/mojo/maven-native/native-maven-plugin/src/it/}SCM}}
+
+  * {{{examples/jni-dll.html}Build DLL with JNI}}.
+
+  * {{{examples/static-lib-ranlib.html}Build static library including ranlib}}.
+  
+  * {{{examples/share-lib.html}Build share library on Unix}}.
+  

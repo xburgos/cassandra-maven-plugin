@@ -1,0 +1,26 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.codehaus.mojo.ruby.test</groupId>
+  <artifactId>it-project-01-0</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <build>
+    <plugins>
+       <plugin>
+		<groupId>org.codehaus.mojo.ruby.it</groupId>
+        <artifactId>it01-ruby-plugin</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <configuration>
+		  <basedir>${basedir}/src/main/java/project01</basedir>
+        </configuration>
+      </plugin>
+      <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+        <artifactId>jruby-maven-plugin</artifactId>
+        <version>1.0-beta-3</version>
+        <configuration>
+          <ruby>print "Hello! I'm from ruby!"</ruby>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

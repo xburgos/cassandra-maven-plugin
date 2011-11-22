@@ -1,0 +1,16 @@
+<component-set>
+	<components>
+		<component>
+			<role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+			<role-hint>rpm</role-hint>
+			<implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+			<configuration>
+				<type>rpm</type>
+				<extension>rpm</extension>
+				<language>C</language>
+				<addedToClasspath>true</addedToClasspath>
+				<includesDependencies>false</includesDependencies>
+			</configuration>
+		</component>
+	</components>
+</component-set>

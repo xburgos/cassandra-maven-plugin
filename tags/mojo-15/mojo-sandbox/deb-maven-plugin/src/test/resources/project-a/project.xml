@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <artifactId>project-1</artifactId>
+  <groupId>bar</groupId>
+  <name>Debian Package Plug-In</name>
+  <version>1.0</version>
+  <shortDescription>A test project for the debian package creator plugin.</shortDescription>
+  <description>
+
+  This is the longer description
+  over several lines with a lot of whitespace.
+
+  And text sections.
+
+  </description>
+
+  <dependencies>
+
+    <dependency>
+      <artifactId>junit</artifactId>
+      <groupId>junit</groupId>
+      <version>3.8.1</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>commons-logging</artifactId>
+      <groupId>commons-logging</groupId>
+      <version>1.0.3</version>
+    </dependency>
+
+    <dependency>
+      <artifactId>commons-lang</artifactId>
+      <groupId>commons-lang</groupId>
+      <version>2.0</version>
+      <properties>
+        <deb.exclude>true</deb.exclude>
+      </properties>
+    </dependency>
+
+  </dependencies>
+
+  <ciManagement>
+    <nagEmailAddress>Trygve Laugstol &lt;trygvis@apache.org&gt;</nagEmailAddress>
+  </ciManagement>
+
+</project>

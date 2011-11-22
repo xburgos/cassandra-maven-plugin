@@ -1,0 +1,184 @@
+
+The following documentation problems were found:
+
+o Multimodule Build Optimizer Plugin (10 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/multibuild-optimizer-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/multibuild-optimizer-maven-plugin'.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Patch Plugin (10 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/patch-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/patch-maven-plugin'.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Remote-Source Plugin (11 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/remote-source-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/remote-source-maven-plugin'.
+	[ERROR] Parameter: 'skipRelocate' in mojo: 'relocate' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o RPM Plugin (22 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/rpm-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/rpm-maven-plugin'.
+	[ERROR] Mojo: 'remove-project-references' is missing a description.
+	[ERROR] Parameter: 'rpmDbPath' in mojo: 'remove' is missing a description.
+	[ERROR] Parameter: 'skipRemove' in mojo: 'remove' is missing a description.
+	[ERROR] Parameter: 'skipBuild' in mojo: 'build' is missing a description.
+	[ERROR] Parameter: 'forceAllInstalls' in mojo: 'install' is missing a description.
+	[ERROR] Parameter: 'forceInstall' in mojo: 'install' is missing a description.
+	[ERROR] Parameter: 'rpmDbPath' in mojo: 'install' is missing a description.
+	[ERROR] Parameter: 'skipInstall' in mojo: 'install' is missing a description.
+	[ERROR] Parameter: 'forceAllInstalls' in mojo: 'install-dependencies' is missing a description.
+	[ERROR] Parameter: 'forceDependencyInstalls' in mojo: 'install-dependencies' is missing a description.
+	[ERROR] Parameter: 'rpmDbPath' in mojo: 'install-dependencies' is missing a description.
+	[ERROR] Parameter: 'skipDependencies' in mojo: 'install-dependencies' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Makefile Orchestration Plugin (23 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/make-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/make-maven-plugin'.
+	[ERROR] Parameter: 'environment' in mojo: 'make-install' is missing a description.
+	[ERROR] Parameter: 'environment' in mojo: 'make-clean' is missing a description.
+	[ERROR] Mojo: 'make-dist' is missing a description.
+	[ERROR] Parameter: 'environment' in mojo: 'make-dist' is missing a description.
+	[ERROR] Parameter: 'sourceArchive' in mojo: 'make-dist' is missing a description.
+	[ERROR] Parameter: 'sourceArchivePath' in mojo: 'make-dist' is missing a description.
+	[ERROR] Parameter: 'environment' in mojo: 'compile' is missing a description.
+	[ERROR] Parameter: 'environment' in mojo: 'test' is missing a description.
+	[ERROR] Parameter: 'environment' in mojo: 'configure' is missing a description.
+	[ERROR] Parameter: 'arguments' in mojo: 'autoreconf' is missing a description.
+	[ERROR] Parameter: 'environment' in mojo: 'autoreconf' is missing a description.
+	[ERROR] Parameter: 'ignoreErrors' in mojo: 'autoreconf' is missing a description.
+	[ERROR] Parameter: 'ignoreFailures' in mojo: 'autoreconf' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Shell Script Executor Plugin (12 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/shell-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/shell-maven-plugin'.
+	[ERROR] Parameter: 'debug' in mojo: 'shell' is missing a description.
+	[ERROR] Parameter: 'skipPomProjects' in mojo: 'shell' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Deploy All Plugin for Maven (11 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/deploy-all-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/deploy-all-maven-plugin'.
+	[ERROR] Parameter: 'sourceFile' in mojo: 'deploy-all' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Local Configuration Plugin (10 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/local-config-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/local-config-maven-plugin'.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Settings Management Plugin (16 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/settings-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/settings-maven-plugin'.
+	[ERROR] Parameter: 'artifactId' in mojo: 'rsync' is missing a description.
+	[ERROR] Parameter: 'classifier' in mojo: 'rsync' is missing a description.
+	[ERROR] Parameter: 'doBackup' in mojo: 'rsync' is missing a description.
+	[ERROR] Parameter: 'groupId' in mojo: 'rsync' is missing a description.
+	[ERROR] Parameter: 'url' in mojo: 'rsync' is missing a description.
+	[ERROR] Parameter: 'version' in mojo: 'rsync' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Dependency Builder Plugin (10 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/build-on-demand-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/build-on-demand-maven-plugin'.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Project Archive Plugin (9 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/project-archive-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/project-archive-maven-plugin'.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).
+
+o Platform Attribute Detector Plugin for Maven (14 errors, 0 warnings)
+	[ERROR] No license(s) specified.
+	[ERROR] Missing tag <description>.
+	[ERROR] Cannot reach project site with URL: 'http://mojo.codehaus.org/cbuild-parent/cbuild-plugin-parent/platform-detector-maven-plugin'.
+	[ERROR] Missing tag <prerequisites>
+	[ERROR] Missing tag <inceptionYear>
+	[ERROR] Cannot reach scm with URL: 'http://svn.codehaus.org/mojo/trunk/mojo/cbuild-parent/cbuild-plugin-parent/platform-detector-maven-plugin'.
+	[ERROR] Parameter: 'archProperty' in mojo: 'detect' is missing a description.
+	[ERROR] Parameter: 'osProperty' in mojo: 'detect' is missing a description.
+	[ERROR] Parameter: 'platformPatterns' in mojo: 'detect' is missing a description.
+	[ERROR] Parameter: 'propertiesOnly' in mojo: 'detect' is missing a description.
+	[ERROR] site.xml is missing.
+	[ERROR] Missing base usage.(html|xml|apt).
+	[ERROR] Missing examples.
+	[ERROR] Missing base FAQ.(fml|html|xml|apt).

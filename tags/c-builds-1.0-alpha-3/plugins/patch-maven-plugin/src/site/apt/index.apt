@@ -1,0 +1,98 @@
+  ---
+  Maven Patch Plugin :: Summary
+  ---
+  John Casey
+  ---
+  11-Sept-2005
+  ---
+  
+Summary for Maven Patch Plugin
+
+  The Patch plugin is used to retrieve and apply patch files against project
+  source code. It consists of two mojos: <<<get>>> and <<<apply>>>.
+  
+  The <<<get>>> mojo will retrieve patch files from one or more URLs and store
+  them locally for application later.
+  
+  The <<<apply>>> mojo can process one or several patch files, and apply them
+  to either the source code as a whole or a single target file. It has most
+  of the capabilities of the <<<patch>>> utility from unix-based operating
+  systems.
+  
+  As an incidental implementation detail, the <<<apply>>> mojo uses the Ant
+  Patch task internally via the <<<maven-antcall>>> API in apply each patch
+  file it processes. Therefore, any quirks in the Ant task will undoubtedly 
+  show up in this mojo as well.
+  
+*Configuration Parameters
+
+**<<<get>>> Mojo
+
+*----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| <<Parameter>>  | <<Description>>                      | <<Type>>       | <<Default Value>>                    | <<Required>> | <<Editable>><\[1\]> |
+*----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| urls           | List of remote patch file URLs.      | java.util.List | <<(none)>>                           | Yes          | Yes               |
+*----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| patchSourceDir | Location to store retrieved patches. | java.io.File   | $\{project.build.directory\}/patches | Yes          | Yes               |
+*----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| wagonManager   | Wagon transport manager.             | WagonManager   | N/A (component)                      | Yes          | No                |
+*----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+
+
+**<<<apply>>> Mojo
+
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| <<Parameter>>    | <<Alias>>      | <<Description>>                      | <<Type>>       | <<Default Value>>                    | <<Required>> | <<Editable>><\[1\]> |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| workDir          | patchTargetDir | The source file directory.           | java.io.File   | <<(none)>>                           | No           | Yes               |
+|                  |                | If empty, apply to $\{basedir\}      |                |                                      |              |                   |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| patchSourceDir   | <<(none)>>     | Location to store retrieved patches. | java.io.File   | $\{project.build.directory\}/patches | No           | Yes               |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| originalFile     | <<(none)>>     | Single source to be patched.         | java.io.File   | <<(none)>>                           | No           | Yes               |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| destFile         | <<(none)>>     | Destination for modified single      | java.io.File   | <<(none)>>                           | No           | Yes               |
+|                  |                | source file.                         |                |                                      |              |                   |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| patches          | <<(none)>>     | List of patch file names to apply.   | java.util.List | <<(none)>>                           | No           | Yes               |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| patchFile        | <<(none)>>     | Single patch file to apply.          | java.io.File   | <<(none)>>                           | No           | Yes               |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| strip            | <<(none)>>     | Number of dirs to remove from head   | int            | 0                                    | No           | Yes               |
+|                  |                | of paths in patch file(s).           |                |                                      |              |                   |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| ignoreWhitespace | <<(none)>>     | Ignore whitespace when applying.     | boolean        | true                                 | No           | Yes               |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| reverse          | <<(none)>>     | Treat patch as source and dest are   | boolean        | false                                | No           | Yes               |
+|                  |                | reversed.                            |                |                                      |              |                   |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+| backups          | <<(none)>>     | Keep backups of original sources.    | boolean        | false                                | No           | Yes               |
+*------------------+----------------+--------------------------------------+----------------+--------------------------------------+--------------+-------------------+
+
+*Lifecycle Bindings
+
+  The <<<get>>> mojo is bound to the initialize lifecycle phase, to enable
+  retrieval of patches before the main build process starts.
+  
+  The <<<apply>>> mojo is bound to the process-sources lifecycle phase, to
+  modify the source code before it is compiled. It's important to note that
+  the <<<apply>>> mojo's placement in the lifecycle must be tightly controlled
+  relative to other mojos in the process-sources phase, especially in the case 
+  of Make-based builds, since these builds commonly require a configuration 
+  step to execute prior to code compilation.
+
+*References
+
+  [[1]] <<Editable parameters.>> Editable parameters are those which can be
+        specified as configuration for the plugin within the POM. 
+        
+        Those which are specified as non-editable are parameters drawn from 
+        either the inherent internal structure of the Maven build, or from 
+        other built-in structures in the POM. An example of a parameter derived 
+        from the internal Maven build structure is the reference to the project 
+        Artifact, which is constructed from POM information when the POM is 
+        loaded into memory. An example of a parameter which is derived from 
+        built-in POM structures would be the list of a project's direct 
+        dependencies, which references the \<dependencies/\> stanza in the POM.
+
+  []

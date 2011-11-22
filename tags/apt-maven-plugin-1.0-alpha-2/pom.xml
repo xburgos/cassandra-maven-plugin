@@ -1,0 +1,98 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo</artifactId>
+    <version>16</version>
+  </parent>
+  <artifactId>apt-maven-plugin</artifactId>
+  <version>1.0-alpha-2</version>
+  <packaging>maven-plugin</packaging>
+  <name>Apt Maven Plugin</name>
+  <description>Maven Plugin for Annotation Processing Tool (apt).</description>
+  <inceptionYear>2006</inceptionYear>
+  <prerequisites>
+    <maven>2.0.6</maven>
+  </prerequisites>
+  <organization>
+    <name>The Codehaus Mojo Project</name>
+    <url>http://mojo.codehaus.org</url>
+  </organization>
+  <developers>
+    <developer>
+      <id>JuBu</id>
+      <name>Juraj Burian</name>
+      <email>jubu@codehaus.org</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>mark</id>
+      <name>Mark Hobson</name>
+      <email>markhobson@gmail.com</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>The MIT License</name>
+      <url>LICENSE.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/apt-maven-plugin-1.0-alpha-2</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/apt-maven-plugin-1.0-alpha-2</developerConnection>
+    <url>http://svn.codehaus.org/mojo/tags/apt-maven-plugin-1.0-alpha-2</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.4.6</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-compiler-api</artifactId>
+      <version>1.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.shared</groupId>
+      <artifactId>maven-plugin-testing-tools</artifactId>
+      <version>1.0-alpha-3</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.4</source>
+          <target>1.4</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-docck-plugin</artifactId>
+        <version>1.0-beta-1</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,24 @@
+
+Chronos JMeter Maven Plugin
+
+  This plugin enables you to run performancetests with JMeter. It is designed to work together with the Chronos Report plugin.
+  When working together, the Chronos JMeter plugin is invoking performance tests with JMeter, while the Chronos report plugin
+  analyzes the results and create reports.
+
+* Goals Overview
+
+~~  General Information about the goals.
+  * {{{./jmetergui-mojo.html}chronos-jmeter:jmetergui}} Launches the jmeter gui. Use this to generate a .jmx script (testplan).
+
+  * {{{./jmeter-mojo.html}chronos-jmeter:jmeter}} Execute JMeter and parse the generated jtl-file (and possibly garbage collection logfile).
+
+  * {{{./jmeteroutput-mojo.html}chronos-jmeter:jmeteroutput}} Convert the result form an existing JMeter invocation to the internal chronos format for later processing by the report plugin.
+
+  * {{{./check-mojo.html}chronos-jmeter:check}} Check whether the performance goals have been met.
+
+  * {{{./savehistory-mojo.html}chronos-jmeter:savehistory}} Enables you to save a snapshot of the testresults for use in historic reports.
+
+* Usage
+
+  Instructions on how to use Chronos can be found {{{./usage.html}here}}.
+

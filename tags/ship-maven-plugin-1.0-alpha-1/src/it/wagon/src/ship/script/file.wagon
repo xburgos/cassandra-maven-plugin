@@ -1,0 +1,4 @@
+# comments start with #
+put pom in file:./foobar/
+put jar in file:./foobar/foo.jar
+put jar in file:./foobar/bar.jar id manchu

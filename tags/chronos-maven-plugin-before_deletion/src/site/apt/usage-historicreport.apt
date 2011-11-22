@@ -1,0 +1,49 @@
+Reporting historic data
+
+*  Introduction
+
+   Chronos allows generating historic reports thus allowing to follow long-time trends in performance.
+   This is done by saving some of the data as part of each build and later generating a report
+   summarizing the performance results across many historic builds.
+
+*  Usage
+
+   Generating historic reports is typically enabled by attaching the goal to the site-generation as a reportset and then invoking the maven site generation.
+   This will automatically trigger the performancetests to run, if they are specified in the pom and are not already run.
+   See {{{./historyreport-mojo.html}chronos:historyreport}} for a more detailed specification of the possible parameters of this mojo.
+
+   Example:
+
+------------------
+  <reporting>
+    <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>chronos-maven-plugin</artifactId>
+          <version>1.0-SNAPSHOT</version>
+          <reportSets>
+              <reportSet>
+                  <configuration>
+                      <dataid>performancetest</dataid>
+                      <title>Title for the report</title>
+                      <description>A short description for the report</description>
+                      <historydir>target/chronos/history</historydir>
+                      <showgc>true</showgc>
+                  </configuration>
+                  <reports>
+                      <report>historyreport</report>
+                  </reports>
+              </reportSet>
+          </reportSets>
+        </plugin>
+      </plugins>
+  </reporting>
+------------------
+
+    Note that You might consider another place for the historic data to avoid wiping them on a clean build.
+    Please also note that garbage collection is only relevant, when the real work is performed inside the jmeter proces,
+    as opposed to inside an external web server.
+
+    The historic data are expected to be found in ${historydir}/${dataid}.
+
+   

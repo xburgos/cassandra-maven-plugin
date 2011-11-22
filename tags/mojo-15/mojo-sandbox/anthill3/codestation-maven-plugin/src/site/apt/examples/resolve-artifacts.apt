@@ -1,0 +1,84 @@
+ ------
+ Resolve Artifacts
+ ------
+ ------
+ $Id$
+
+~~ 
+~~ Licensed to the Apache Software Foundation (ASF) under one
+~~ or more contributor license agreements.  See the NOTICE file
+~~ distributed with this work for additional information
+~~ regarding copyright ownership.  The ASF licenses this file
+~~ to you under the Apache License, Version 2.0 (the
+~~ "License"); you may not use this file except in compliance
+~~ with the License.  You may obtain a copy of the License at
+~~
+~~  http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing,
+~~ software distributed under the License is distributed on an
+~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+~~ KIND, either express or implied.  See the License for the
+~~ specific language governing permissions and limitations
+~~ under the License.
+~~ 
+
+Resolve Artifacts
+
+ Resolve a specific artifact-set from a project workflow based on a stamp.  The value
+ of the stamp can be fully qualified, like <<<1.0>>> or can be a wildcard like <<<1.*>>>.
+
++----------+
+<plugin>
+    <groupId>org.codehaus.mojo.anthill3</groupId>
+    <artifactId>codestation-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <phase>generate-resources</phase>
+            <goals>
+                <goal>resolve-artifacts</goal>
+            </goals>
+            <configuration>
+                <serverUrl>https://anthill3.mycompany.com:8443</serverUrl>
+                <checkCertificate>false</checkCertificate>
+                <username>admin</username>
+                <password>admin</password>
+                <projectName>My Project</projectName>
+                <workflowName>My Workflow</workflowName>
+                <setName>My Artifacts</setName>
+                <stamp>1.0</stamp>
+                <outputDirectory>${project.build.directory}/artifacts</outputDirectory>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
++----------+
+
+ Resolve a specific artifact-set from a project workflow based on a build-life id.
+
++----------+
+<plugin>
+    <groupId>org.codehaus.mojo.anthill3</groupId>
+    <artifactId>codestation-maven-plugin</artifactId>
+    <executions>
+        <execution>
+            <phase>generate-resources</phase>
+            <goals>
+                <goal>resolve-artifacts</goal>
+            </goals>
+            <configuration>
+                <serverUrl>https://anthill3.mycompany.com:8443</serverUrl>
+                <checkCertificate>false</checkCertificate>
+                <username>admin</username>
+                <password>admin</password>
+                <projectName>My Project</projectName>
+                <workflowName>My Workflow</workflowName>
+                <setName>My Artifacts</setName>
+                <buildLifeId>57</buildLifeId>
+                <outputDirectory>${project.build.directory}/artifacts</outputDirectory>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
++----------+
+

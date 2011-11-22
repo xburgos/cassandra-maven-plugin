@@ -1,0 +1,87 @@
+ ---
+ Maven 2 Tomcat Plugin
+ ---
+ Mark Hobson
+ <markhobson@gmail.com>
+ ---
+ November 21, 2005
+
+Context Goals
+
+ The plugin provides goals to perform various tasks upon your project's context once deployed within Tomcat:
+ 
+ * {{{#Redeploying a WAR project}Redeploying a WAR project}}
+ 
+ * {{{#Undeploying a WAR project}Undeploying a WAR project}}
+ 
+ * {{{#Starting a WAR project}Starting a WAR project}}
+ 
+ * {{{#Stopping a WAR project}Stopping a WAR project}}
+ 
+ * {{{#Listing session statistics}Listing session statistics}}
+ 
+ []
+ 
+ These are described in more detail below.
+
+* {Redeploying a WAR project}
+
+ The goals required to redeploy a WAR project depend upon how it was deployed:
+ 
+ * To redeploy a WAR project deployed by <<<tomcat:deploy>>> you can type:
+ 
++--
+mvn package tomcat:redeploy
++--
+
+ * To redeploy a WAR project deployed by <<<tomcat:exploded>>> you can type:
+ 
++--
+mvn war:exploded tomcat:redeploy
++--
+
+ * To redeploy a WAR project deployed by <<<tomcat:inplace>>> you can type:
+ 
++--
+mvn war:inplace tomcat:redeploy
++--
+
+ * To redeploy a context.xml file deployed by <<<tomcat:deploy>>> you can type:
+ 
++--
+mvn tomcat:redeploy
++--
+
+ <Note:> Depending on the <<<docBase>>> specified in the context.xml you may also need to call <<<war:exploded>>> or <<<war:inplace>>> as above.
+
+* {Undeploying a WAR project}
+
+ To undeploy a WAR from Tomcat you can type:
+ 
++--
+mvn tomcat:undeploy
++--
+
+* {Starting a WAR project}
+
+ To start a WAR in Tomcat you can type:
+ 
++--
+mvn tomcat:start
++--
+
+* {Stopping a WAR project}
+
+ To stop a WAR in Tomcat you can type:
+ 
++--
+mvn tomcat:stop
++--
+
+* {Listing session statistics}
+
+ To list the session statistics for a deployed WAR project you can type:
+ 
++--
+mvn tomcat:sessions
++--

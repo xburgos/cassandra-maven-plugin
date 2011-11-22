@@ -1,0 +1,20 @@
+<!ELEMENT groupedresponsetimesamples (group | sample)*>
+<!ATTLIST groupedresponsetimesamples
+	succeeded CDATA "0"
+>
+<!ELEMENT group (responsetimesamplegroup)*>
+<!ATTLIST group
+	id CDATA "0"
+>
+<!ELEMENT responsetimesamplegroup EMPTY>
+<!ATTLIST responsetimesamplegroup
+	name CDATA ""
+	index CDATA ""
+>
+<!ELEMENT sample EMPTY>
+<!ATTLIST sample
+	responsetime CDATA ""
+	timestamp CDATA ""
+	success CDATA ""
+	threadId CDATA ""
+>

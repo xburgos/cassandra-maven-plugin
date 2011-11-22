@@ -1,0 +1,71 @@
+History sample
+
+    This sample illustrates historic reports.
+    You might want to change historydir to something outside of sourcecontrol, to avoid wiping history on a clean build
+
+------------------
+
+<project>
+  ...
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+        <version>${chronos.version}</version>
+        <configuration>
+          <dataid>performancetest</dataid>
+          <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+          <historydir>target/history</historydir>
+        </configuration>
+        <executions>
+          <execution>
+            <id>s</id>
+            <goals>
+              <goal>jmeter</goal>
+              <goal>savehistory</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.0</version>
+
+        <configuration>
+          <reportPlugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-report-maven-plugin</artifactId>
+              <version>${chronos.version}</version>
+              <configuration>
+                <dataid>performancetest</dataid>
+                <title>JMeter Test history</title>
+                <description>This is a test report illustrating the different parts of the reports.</description>
+                <historydir>target/chronos/history</historydir>
+                <showpercentile95>true</showpercentile95>
+                <showpercentile99>true</showpercentile99>
+                <showgc>true</showgc>
+                <historydir>target/history</historydir>
+              </configuration>
+              <reports>
+                <report>report</report>
+                <report>historyreport</report>
+              </reports>
+            </plugin>
+          </reportPlugins>
+        </configuration>
+      </plugin>
+    </plugins>
+    </plugins>
+  </build>
+
+  ...
+</project>
+
+------------------
+

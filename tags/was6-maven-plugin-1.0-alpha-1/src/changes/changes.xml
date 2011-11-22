@@ -1,0 +1,16 @@
+<document>
+  <properties>
+    <title>Changes was6-maven-plugin</title>
+    <author email="david@davidkarlsen.com">David J. M. Karlsen</author>
+  </properties>
+  <body>
+    <release version="1.0-alpha-1" date="2008-04-20" description="Initial release">
+      <action dev="david" type="fix" due-to="" issue="MOJO-1010">
+        Import and codehaus adjustments.
+      </action>
+      <action dev="david" type="fix" due-to="" issue="MOJO-1064">
+        Java 1.4 compability.
+      </action>
+    </release>
+  </body>
+</document>

@@ -1,0 +1,161 @@
+diff -NrU5 log4c-1.0.10.orig/configure log4c-1.0.10/configure
+--- configure.orig	2002-11-22 08:44:32.000000000 -0600
++++ configure	2006-09-15 17:21:40.000000000 -0500
+@@ -9531,11 +9531,11 @@
+ else
+   DOC_TRUE='#'
+   DOC_FALSE=
+ fi
+ 
+-ac_config_files="$ac_config_files Makefile log4c-config log4crc.sample log4c.spec config/Makefile src/Makefile src/log4c/Makefile src/log4c/version.h src/sd/Makefile tests/Makefile tests/log4c/Makefile"
++ac_config_files="$ac_config_files Makefile log4c-config log4c.pc log4crc.sample log4c.spec config/Makefile src/Makefile src/log4c/Makefile src/log4c/version.h src/sd/Makefile tests/Makefile tests/log4c/Makefile"
+ 
+ ac_config_commands="$ac_config_commands default"
+ 
+ cat >confcache <<\_ACEOF
+ # This file is a shell script that caches the results of configure
+@@ -10020,10 +10020,11 @@
+ do
+   case "$ac_config_target" in
+   # Handling of arguments.
+   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+   "log4c-config" ) CONFIG_FILES="$CONFIG_FILES log4c-config" ;;
++  "log4c.pc" ) CONFIG_FILES="$CONFIG_FILES log4c.pc" ;;
+   "log4crc.sample" ) CONFIG_FILES="$CONFIG_FILES log4crc.sample" ;;
+   "log4c.spec" ) CONFIG_FILES="$CONFIG_FILES log4c.spec" ;;
+   "config/Makefile" ) CONFIG_FILES="$CONFIG_FILES config/Makefile" ;;
+   "doc/Makefile" ) CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
+   "doc/Doxyfile" ) CONFIG_FILES="$CONFIG_FILES doc/Doxyfile" ;;
+diff -NrU5 log4c-1.0.10.orig/log4c.pc.in log4c-1.0.10/log4c.pc.in
+--- log4c.pc.in.orig	1969-12-31 18:00:00.000000000 -0600
++++ log4c.pc.in	2006-09-15 17:19:52.000000000 -0500
+@@ -0,0 +1,10 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: LOG4C
++Description: The Logging for C Library
++Version: @VERSION@
++Libs: -L${libdir} -llog4c
++Cflags: -I${includedir}
+--- Makefile.in.orig	2006-09-18 14:33:51.000000000 -0500
++++ Makefile.in	2006-09-18 14:49:32.000000000 -0500
+@@ -100,32 +100,35 @@
+ 
+ 
+ bin_SCRIPTS = log4c-config
+ BUILT_SOURCES = log4c-config
+ 
++pkgconfigdir = $(libdir)/pkgconfig
++pkgconfig_DATA = log4c.pc
++
+ m4datadir = $(datadir)/aclocal
+ m4data_DATA = log4c.m4
+ 
+ sysconf_DATA = log4crc.sample
+ subdir = .
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ mkinstalldirs = $(SHELL) $(top_srcdir)/config/mkinstalldirs
+ CONFIG_HEADER = $(top_builddir)/src/config.h
+-CONFIG_CLEAN_FILES = log4c-config log4crc.sample log4c.spec
++CONFIG_CLEAN_FILES = log4c-config log4c.pc log4crc.sample log4c.spec
+ SCRIPTS = $(bin_SCRIPTS)
+ 
+ DIST_SOURCES =
+-DATA = $(m4data_DATA) $(sysconf_DATA)
++DATA = $(m4data_DATA) $(sysconf_DATA) $(pkgconfig_DATA)
+ 
+ 
+ RECURSIVE_TARGETS = info-recursive dvi-recursive install-info-recursive \
+ 	uninstall-info-recursive all-recursive install-data-recursive \
+ 	install-exec-recursive installdirs-recursive install-recursive \
+ 	uninstall-recursive check-recursive installcheck-recursive
+ DIST_COMMON = README AUTHORS COPYING ChangeLog INSTALL Makefile.am \
+ 	Makefile.in NEWS TODO aclocal.m4 configure configure.in \
+-	log4c-config.in log4c.spec.in log4crc.sample.in
++	log4c-config.in log4c.pc.in log4c.spec.in log4crc.sample.in
+ all: $(BUILT_SOURCES)
+ 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
+ 
+ .SUFFIXES:
+ 
+@@ -178,10 +181,29 @@
+ 	  f="`echo $$p|sed '$(transform)'`"; \
+ 	  echo " rm -f $(DESTDIR)$(bindir)/$$f"; \
+ 	  rm -f $(DESTDIR)$(bindir)/$$f; \
+ 	done
+ uninstall-info-am:
++
++install-pkgconfigDATA: $(pkgconfig_DATA)
++	@$(NORMAL_INSTALL)
++	$(mkinstalldirs) $(DESTDIR)$(pkgconfigdir)
++	@list='$(pkgconfig_DATA)'; for p in $$list; do \
++	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
++	  f="`echo $$p | sed -e 's|^.*/||'`"; \
++	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(pkgconfigdir)/$$f"; \
++	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(pkgconfigdir)/$$f; \
++	done
++
++uninstall-pkgconfigDATA:
++	@$(NORMAL_UNINSTALL)
++	@list='$(pkgconfig_DATA)'; for p in $$list; do \
++	  f="`echo $$p | sed -e 's|^.*/||'`"; \
++	  echo " rm -f '$(DESTDIR)$(pkgconfigdir)/$$f'"; \
++	  rm -f "$(DESTDIR)$(pkgconfigdir)/$$f"; \
++	done
++
+ install-m4dataDATA: $(m4data_DATA)
+ 	@$(NORMAL_INSTALL)
+ 	$(mkinstalldirs) $(DESTDIR)$(m4datadir)
+ 	@list='$(m4data_DATA)'; for p in $$list; do \
+ 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+@@ -436,11 +458,11 @@
+ 
+ info: info-recursive
+ 
+ info-am:
+ 
+-install-data-am: install-m4dataDATA
++install-data-am: install-m4dataDATA install-pkgconfigDATA
+ 
+ install-exec-am: install-binSCRIPTS install-sysconfDATA
+ 
+ install-info: install-info-recursive
+ 
+@@ -455,31 +477,31 @@
+ mostlyclean: mostlyclean-recursive
+ 
+ mostlyclean-am: mostlyclean-generic mostlyclean-libtool
+ 
+ uninstall-am: uninstall-binSCRIPTS uninstall-info-am \
+-	uninstall-m4dataDATA uninstall-sysconfDATA
++	uninstall-m4dataDATA uninstall-sysconfDATA uninstall-pkgconfigDATA
+ 
+ uninstall-info: uninstall-info-recursive
+ 
+ .PHONY: $(RECURSIVE_TARGETS) GTAGS all all-am check check-am clean \
+ 	clean-generic clean-libtool clean-recursive dist dist-all \
+ 	distcheck distclean distclean-generic distclean-libtool \
+ 	distclean-recursive distclean-tags distdir dvi dvi-am \
+ 	dvi-recursive info info-am info-recursive install install-am \
+-	install-binSCRIPTS install-data install-data-am \
++	install-binSCRIPTS install-data install-data-am install-pkgconfigDATA \
+ 	install-data-recursive install-exec install-exec-am \
+ 	install-exec-recursive install-info install-info-am \
+ 	install-info-recursive install-m4dataDATA install-man \
+ 	install-recursive install-strip install-sysconfDATA \
+ 	installcheck installcheck-am installdirs installdirs-am \
+ 	installdirs-recursive maintainer-clean maintainer-clean-generic \
+ 	maintainer-clean-recursive mostlyclean mostlyclean-generic \
+ 	mostlyclean-libtool mostlyclean-recursive tags tags-recursive \
+ 	uninstall uninstall-am uninstall-binSCRIPTS uninstall-info-am \
+ 	uninstall-info-recursive uninstall-m4dataDATA \
+-	uninstall-recursive uninstall-sysconfDATA
++	uninstall-recursive uninstall-sysconfDATA uninstall-pkgconfigDATA
+ 
+ 
+ rpm: dist
+ 	rpmbuild --clean -ta ${distdir}.tar.gz
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.

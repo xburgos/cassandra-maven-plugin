@@ -1,0 +1,249 @@
+ ------
+ Introduction
+ ------
+ ------
+ $Id$
+
+~~
+~~ Copyright (C) 2006-2007 the original author or authors.
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+~~
+
+Introduction
+
+ Groovy runtime provider API.
+
+* Runtime Selection
+
+ The selection of which Groovy runtime will be used is primarily controlled by the
+ <<<groovy.runtime.provider>>> property.
+ 
+ For example, to use the Groovy <<<1.1>>> runtime:
+
++----------+
+mvn -Dgroovy.runtime.provider=1.1 install
++----------+
+
+ To always use the latest supported runtime the <<<default>>> provider key can be used:
+
++----------+
+mvn -Dgroovy.runtime.provider=default install
++----------+
+
+ This property is a comma-separated list of runtime provider keys, which will be
+ used in the order in which they are listed.  So in the example below, first
+ the <<<1.1>>> runtime will be queried for availability (and support), then
+ the <<<1.0>>> provider and then finally the <<<default>>> provider will be used.
+
++----------+
+mvn -Dgroovy.runtime.provider=1.1,1.0,default install
++----------+
+
+* Provider Information
+
+ Sometimes it helps to see what providers are configured.  Use the
+ {{{../../groovy-maven-plugin/providers-mojo.html}groovy:providers}} goal to
+ show some details about the discovered providers as well as which is selected
+ based on the current execution environment.
+
++----------+
+mvn groovy:providers
++----------+
+ 
+ This should split up some details about the providers like:
+
++----------+
+[INFO] [groovy:providers]
+[INFO]  
+[INFO]  Provider selection: default
+[INFO]  
+[INFO]  Found 2 registered providers:
+[INFO]      [1.1] 'Groovy v1.1-rc-3' (version: 1.1.0, type: org.codehaus.mojo.groovy.runtime.v11.GroovyRuntime_v11)
+[INFO]          Features:
+[INFO]              org.codehaus.mojo.groovy.runtime.Console
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassFactory
+[INFO]              org.codehaus.mojo.groovy.runtime.TraceSanitizer
+[INFO]              org.codehaus.mojo.groovy.runtime.StubCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.Shell
+[INFO]              org.codehaus.mojo.groovy.runtime.ScriptExecutor
+[INFO]  
+[INFO]      [default] 'Groovy v1.1-rc-3' (version: 1.1.0, type: org.codehaus.mojo.groovy.runtime.vdefault.DefaultGroovyRuntime)
+[INFO]          Features:
+[INFO]              org.codehaus.mojo.groovy.runtime.Console
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassFactory
+[INFO]              org.codehaus.mojo.groovy.runtime.TraceSanitizer
+[INFO]              org.codehaus.mojo.groovy.runtime.StubCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.Shell
+[INFO]              org.codehaus.mojo.groovy.runtime.ScriptExecutor
+[INFO]  
+[INFO]  Selected provider:
+[INFO]      [default] 'Groovy v1.1-rc-3' (version: 1.1.0, type: org.codehaus.mojo.groovy.runtime.vdefault.DefaultGroovyRuntime)
++----------+
+
+ To test a configuration set the <<<groovy.runtime.provider>>> property and see what it produces.
+
++----------+
+mvn groovy:providers -Dgroovy.runtime.provider=1.1,1.0,default
++----------+
+
+ Which may spit out something like this:
+
++----------+
+[INFO] [groovy:providers]
+[INFO]  
+[INFO]  Provider selection: 1.1,1.0,default
+[INFO]  
+[INFO]  Found 3 registered providers:
+[INFO]      [1.1] 'Groovy v1.1-rc-3' (version: 1.1.0, type: org.codehaus.mojo.groovy.runtime.v11.GroovyRuntime_v11)
+[INFO]          Features:
+[INFO]              org.codehaus.mojo.groovy.runtime.Console
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassFactory
+[INFO]              org.codehaus.mojo.groovy.runtime.TraceSanitizer
+[INFO]              org.codehaus.mojo.groovy.runtime.StubCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.Shell
+[INFO]              org.codehaus.mojo.groovy.runtime.ScriptExecutor
+[INFO]  
+[INFO]      [1.0] 'Groovy v1.0' (version: 1.0.0, type: org.codehaus.mojo.groovy.runtime.v10.GroovyRuntime_v10)
+[INFO]          Features:
+[INFO]              org.codehaus.mojo.groovy.runtime.Console
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassFactory
+[INFO]              org.codehaus.mojo.groovy.runtime.TraceSanitizer
+[INFO]              org.codehaus.mojo.groovy.runtime.StubCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.Shell
+[INFO]              org.codehaus.mojo.groovy.runtime.ScriptExecutor
+[INFO]  
+[INFO]      [default] 'Groovy v1.1-rc-3' (version: 1.1.0, type: org.codehaus.mojo.groovy.runtime.vdefault.DefaultGroovyRuntime)
+[INFO]          Features:
+[INFO]              org.codehaus.mojo.groovy.runtime.Console
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassFactory
+[INFO]              org.codehaus.mojo.groovy.runtime.TraceSanitizer
+[INFO]              org.codehaus.mojo.groovy.runtime.StubCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.ClassCompiler
+[INFO]              org.codehaus.mojo.groovy.runtime.Shell
+[INFO]              org.codehaus.mojo.groovy.runtime.ScriptExecutor
+[INFO]  
+[INFO]  Selected provider:
+[INFO]      [1.1] 'Groovy v1.1-rc-3' (version: 1.1.0, type: org.codehaus.mojo.groovy.runtime.v11.GroovyRuntime_v11)
++----------+
+
+* Custom Versions
+
+ Custom versions of Groovy can be used if needed.  Simply include a similar provider
+ as a dependency, exclude the dependencies which need to be changed, then add them
+ as dependencies.
+ 
+ Below is an example of using the <<<1.1>>> provider (which at the moment is
+ actually providing Groovy <<<1.1-rc-3>>>) and configuring the provider to
+ actually use Groovy <<<1.1-beta-3>>>.
+ 
+ Please be aware that the providers <key> will <<not>> change, so in this case this
+ custom provider is still configured with a selection of <<<1.1>>>.
+
++----------+
+<project>
+    ...
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.codehaus.mojo.groovy.runtime</groupId>
+                <artifactId>groovy-runtime-1.1</artifactId>
+                <version>1.0-beta-3</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all-minimal</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all-minimal</artifactId>
+                <version>1.1-beta-3</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo.groovy.runtime</groupId>
+            <artifactId>groovy-runtime-1.1</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all-minimal</artifactId>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo.groovy</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo.groovy.runtime</groupId>
+                        <artifactId>groovy-runtime-1.1</artifactId>
+                        <version>1.0-beta-3</version>
+                    </dependency>
+                    
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all-minimal</artifactId>
+                        <version>1.1-beta-3</version>
+                    </dependency>
+                </dependencies>
+                
+                <configuration>
+                    <providerSelection>1.1</providerSelection>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
++----------+
+
+ If you end up needing a specific version of Groovy then you might be better of rolling
+ your own provider model, and put all the dependency overrides in one place.  Don't
+ worry, in most cases you can use the provider/feature implementations from a supported
+ provider and just customize the Groovy (and related) dependencies.
+
+* Provider Features
+
+ Currently the following features are available:
+
+ * Class Loading
+
+ * Class Compilation
+ 
+ * Stub Compilation
+ 
+ * Script Execution
+
+ * Command-line Shell (aka. <<<Groovysh>>>)
+
+ * GUI Console (aka. <<<GroovyConsole>>>)
+
+ * Stack Trace Sanitization
+
+ []
+ 
+ Please be aware that not all providers will support all of these features.  Most probably will, but ya never know.

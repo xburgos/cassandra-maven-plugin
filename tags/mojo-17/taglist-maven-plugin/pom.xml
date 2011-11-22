@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>mojo</artifactId>
+    <groupId>org.codehaus.mojo</groupId>
+    <version>16</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>taglist-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <name>Taglist Maven Plugin</name>
+  <version>2.3-SNAPSHOT</version>
+  <description>Produce a tag list report.</description>
+  <prerequisites>
+    <maven>2.0</maven>
+  </prerequisites>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.codehaus.org/browse/MTAGLIST</url>
+  </issueManagement>
+  <inceptionYear>2005</inceptionYear>
+  <developers>
+    <developer>
+      <name>Fabrice Bellingard</name>
+      <email>bellingard.NO-SPAM@gmail.com</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>dennisl</id>
+      <name>Dennis Lundberg</name>
+      <email>dennisl@apache.org</email>
+      <organization>ASF</organization>
+      <roles>
+        <role>Committer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:http://svn.codehaus.org/mojo/trunk/mojo/taglist-maven-plugin/</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/trunk/mojo/taglist-maven-plugin/</developerConnection>
+    <url>http://svn.codehaus.org/mojo/trunk/mojo/taglist-maven-plugin/</url>
+  </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>2.4.1</version>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0</version>
+    </dependency>
+  </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <tags>
+            <tag>TODO</tag>
+            <tag>@todo</tag>
+            <tag>FIXME</tag>
+          </tags>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>

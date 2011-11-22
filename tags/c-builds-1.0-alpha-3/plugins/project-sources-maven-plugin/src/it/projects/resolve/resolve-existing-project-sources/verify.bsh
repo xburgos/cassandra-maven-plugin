@@ -1,0 +1,17 @@
+import java.io.*;
+
+String base = "target/resolve-existing-project-sources-1/";
+
+File unzippedSourcePom = new File( basedir, base + "pom.xml" );
+
+boolean checkPom = unzippedSourcePom.exists();
+
+System.out.println( "POM: " + unzippedSourcePom + " was unpacked? " + checkPom );
+
+File unzippedSourceFile = new File( basedir, base + "src/main/java/org/codehaus/mojo/projectsource/it/App.java" );
+
+boolean checkFile = unzippedSourceFile.exists();
+
+System.out.println( "Source file: " + unzippedSourceFile + " was unpacked? " + checkFile );
+
+return checkPom && checkFile;

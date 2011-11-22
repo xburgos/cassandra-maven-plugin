@@ -1,0 +1,15 @@
+<!ELEMENT history (individualPercentiles)*>
+<!ATTLIST history
+	timestamp CDATA "0"
+	gcRatio CDATA "0"
+	collectedPrSecond CDATA "0"
+	responsetimeAverage CDATA "0"
+	responsetime95Percentile CDATA "0"
+	maxAverageThroughput CDATA "0"
+>
+<!ELEMENT individualPercentiles (entry)*>
+<!ELEMENT entry EMPTY>
+<!ATTLIST entry
+	key CDATA ""
+	value CDATA ""
+>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<version>1.0</version>
+	<artifactId>project-a</artifactId>
+	<groupId>bar</groupId>
+	<name>Debian Package Plug-In</name>
+	<description>
+		This is the longer description over several lines with a lot of whitespace. And text sections.
+	</description>
+	<dependencies>
+		<dependency>
+			<artifactId>junit</artifactId>
+			<groupId>junit</groupId>
+			<version>3.8.1</version>
+		</dependency>
+		<dependency>
+			<artifactId>commons-logging</artifactId>
+			<groupId>commons-logging</groupId>
+			<version>1.0.3</version>
+		</dependency>
+		<dependency>
+			<artifactId>commons-lang</artifactId>
+			<groupId>commons-lang</groupId>
+			<version>2.0</version>
+		</dependency>
+	</dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>deb-maven-plugin</artifactId>
+        <configuration>
+          <maintainer>trygvis@codehaus.org</maintainer>
+          <maintainerRevision>1</maintainerRevision>
+          <section>devel</section>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

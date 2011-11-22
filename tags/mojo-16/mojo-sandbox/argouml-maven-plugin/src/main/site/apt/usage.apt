@@ -1,0 +1,23 @@
+ ------
+ Maven 2 Spring BeanDoc plugin
+ ------
+
+Simplest configuration for site generation (just place ArgoUml files in src/argouml).
+
++------------------------------------------+
+	<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>argouml-maven-plugin</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<executions>
+			<execution>
+				<phase>pre-site</phase>
+				<goals>
+					<goal>transform</goal>
+				</goals>
+			</execution>
+		</executions>
+		<configuration>
+		  <outputDirectory>${project.build.directory}/site/argouml/</outputDirectory>
+		</configuration>
+	</plugin>

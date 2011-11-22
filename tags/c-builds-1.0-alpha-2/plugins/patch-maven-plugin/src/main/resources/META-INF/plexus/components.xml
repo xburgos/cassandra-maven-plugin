@@ -1,0 +1,16 @@
+<component-set>
+  <components>
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>tar.gz</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <addedToClasspath>false</addedToClasspath>
+        <extension>tar.gz</extension>
+        <includesDependencies>true</includesDependencies>
+        <packaging>tar.gz</packaging>
+        <type>tar.gz</type>
+      </configuration>
+    </component>
+  </components>
+</component-set>

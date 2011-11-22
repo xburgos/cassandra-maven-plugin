@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.codehaus.mojo.patch.it</groupId>
+    <artifactId>it-project-parent</artifactId>
+    <version>1</version>
+  </parent>
+  
+  <artifactId>purge-patch-artifact</artifactId>
+  <name>purge-patch-artifact</name>
+  
+  <build>
+<!--
+    <extensions>
+      <extension>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-context</artifactId>
+        <version>1.0-alpha-2-SNAPSHOT</version>
+      </extension>
+    </extensions>
+ -->
+
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>patch-maven-plugin</artifactId>
+        
+        <executions>
+          <execution>
+            <id>resolve-patches</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>resolve-patches</goal>
+            </goals>
+            <configuration>
+              <skipResolve>true</skipResolve>
+            </configuration>
+          </execution>
+          <execution>
+            <id>handle-patch-artifact</id>
+            
+            <goals>
+              <goal>package-patches</goal>
+              <goal>purge-local-patch-artifact</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

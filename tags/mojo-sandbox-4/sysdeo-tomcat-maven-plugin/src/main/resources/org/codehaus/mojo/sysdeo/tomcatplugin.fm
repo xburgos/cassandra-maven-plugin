@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcatProjectProperties>
+    <rootDir>${warSourceDir}</rootDir>
+    <exportSource>false</exportSource>
+    <reloadable>true</reloadable>
+    <redirectLogger>true</redirectLogger>
+    <updateXml>true</updateXml>
+    <warLocation></warLocation>
+    <extraInfo>
+	  ${extraContext}
+    </extraInfo>
+    <webPath>/${finalName}</webPath>
+    <webClassPathEntries>
+		<#list referencedProjects as project>
+		  <webClassPathEntry>/${project.artifactId}/target/classes</webClassPathEntry>
+		</#list>
+        <#list jarDependencies as dependency>
+          <webClassPathEntry>M2_REPO/${dependency.groupId?replace(".","/")}/${dependency.artifactId}/${dependency.version}/${dependency.artifactId}-${dependency.version}.jar</webClassPathEntry>
+        </#list>
+    </webClassPathEntries>
+</tomcatProjectProperties>

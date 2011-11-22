@@ -1,0 +1,60 @@
+Usage for the jmeter mojo
+
+* Purpose
+
+  Jmeter functions by executing performancetests based on .jmx files specifying the tests. The output of the testexecution will be a .jtl file (in an xml like format),
+  which may either be analyzed by jmeter itself, or parsed by an external tool.These are normally created in the JMeter user interface.
+
+  This goal helps with integrating the result of an externally invoked jmter performancetest with the rest of the Chronos infrastructure.
+  You may want to invoke JMeter externally, if advanced configuration of JMeter - not supported by Chronos - is required.
+  A typical usecase is distributed performancetest, split on several clients.
+
+* Usage
+
+  This mojo is typically invoked as part of a nightly build together with the chronos-report-maven-plugin.
+
+  Example:
+
+-------------------
+<project>
+  ...
+    <profiles>
+        <profile>
+            <id>nightly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo.chronos</groupId>
+                        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <configuration>
+                            <jmeteroutput>${basedir}/src/main/resources/jmeteroutput.jtl</jmeteroutput>
+                            <gclogfile></gclogfile>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>jmeteroutput</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo.chronos</groupId>
+                        <artifactId>chronos-report-maven-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+    </profiles>
+  ...
+</project>
+-------------------
+
+   Note the usage of a profile, to shield the normal build from the typically slow execution of the perofrmancetest.
+

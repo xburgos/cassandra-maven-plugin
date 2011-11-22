@@ -1,0 +1,52 @@
+<?xml version="1.0"?><project>
+  <parent>
+    <artifactId>diagrams</artifactId>
+    <groupId>org.apache.maven.diagrams</groupId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.maven.diagrams</groupId>
+  <artifactId>diagrams-gui</artifactId>
+  <name>diagrams-gui</name>
+  <version>0.1-SNAPSHOT</version>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>    
+    <dependency>
+        <artifactId>connector-api</artifactId>
+		<groupId>org.apache.maven.diagrams</groupId>
+		<version>0.1-SNAPSHOT</version>
+    </dependency>    
+    <dependency>
+        <groupId>org.prefuse</groupId>
+		<artifactId>prefuse</artifactId>
+        <version>beta-20070723-SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+     	<groupId>org.apache.maven.diagrams.connectors</groupId>
+  		<artifactId>connector-classes</artifactId>
+  		<version>0.1-SNAPSHOT</version>
+    </dependency>
+    
+        
+   <!--dependency>    
+     	<groupId>org.apache.maven.diagrams</groupId>
+  		<artifactId>experiments</artifactId>
+  		<version>0.1-SNAPSHOT</version>
+    </dependency-->
+ 
+    
+    <!--dependency>
+        <groupId>swt</groupId>
+        <artifactId>swt-linux-gtk</artifactId>
+        <version>3.0m8</version>
+    </dependency-->
+    
+  </dependencies>
+</project>

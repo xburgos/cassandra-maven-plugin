@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos</artifactId>
+        <version>1.0-beta-2</version>
+    </parent>
+
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos-jmeter-maven-plugin</artifactId>
+    <version>1.0-beta-2</version>
+    <packaging>maven-plugin</packaging>
+
+    <name>Chronos JMeter</name>
+    <inceptionYear>2011</inceptionYear>
+    <description>
+        Plugin for testing performance with jmeter
+    </description>
+
+    <prerequisites>
+        <maven>2.0.6</maven>
+    </prerequisites>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>chronos-report-maven-plugin</artifactId>
+            <version>1.0-beta-2</version>
+        </dependency>
+    </dependencies>
+</project>

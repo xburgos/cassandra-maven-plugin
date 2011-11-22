@@ -1,0 +1,116 @@
+Usage for the jmeter mojo
+
+* Purpose
+
+  Jmeter functions by executing performancetests based on testplans in .jmx files specifying the tests. The output of the testexecution will be a .jtl file (in an xml like format),
+  which may either be analyzed by jmeter itself, or parsed by an external tool (eg. Chronos). The testplans are normally created in the JMeter user interface.
+
+  This goal helps with the execution of the performancetests. It will typically be invoked as part of a nightly build,
+  since the performancetests probably will be too painful to execute as part of every build.
+
+  The testcases can be requests for an external resource (http) or JUnit testcases.
+  To that purpose, the classpath of the current project/module is automagically attached when launching jmeter.
+
+* Usage
+
+  This mojo is typically invoked as part of a nightly build together with the chronos-report-maven-plugin.
+
+  Example:
+
+-------------------
+<project>
+  ...
+    <profiles>
+        <profile>
+            <id>nightly</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo.chronos</groupId>
+                        <artifactId>chronos-jmeter-maven-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <configuration>
+                            <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>jmeter</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo.chronos</groupId>
+                        <artifactId>chronos-report-maven-plugin</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+    </profiles>
+  ...
+</project>
+-------------------
+
+   Note the usage of a profile, to shield the normal build from the typically slow execution of the perofrmancetest.
+
+*  Controlling the jmeter execution
+
+   It is possible to control the jmeter execution by specifying launch parameters. The details of the possible parameters can be seen at
+   {{{./jmeter-mojo.html}chronos:jmeter}}. The parameters include memory management and garbage collection. Note that most of these only
+   affect the jmeter process, so they are probably not relevant when testing a web application.
+
+*  Invoking jmeter several times in the same build
+
+   It is perfectly legal to perform several performancetests as part of the same build. If your project needs both load testing an endurancetesting
+   it can be done in one of two ways.
+
+   **  Specifying a folder as input
+
+      When an inputfolder is specified, instead of a file, performancetests based on all .jmx files in that folder will be executed.
+
+   **  Specifying files individually
+
+      Another way is to explicitly name the files.
+
+      Example:
+
+------
+        <build>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.mojo</groupId>
+              <artifactId>chronos-maven-plugin</artifactId>
+              <version>1.0-SNAPSHOT</version>
+                      <executions>
+                          <execution>
+                              <phase>integration-test</phase>
+                              <id>simple</id>
+                              <configuration>
+                                <input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+                              </configuration>
+                              <goals>
+                                  <goal>jmeter</goal>
+                              </goals>
+                          </execution>
+                          <execution>
+                              <phase>integration-test</phase>
+                              <id>codehausmojo</id>
+                              <configuration>
+                                <input>${basedir}/src/main/resources/codehausmojowebplan.jmx</input>
+                              </configuration>
+                              <goals>
+                                  <goal>jmeter</goal>
+                              </goals>
+                          </execution>
+                      </executions>
+            </plugin>
+          </plugins>
+        </build>
+------
+

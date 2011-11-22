@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE responsetimesamples PUBLIC "SYSTEM" "chronos-responsetimesamples.dtd">
+<groupedresponsetimesamples succeeded="18">
+    <responsetimesamplegroup name="dk.sosi.seal.TestPerformanceWithLoop.testCreateNewSystemIDCard" index="8">
+        <sample responsetime="31" timestamp="1157615684921" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="32" timestamp="1157615686250" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="16" timestamp="1157615686703" success="true" threadId="Performance Test Group 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="dk.sosi.seal.TestPerformanceWithLoop.testCreateNewUserIDCard" index="9">
+        <sample responsetime="47" timestamp="1157615685015" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="15" timestamp="1157615686265" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="15" timestamp="1157615686718" success="true" threadId="Performance Test Group 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="dk.sosi.seal.TestPerformanceWithLoop.testCreateReply" index="7">
+        <sample responsetime="16" timestamp="1157615684829" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="0" timestamp="1157615686218" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="0" timestamp="1157615686687" success="true" threadId="Performance Test Group 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="dk.sosi.seal.TestPerformanceWithLoop.testCreateRequest" index="12">
+        <sample responsetime="281" timestamp="1157615686218" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="172" timestamp="1157615686687" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="203" timestamp="1157615687171" success="true" threadId="Performance Test Group 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="dk.sosi.seal.TestPerformanceWithLoop.testDeserializeReply" index="10">
+        <sample responsetime="422" timestamp="1157615685484" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="63" timestamp="1157615686328" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="63" timestamp="1157615686781" success="true" threadId="Performance Test Group 1-1"/>
+    </responsetimesamplegroup>
+    <responsetimesamplegroup name="dk.sosi.seal.TestPerformanceWithLoop.testDeserializeRequest" index="11">
+        <sample responsetime="406" timestamp="1157615685937" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="187" timestamp="1157615686515" success="true" threadId="Performance Test Group 1-1"/>
+        <sample responsetime="187" timestamp="1157615686968" success="true" threadId="Performance Test Group 1-1"/>
+    </responsetimesamplegroup>
+</groupedresponsetimesamples>

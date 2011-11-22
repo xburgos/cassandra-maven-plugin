@@ -1,0 +1,26 @@
+  ------
+  Using the Application Assembler Plugin
+  ------
+  ------
+  September 27, 2006
+  ------
+
+Usage
+
+  This document is intended to provide a brief introduction for using the appassembler-maven-plugin.
+
+    The configuration for regular bin scripts and Java Service Wrapper scripts are currently quite different,
+  but this will hopefully improve in future versions.    
+
+  Choose a usage scenario for detailed documentation
+
+    * {{{usage_bin.html} generate bin scripts}}
+    
+    * {{{usage_jsw.html} generate Java Service Wrapper scripts}}
+
+
+ Examples
+
+
+    * {{{example-jsw-linux.html} Linux daemon using JSW}}
+

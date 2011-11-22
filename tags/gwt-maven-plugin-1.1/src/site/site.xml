@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd"
+    name="Maven GWT Plugin">
+  <bannerLeft>
+    <name>Mojo</name>
+    <src>http://mojo.codehaus.org/images/mojo_logo.png</src>
+    <href>http://mojo.codehaus.org</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>Codehaus</name>
+    <src>http://mojo.codehaus.org/gwt-maven-plugin/images/gwt-maven-logo.png</src>
+    <href>http://www.codehaus.org</href>
+  </bannerRight>
+  <body>
+    <links>
+      <item name="Mojo" href="http://mojo.codehaus.org"/>
+      <item name="Maven" href="http://maven.apache.org/"/>
+      <item name="Google Web Toolkit" href="http://code.google.com/webtoolkit/"/>
+	  <item name="Google Eclipse Plugin" href="http://code.google.com/intl/en/eclipse"/>
+    </links>
+    <menu name="Mojo">
+      <item name="Back to Mojo" href="http://mojo.codehaus.org"/>
+      <item name="Version 1.0" href="http://mojo.codehaus.org/gwt-maven-plugin-1.0"/>
+    </menu>
+  <menu name="Overview">
+      <item name="Index" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="FAQ" href="faq.html"/>
+    </menu>
+    <menu name="IDE integration">
+      <item name="Eclipse" href="eclipse/google_plugin.html"/>
+    </menu>
+    <menu name="User Guide">
+      <item name="Introduction" href="user-guide/introduction.html"/>
+      <item name="Setup" href="user-guide/setup.html"/>
+      <item name="the /war folder" href="user-guide/war-folder.html"/>
+      <item name="Using the archetype" href="user-guide/archetype.html"/>
+      <item name="Run Hosted Mode" href="user-guide/hosted.html"/>
+      <item name="Generate Async" href="user-guide/async.html"/>
+      <item name="Internationalization" href="user-guide/i18n.html"/>
+      <item name="Testing" href="user-guide/testing.html"/>
+      <item name="Compile and Package" href="user-guide/compiler.html"/>
+      <item name="Multi-project setup" href="user-guide/multiproject.html"/>
+      <item name="Writing a GWT library" href="user-guide/library.html"/>
+    </menu>
+    <menu name="Examples">
+      <item name="compile a GWT module" href="examples/compile.html"/>
+      <item name="generate async interfaces" href="examples/asyn.html"/>
+      <item name="generate i18n bundles interfaces" href="examples/i18n.html"/>
+    </menu>
+    ${reports}
+  </body>
+</project>

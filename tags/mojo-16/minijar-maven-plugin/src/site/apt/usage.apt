@@ -1,0 +1,90 @@
+How to Use
+
+  So once installed you have two goals available. If you call "mvn minijar:minijars" on minijar itself you will get the following output.
+
++----------------------------
+ [INFO] [minijar:minijars]
+ [INFO] Calculating transitive hull of dependencies.
+ [INFO] Can remove 598 of 780 classes (76%).
+ [INFO] Original length of minijar-maven-plugin-1.0-SNAPSHOT.jar was 8379 bytes. Was able shrink it to minijar-maven-plugin-1.0-SNAPSHOT-mini.jar at 7328 bytes (87%)
+ [INFO] Original length of plexus-utils-1.0.4.jar was 163803 bytes. Was able shrink it to plexus-utils-1.0.4-mini.jar at 55066 bytes (33%)
+ [INFO] Original length of dependency-0.2.jar was 17836 bytes. Was able shrink it to dependency-0.2-mini.jar at 15369 bytes (86%)
+ [INFO] Original length of junit-3.8.1.jar was 121070 bytes. Was able shrink it to junit-3.8.1-mini.jar at 3606 bytes (2%)
+ [INFO] Original length of maven-model-2.0.jar was 78476 bytes. Was able shrink it to maven-model-2.0-mini.jar at 53194 bytes (67%)
+ [INFO] Original length of plexus-container-default-1.0-alpha-8.jar was 195436 bytes. Was able shrink it to plexus-container-default-1.0-alpha-8-mini.jar at 5668 bytes (2%)
+ [INFO] Original length of maven-profile-2.0.jar was 30408 bytes. Was able shrink it to maven-profile-2.0-mini.jar at 3085 bytes (10%)
+ [INFO] Original length of classworlds-1.1-alpha-2.jar was 37516 bytes. Was able shrink it to classworlds-1.1-alpha-2-mini.jar at 1175 bytes (3%)
+ [INFO] No references to jar asm-tree-2.2.1.jar. You can safely omit that dependency.
+ [INFO] Original length of maven-repository-metadata-2.0.jar was 20655 bytes. Was able shrink it to maven-repository-metadata-2.0-mini.jar at 18840 bytes (91%)
+ [INFO] No references to jar asm-util-2.2.1.jar. You can safely omit that dependency.
+ [INFO] No references to jar asm-analysis-2.2.1.jar. You can safely omit that dependency.
+ [INFO] Original length of maven-artifact-manager-2.0.jar was 50628 bytes. Was able shrink it to maven-artifact-manager-2.0-mini.jar at 8281 bytes (16%)
+ [INFO] No references to jar asm-attrs-2.2.1.jar. You can safely omit that dependency.
+ [INFO] Original length of wagon-provider-api-1.0-alpha-5.jar was 51560 bytes. Was able shrink it to wagon-provider-api-1.0-alpha-5-mini.jar at 18716 bytes (36%)
+ [INFO] Original length of maven-project-2.0.jar was 104615 bytes. Was able shrink it to maven-project-2.0-mini.jar at 44805 bytes (42%)
+ [INFO] Original length of asm-2.2.jar was 34778 bytes. Was able shrink it to asm-2.2-mini.jar at 28116 bytes (80%)
+ [INFO] Original length of maven-artifact-2.0.jar was 78761 bytes. Was able shrink it to maven-artifact-2.0-mini.jar at 35169 bytes (44%)
+ [INFO] Original length of commons-io-1.2.jar was 65621 bytes. Was able shrink it to commons-io-1.2-mini.jar at 12522 bytes (19%)
+ [INFO] Original length of maven-plugin-api-2.0.jar was 10133 bytes. Was able shrink it to maven-plugin-api-2.0-mini.jar at 8738 bytes (86%)
+ [INFO] Original length of asm-commons-2.2.1.jar was 15198 bytes. Was able shrink it to asm-commons-2.2.1-mini.jar at 1013 bytes (6%)
++----------------------------
+
+ Minijar was able to shrink the individual jars of the dependencies as only 598 (that means only 76%) of the total classes are needed for the project to execute. You can easily replace the created minijar with the original jar whenever you need to.
+  
+ But the minijar plugin can also create an ueberjar (or sometimes also called fat jar). This is a jar that includes all the dependencies of your project that it needs to fully function.
+
+ As this might result into problems if you use this ueberjar as a dependency in other projects. You might end up with clashes or even multiple different versions of libraries in your classpath. So what you can do (and what minijar does by default - unless you explicitly configure the includeDependenciesInRelocation/excludeDependenciesInRelocation options) is to inline all the dependencies. Minijar can transparently transfer the classes into a different package.
+
++----------------------------
+ [INFO] [minijar:ueberjar]
+ [INFO] Calculating transitive hull of dependencies.
+ [INFO] Can remove 598 of 780 classes (76%).
+ [INFO] Including project artifact.
++----------------------------
+
+ So we just saved 24% of the original size. Now if you look at the ueberjar you can see all the in-lined dependencies.
+
++----------------------------
+     ...
+    2121  Defl:N      702  67%  01-13-07 01:38  37b88b73  plexuscontainerdefault10alpha8jar/org/codehaus/plexus/logging/AbstractLogEnabled.class
+     297  Defl:N      173  42%  01-13-07 01:38  b1ac6777  plexuscontainerdefault10alpha8jar/org/codehaus/plexus/logging/LogEnabled.class
+    1104  Defl:N      477  57%  01-13-07 01:38  462d3762  plexuscontainerdefault10alpha8jar/org/codehaus/plexus/logging/Logger.class
+    2023  Defl:N      679  66%  01-13-07 01:38  526cc41b  mavenmodel20jar/org/apache/maven/model/Activation.class
+     900  Defl:N      401  55%  01-13-07 01:38  e34da829  mavenmodel20jar/org/apache/maven/model/ActivationFile.class
+    1258  Defl:N      499  60%  01-13-07 01:38  6cb84e6a  mavenmodel20jar/org/apache/maven/model/ActivationOS.class
+     ...
++----------------------------
+
+ By default the build artifact also gets included into this one big jar. If you prefer to have one build artifact and an ueberjar of all the dependencies you can set the option "includeArtifact" to false.
+ 
+ You can also attach and configure the plugin in the build section of the pom
+ 
++----------------------------
+     ...
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>minijar-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>ueberjar</goal>
+                        </goals>
+                        <configuration>
+                            <stripUnusedClasses>false</stripUnusedClasses>
+                            <includeDependencies>
+                                <param>org.vafer:dependency</param>
+                            </includeDependencies>
+                            <includeDependenciesInRelocation>
+                                <param>org.vafer:dependency</param>
+                            </includeDependenciesInRelocation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+     ...
++----------------------------

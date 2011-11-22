@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2006 The Apache Software Foundation.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+-->
+<model>
+    <id>archetype-descriptor</id>
+    <name>ArchetypeDescriptor</name>
+
+    <defaults>
+        <default>
+            <key>package</key>
+            <value>org.codehaus.mojo.archetypeng.archetype</value>
+        </default>
+    </defaults>
+
+    <classes>
+        <class rootElement="true" xml.tagName="archetype" >
+            <name>ArchetypeDescriptor</name>
+            <fields>
+                <field xml.tagName="name" >
+                    <name>Name</name>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+                <field xml.tagName="encoding" >
+                    <name>Encoding</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="partial" >
+                    <name>Partial</name>
+                    <type>boolean</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="site-group" >
+                    <name>Site</name>
+                    <association>
+                        <type>SiteGroup</type>
+                        <multiplicity>1</multiplicity>
+                    </association>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="required-properties" >
+                    <name>RequiredProperties</name>
+                    <association>
+                        <type>RequiredProperty</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+                <field xml.tagName="sources-groups" >
+                    <name>SourcesGroups</name>
+                    <association>
+                        <type>SourcesGroup</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+                <field xml.tagName="test-sources-groups" >
+                    <name>TestSourcesGroups</name>
+                    <association>
+                        <type>SourcesGroup</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+                <field xml.tagName="resources-groups" >
+                    <name>ResourcesGroups</name>
+                    <association>
+                        <type>ResourcesGroup</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+                <field xml.tagName="test-resources-groups" >
+                    <name>TestResourcesGroups</name>
+                    <association>
+                        <type>ResourcesGroup</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+            </fields>
+            <codeSegments>
+                <codeSegment>
+                    <code><![CDATA[
+    public boolean equals( Object o )
+    {
+        if ( this == o )
+        {
+            return true;
+        }
+
+        if ( !( o instanceof ArchetypeDescriptor ) )
+        {
+            return false;
+        }
+
+        ArchetypeDescriptor a = (ArchetypeDescriptor) o;
+
+        if ( !a.getName().equals( getName() ) )
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public int hashCode()
+    {
+        int result = 17;
+        result = 37 * result + getName().hashCode();
+        return result;
+    }
+                    ]]></code>
+                </codeSegment>
+            </codeSegments>
+        </class>
+
+        <class>
+            <name>SourcesGroup</name>
+            <fields>
+                <field xml.tagName="language" >
+                    <name>Language</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="encoding" >
+                    <name>Encoding</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="templates" >
+                    <name>Templates</name>
+                    <association>
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>ResourcesGroup</name>
+            <fields>
+                <field xml.tagName="directory" >
+                    <name>Directory</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="encoding" >
+                    <name>Encoding</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="templates" >
+                    <name>Templates</name>
+                    <association>
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+            </fields>
+        </class>
+
+        <class>
+            <name>SiteGroup</name>
+            <fields>
+                <field xml.tagName="encoding" >
+                    <name>Encoding</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+                <field xml.tagName="templates" >
+                    <name>Templates</name>
+                    <association>
+                        <type>String</type>
+                        <multiplicity>*</multiplicity>
+                    </association>
+                </field>
+            </fields>
+        </class>
+
+        <class xml.tagName="required-property" >
+            <name>RequiredProperty</name>
+            <fields>
+                <field xml.tagName="key" >
+                    <name>Key</name>
+                    <type>String</type>
+                    <required>true</required>
+                </field>
+                <field xml.tagName="default-value" >
+                    <name>DefaultValue</name>
+                    <type>String</type>
+                    <required>false</required>
+                </field>
+            </fields>
+        </class>
+    </classes>
+</model>

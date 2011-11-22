@@ -1,0 +1,57 @@
+ ------
+ Maven 2 APT Plugin 
+ ------
+ Juraj Burian
+ <jubu@codehaus.org>
+ ------
+ March 14, 2006
+
+  <<How to set compile mode in APT plugin?>>
+
+-------------------
+    <configuration>
+        ...
+        <noCompile>false</noCompile>
+        ....
+    </configuration>    
+------------------- 
+
+====
+  
+  <<How to set directory where APT plugin generates output files?>>
+
+-------------------
+    <configuration>
+        ...
+        <generated>dir1/dir2/</generated>
+        ....
+    </configuration>    
+------------------- 
+  
+====
+
+  <<How to redirect generated output to the project root directory?>>
+
+-------------------
+    <configuration>
+        ...
+        <generateToBuildDir>false</generateToBuildDir>
+        ....
+    </configuration>    
+------------------- 
+  
+====
+
+  <<How to set options?>>
+
+-------------------
+	<configuration>
+		...
+		<options>
+			<option>perform=was_stub_generation</option>
+		</options>
+		...
+	</configuration>
+------------------- 
+  
+====

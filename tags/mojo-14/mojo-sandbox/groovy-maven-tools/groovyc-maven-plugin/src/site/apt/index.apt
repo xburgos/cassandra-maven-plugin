@@ -1,0 +1,35 @@
+Groovy compilation plugin for maven
+
+ This is an maven 2 plugin that add a groovyc:compile goal to compile your project's groovy files.
+
+* Usage
+ 
+ Add this to your grovy project's <<<pom.xml>>>
+ 
++---
+<build>
+	...
+	<plugins>
+		...
+		<plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>groovyc-maven-plugin</artifactId>
+		    <executions>
+		        <execution>
+		            <phase>compile</phase>
+		            <goals>
+		                <goal>compile</goal>
+		            </goals>
+		        </execution>
+		    </executions>
+		</plugin>
+	</plugins>
+</build>
++--
+
+ Your groovy files should now be correctly compiled during build cycles.
+ 
+* Notes
+
+ You need a plexus extension <<<plexus-compiler-groovyc>>> to be able to install this plugin. It should be available
+ in the plexus sandbox. 

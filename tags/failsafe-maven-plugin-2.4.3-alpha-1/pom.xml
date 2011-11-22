@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one
+  ~ or more contributor license agreements.  See the NOTICE file
+  ~ distributed with this work for additional information
+  ~ regarding copyright ownership.  The ASF licenses this file
+  ~ to you under the Apache License, Version 2.0 (the
+  ~ "License"); you may not use this file except in compliance
+  ~ with the License.  You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing,
+  ~ software distributed under the License is distributed on an
+  ~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  ~ KIND, either express or implied.  See the License for the
+  ~ specific language governing permissions and limitations
+  ~ under the License.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>mojo-parent</artifactId>
+    <version>21</version>
+  </parent>
+
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>failsafe-maven-plugin</artifactId>
+  <version>2.4.3-alpha-1</version>
+  <packaging>maven-plugin</packaging>
+
+  <name>Failsafe Maven Plugin</name>
+
+  <scm>
+    <connection>scm:svn:https://svn.codehaus.org/mojo/tags/failsafe-maven-plugin-2.4.3-alpha-1</connection>
+    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/failsafe-maven-plugin-2.4.3-alpha-1</developerConnection>
+    <url>http://fisheye.codehaus.org/browse/mojo/tags/failsafe-maven-plugin-2.4.3-alpha-1</url>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>Stephen Connolly</name>
+      <email>stephen.alan.connolly@gmail.com</email>
+      <roles>
+        <role>Lead Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+  </developers>
+
+  <prerequisites>
+    <maven>2.0.9</maven>
+  </prerequisites>
+
+  <properties>
+    <pluginVersion>${project.version}</pluginVersion>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.maven.surefire</groupId>
+        <artifactId>surefire-api</artifactId>
+        <version>2.4.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.maven.surefire</groupId>
+        <artifactId>surefire-booter</artifactId>
+        <version>2.4.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-utils</artifactId>
+        <version>1.5.1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.surefire</groupId>
+      <artifactId>surefire-booter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-core</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-toolchain</artifactId>
+      <version>2.0.9</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <plugin>
+        <groupId>org.codehaus.modello</groupId>
+        <artifactId>modello-maven-plugin</artifactId>
+        <version>1.0.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <!-- Generate the xpp3 reader code -->
+              <goal>xpp3-reader</goal>
+              <!-- Generate the xpp3 writer code -->
+              <goal>xpp3-writer</goal>
+              <!-- Generate the Java sources for the model itself -->
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <models>
+            <model>src/main/mdo/failsafe-summary.mdo</model>
+          </models>
+          <version>2.4.3</version>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-invoker-plugin</artifactId>
+        <version>1.3</version>
+        <configuration>
+          <projectsDirectory>src/it</projectsDirectory>
+          <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+          <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+          <showErrors>true</showErrors>
+          <streamLogs>true</streamLogs>
+          <goals>
+            <goal>verify</goal>
+          </goals>
+          <setupIncludes>
+            <setupInclude>dummy-*/pom.xml</setupInclude>
+          </setupIncludes>
+          <pomIncludes>
+            <pomInclude>*/pom.xml</pomInclude>
+          </pomIncludes>
+          <postBuildHookScript>verify.bsh</postBuildHookScript>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <!-- run integration tests
+          to use this profile:
+          or run integration tests: mvn -Pintegration
+      -->
+      <id>integration</id>
+      <build>
+        <defaultGoal>verify</defaultGoal>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-invoker-plugin</artifactId>
+            <version>1.3</version>
+            <configuration>
+              <streamLogs>false</streamLogs>
+            </configuration>
+            <executions>
+              <execution>
+                <id>integration-test</id>
+                <goals>
+                  <goal>install</goal>
+                  <goal>run</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- Force JDK 1.4 for this one, plugins can never be built on 1.3 -->
+    <profile>
+      <id>jdk1.3</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                <fork>false</fork>
+                <compilerVersion>1.4</compilerVersion>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+
+    <profile>
+      <id>ci</id>
+      <activation>
+        <property>
+          <name>enableCiProfile</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-docck-plugin</artifactId>
+            <version>1.0</version>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-plugin-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>

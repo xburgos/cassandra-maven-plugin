@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>Chronos</name>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos</artifactId>
+    <version>1.0-beta-2</version>
+    <packaging>pom</packaging>
+    <parent>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>mojo-parent</artifactId>
+        <version>28</version>
+    </parent>
+    <url>http://mojo.codehaus.org/chronos</url>
+
+    <description>
+        Chronos is a tool for testing the performance of Your project.
+        It enables You to test performance via JMeter, validate that relevant performance goals have been met,
+        and create nice current or historical graphs of the results.
+    </description>
+    <inceptionYear>2011</inceptionYear>
+    <organization>
+        <name>CodeHaus</name>
+        <url>http://mojo.codehaus.org</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>MIT license</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:svn:http://svn.codehaus.org/mojo/tags/chronos-1.0-beta-2</connection>
+        <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/chronos-1.0-beta-2</developerConnection>
+        <url>http://svn.codehaus.org/mojo/tags/chronos-1.0-beta-2</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>soelvpil</id>
+            <name>Kent Soelvsten</name>
+            <email>ksr@lakeside.dk</email>
+        </developer>
+        <developer>
+            <id>christiangasser</id>
+            <name>Christian Gasser</name>
+            <email>chg@lakeside.dk</email>
+        </developer>
+        <developer>
+            <id>ads</id>
+            <name>Anders Sørensen</name>
+            <email>ads@lakeside.dk</email>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>chronos-report-maven-plugin</module>
+        <module>chronos-jmeter-maven-plugin</module>
+        <module>chronos-samples</module>
+    </modules>
+
+    <properties>
+        <mojo.javadoc.mavenVersion>${project.prerequisites.maven}</mojo.javadoc.mavenVersion>
+        <mojo.java.target>1.5</mojo.java.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <!-- Version 1.0.13 has problems - since it depens on JCommon 1.0.16 which
+       is currently not uploaded correctly -->
+            <version>1.0.13</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- this pre-release version fixes problem with duplicate commons-logging in mvn site-deploy -->
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>1.0</version>
+            </extension>
+        </extensions>
+
+        <!-- To define the plugin version in your parent POM -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.0</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <!-- To use the plugin goals in your POM or parent POM -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <plugins>
+            <!-- To use the report goals in your POM or parent POM -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>unit</id>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/surefire-reports</outputDirectory>
+                            <outputName>surefire-report</outputName>
+                        </configuration>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <quiet>true</quiet>
+                    <links>
+                        <link>http://download-llnw.oracle.com/javaee/1.4/api/</link>
+                        <link>http://download-llnw.oracle.com/javase/1.5.0/docs/api/</link>
+                        <link>http://commons.apache.org/collections/apidocs-COLLECTIONS_3_0/</link>
+                        <link>http://commons.apache.org/dbcp/apidocs/</link>
+                        <link>http://commons.apache.org/fileupload/apidocs/</link>
+                        <link>http://hc.apache.org/httpcomponents-client-ga/httpclient/apidocs/</link>
+                        <link>http://commons.apache.org/logging/apidocs/</link>
+                        <link>http://commons.apache.org/pool/apidocs/</link>
+                        <link>http://junit.sourceforge.net/javadoc/</link>
+                        <link>http://logging.apache.org/log4j/1.2/apidocs/</link>
+                        <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                        <link>http://velocity.apache.org/engine/releases/velocity-1.5/apidocs/</link>
+                        <link>http://maven.apache.org/ref/2.0.6/maven-artifact/apidocs/</link>
+                        <link>http://maven.apache.org/ref/2.0.6/maven-artifact-manager/apidocs/</link>
+                        <link>http://maven.apache.org/ref/2.0.6/maven-plugin-api/apidocs/</link>
+                        <link>http://maven.apache.org/ref/2.0.6/maven-project/apidocs/</link>
+                        <link>http://maven.apache.org/ref/2.0.6/maven-reporting/maven-reporting-api/apidocs/</link>
+                        <link>http://maven.apache.org/ref/2.0.6/maven-settings/apidocs/</link>
+                    </links>
+                    <tagletArtifacts>
+                        <tagletArtifact>
+                            <groupId>org.apache.maven.plugin-tools</groupId>
+                            <artifactId>maven-plugin-tools-javadoc</artifactId>
+                            <version>2.6</version>
+                        </tagletArtifact>
+                        <tagletArtifact>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-component-javadoc</artifactId>
+                            <version>1.5.4</version>
+                        </tagletArtifact>
+                    </tagletArtifacts>
+                    <tags>
+                        <tag>
+                            <name>parameter</name>
+                            <placement>X</placement>
+                        </tag>
+                    </tags>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>javadoc</report>
+                            <report>test-javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>

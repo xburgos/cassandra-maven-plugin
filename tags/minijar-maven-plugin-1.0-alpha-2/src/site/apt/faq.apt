@@ -1,0 +1,15 @@
+FAQ
+
+How do install it?
+
+ maven -DartifactId=ARTIFACTID -DgroupId=GROUPID -Dversion=VERSION plugin:download
+
+How do I actually use it?
+
+Does the relocation affect resource paths and reflection?
+
+What is the difference to jarjar?
+
+What is the difference to proguard?
+
+Does it also remove unused methods and variables?

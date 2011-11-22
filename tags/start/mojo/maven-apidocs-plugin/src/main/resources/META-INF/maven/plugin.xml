@@ -1,0 +1,26 @@
+<plugin>
+  <id>apidocs</id>
+  <implementation>org.apache.maven.plugin.ApiDocsPlugin</implementation>
+  <instantiation-strategy>per-lookup</instantiation-strategy>
+  <mode>field</mode>
+  <goals>
+    <goal>
+      <name>apidocs</name>
+      <requiresDependencyResolution>false</requiresDependencyResolution>
+      <parameters>
+        <parameter>
+          <name>outputDirectory</name>
+          <expression>#maven.build.dest</expression>
+        </parameter>
+        <parameter>
+          <name>sourceDirectory</name>
+          <expression>#project.build.sourceDirectory</expression>
+        </parameter>
+        <parameter>
+          <name>title</name>
+          <expression>#project.name</expression>
+        </parameter>
+      </parameters>
+    </goal>
+  </goals>
+</plugin>

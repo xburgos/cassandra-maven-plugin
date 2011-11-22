@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <target name="package">
+    <!-- configure regexp impl to use by ant -->
+    <property name="ant.regexp.regexpimpl" value="org.apache.tools.ant.util.regexp.Jdk14RegexpRegexp"/>
+
+    <!-- set prototype properties -->
+    <property name="package.prototype" value="${outputDirectory}/prototype"/>
+    <property name="package.prototype.generated" value="${package.prototype}.generated"/>
+    <property name="package.prototype.template" value="${package.prototype}.template"/>
+    <property name="package.prototype.replace" value="${package.prototype}-replace.properties"/>
+
+    <!-- generate prototype -->
+    <echo>generating prototype (pkgproto -i ${outputDirectory}/${outputRootFolder}=${packageRoot})...</echo>
+    <exec executable="pkgproto" output="${package.prototype.generated}" append="no" failonerror="true">
+      <arg line="-i ${outputDirectory}/${outputRootFolder}=${packageRoot}"/>
+    </exec>
+
+    <!-- perform replacements -->
+    <echo>performing replacements in prototype...</echo>
+    <!-- assign default user -->
+    <replaceregexp file="${package.prototype.generated}" match="(.* .* .* .*) .* .*" replace="\1 ${packageDefaultUser} ${packageDefaultGroup}" byline="true"/>
+    <!-- perform individual custom replacements -->
+    <replace file="${package.prototype.generated}" replacefilterfile="${package.prototype.replace}"/>
+
+    <!-- build final prototype -->
+    <echo>completing prototype...</echo>
+    <concat destfile="${package.prototype}" fixlastline="yes">
+      <fileset file="${package.prototype.template}"/>
+      <fileset file="${package.prototype.generated}"/>
+    </concat>
+
+    <!-- make package -->
+    <echo>make package (pkgmk)...</echo>
+    <exec executable="pkgmk" failonerror="true">
+      <arg line="-o -d ${outputDirectory} -f ${package.prototype}"/>
+    </exec>
+
+    <!-- transfer package -->
+    <echo>transfer package (pkgtrans)...</echo>
+    <exec executable="pkgtrans" failonerror="true">
+      <arg line="-s -o ${outputDirectory}/ ${packageFilename} ${packageName}"/>
+    </exec>
+  </target>
+</project>

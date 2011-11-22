@@ -1,0 +1,2 @@
+clean org.codehaus.mojo.groovy:groovy-maven-plugin:testing:compile
+
