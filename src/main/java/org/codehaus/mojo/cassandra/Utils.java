@@ -74,6 +74,7 @@ public final class Utils
     {
         try
         {
+            log.info(String.format("Attempting to stop Cassandra listening on %s:%s using %s stopKey", stopAddress, stopPort, stopKey));
             Socket s = new Socket(InetAddress.getByName(stopAddress), stopPort);
             s.setSoLinger(false, 0);
 
@@ -166,7 +167,6 @@ public final class Utils
             exec.setStreamHandler(new PumpStreamHandler(stdout, stderr));
 
             exec.execute(commandLine, environment, execHandler);
-
             return execHandler;
         } catch (ExecuteException e)
         {

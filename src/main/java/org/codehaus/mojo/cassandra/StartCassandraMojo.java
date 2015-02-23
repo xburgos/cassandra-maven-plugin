@@ -109,6 +109,19 @@ public class StartCassandraMojo
                 + cassandraDir.getAbsolutePath() );
         try
         {
+            /*
+            * The reason for the nasty hack below is to avoid failing to start Cassandra in a multimodule project.
+            * This happens if the first module to run Cassandra fails to stop it fast enough.
+            *
+            * Utils.startCassandra returns happily and the code below simply assumes Cassandra is starting and therefore
+            * it only needs to wait, and while that's probably the case in a single module project,
+            * it might not be in a multimodule one where Cassandra might still be in the process of shutting down.
+            */
+            try {
+                Thread.sleep(2000); // TODO: Fix this horrible hack.
+            } catch (InterruptedException e) {
+                getLog().error("Error in random wait...", e);
+            }
             Utils.startCassandraServer( cassandraDir, newServiceCommandLine(), createEnvironmentVars(), getLog() );
 
             if ( startWaitSeconds >= 0 )
