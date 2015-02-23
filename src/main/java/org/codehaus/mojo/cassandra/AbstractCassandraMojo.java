@@ -19,8 +19,8 @@
 package org.codehaus.mojo.cassandra;
 
 import org.apache.cassandra.cli.CliMain;
-import org.apache.cassandra.tools.NodeCmd;
 
+import org.apache.cassandra.tools.NodeTool;
 import org.apache.commons.exec.CommandLine;
 import org.apache.commons.exec.OS;
 
@@ -42,7 +42,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -422,7 +421,7 @@ public abstract class AbstractCassandraMojo
         if ( Utils.shouldGenerateResource( project, nodetoolJar ) )
         {
             getLog().debug( ( nodetoolJar.isFile() ? "Updating " : "Creating " ) + nodetoolJar );
-            createCassandraJar( nodetoolJar, NodeCmd.class.getName(), cassandraDir );
+            createCassandraJar( nodetoolJar, NodeTool.class.getName(), cassandraDir );
         }
     }
 
