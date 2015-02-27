@@ -51,12 +51,12 @@ under the License.
         <repository>
             <id>klappo</id>
             <name>Klappo Releases</name>
-            <url>http://46.4.80.249:8088/content/repositories/klappo</url>
+            <url>http://188.166.45.70:8081/nexus/content/repositories/klappo</url>
         </repository>
         <snapshotRepository>
             <id>klappo-snapshots</id>
             <name>Klappo Snapshots</name>
-            <url>http://46.4.80.249:8088/content/repositories/klappo-snapshots</url>
+            <url>http://188.166.45.70:8081/nexus/content/repositories/klappo-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
